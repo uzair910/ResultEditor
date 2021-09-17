@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ResultStudio.Models;
+using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace ResultStudio.Controllers
 {
     public class ParserController
     {
+        private ArrayList measurements;
+        public ArrayList<MeasurementDataModel> list = new ArrayList<>();
         public void ParseFile(string sfilePath, out string message)
         {
             try
@@ -22,7 +25,7 @@ namespace ResultStudio.Controllers
                         string[] sCols = sLine.Split(' '); // Assuming the columns are separated by single space char.
                        
                         // Ignore if the first line includes header text
-                        if (sCols[0] == Properties.Resources.sMeasurementText)
+                        if (sCols[0] == Properties.Resources.sAxisY)
                         {
                             continue; // Skip parse process for this line.
                         }

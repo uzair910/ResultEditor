@@ -23,3 +23,13 @@ H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.csproj.Generate
 H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.csproj.CoreCompileInputs.cache
 H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.exe
 H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.pdb
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Debug\ResultStudio.exe.config
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Debug\ResultStudio.exe
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Debug\ResultStudio.pdb
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.csproj.AssemblyReference.cache
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.Properties.Resources.resources
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.ResultStudioForm.resources
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.csproj.GenerateResource.cache
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.csproj.CoreCompileInputs.cache
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.exe
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.pdb

@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnReadFile = new System.Windows.Forms.Button();
-            this.dgcMeasurementID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcAxis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgcValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcPartID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcAxisX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcAxisY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcAxisZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
@@ -44,9 +45,10 @@
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dgcMeasurementID,
-            this.dgcAxis,
-            this.dgcValue});
+            this.dgcPartID,
+            this.dgcAxisX,
+            this.dgcAxisY,
+            this.dgcAxisZ});
             this.dataGridView.Location = new System.Drawing.Point(12, 126);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(461, 464);
@@ -54,15 +56,15 @@
             // 
             // chart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
             this.chart.Location = new System.Drawing.Point(479, 13);
             this.chart.Name = "chart";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "Series";
-            this.chart.Series.Add(series2);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Series";
+            this.chart.Series.Add(series1);
             this.chart.Size = new System.Drawing.Size(517, 577);
             this.chart.TabIndex = 1;
             // 
@@ -76,23 +78,29 @@
             this.btnReadFile.UseVisualStyleBackColor = true;
             this.btnReadFile.Click += new System.EventHandler(this.btnReadFile_Click);
             // 
-            // dgcMeasurementID
+            // dgcPartID
             // 
-            this.dgcMeasurementID.HeaderText = Properties.Resources.sMeasurementText;
-            this.dgcMeasurementID.Name = "dgcMeasurementID";
-            this.dgcMeasurementID.ReadOnly = true;
+            this.dgcPartID.HeaderText = global::ResultStudio.Properties.Resources.sPartID;
+            this.dgcPartID.Name = "dgcPartID";
+            this.dgcPartID.ReadOnly = true;
             // 
-            // dgcAxis
+            // dgcAxisX
             // 
-            this.dgcAxis.HeaderText = Properties.Resources.sAxisText;
-            this.dgcAxis.Name = "dgcAxis";
-            this.dgcAxis.ReadOnly = true;
+            this.dgcAxisX.HeaderText = global::ResultStudio.Properties.Resources.sAxisX;
+            this.dgcAxisX.Name = "dgcAxisX";
+            this.dgcAxisX.ReadOnly = true;
             // 
-            // dgcValue
+            // dgcAxisY
             // 
-            this.dgcValue.HeaderText = Properties.Resources.sValueText;
-            this.dgcValue.Name = "dgcValue";
-            this.dgcValue.ReadOnly = true;
+            this.dgcAxisY.HeaderText = global::ResultStudio.Properties.Resources.sAxisY;
+            this.dgcAxisY.Name = "dgcAxisY";
+            this.dgcAxisY.ReadOnly = true;
+            // 
+            // dgcAxisZ
+            // 
+            this.dgcAxisZ.HeaderText = global::ResultStudio.Properties.Resources.sAxisZ;
+            this.dgcAxisZ.Name = "dgcAxisZ";
+            this.dgcAxisZ.ReadOnly = true;
             // 
             // ResultStudioForm
             // 
@@ -116,9 +124,10 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.Button btnReadFile;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgcMeasurementID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgcAxis;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgcValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcPartID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcAxisX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcAxisY;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcAxisZ;
     }
 }
 

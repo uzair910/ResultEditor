@@ -70,29 +70,47 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Axis.
+        ///   Looks up a localized string similar to X.
         /// </summary>
-        internal static string sAxisText {
+        internal static string sAxisX {
             get {
-                return ResourceManager.GetString("sAxisText", resourceCulture);
+                return ResourceManager.GetString("sAxisX", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Measurement.
+        ///   Looks up a localized string similar to Y.
         /// </summary>
-        internal static string sMeasurementText {
+        internal static string sAxisY {
             get {
-                return ResourceManager.GetString("sMeasurementText", resourceCulture);
+                return ResourceManager.GetString("sAxisY", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value.
+        ///   Looks up a localized string similar to Z.
         /// </summary>
-        internal static string sValueText {
+        internal static string sAxisZ {
             get {
-                return ResourceManager.GetString("sValueText", resourceCulture);
+                return ResourceManager.GetString("sAxisZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vector array must contain exactly three components..
+        /// </summary>
+        internal static string sErrTextInvalidVector {
+            get {
+                return ResourceManager.GetString("sErrTextInvalidVector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Part ID.
+        /// </summary>
+        internal static string sPartID {
+            get {
+                return ResourceManager.GetString("sPartID", resourceCulture);
             }
         }
     }

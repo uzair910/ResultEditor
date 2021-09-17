@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Vector.cs" />
     <Compile Include="Controllers\ParserController.cs" />
     <Compile Include="Models\MeasurementDataModel.cs" />
     <Compile Include="Views\ResultStudioForm.cs">
@@ -55,7 +56,7 @@
     <Compile Include="Views\ResultStudioForm.Designer.cs">
       <DependentUpon>ResultStudioForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResultStudio.cs" />
+    <Compile Include="ResultStudio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -80,6 +81,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

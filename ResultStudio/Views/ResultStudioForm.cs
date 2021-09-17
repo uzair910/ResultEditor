@@ -34,7 +34,6 @@ namespace ResultStudio
                 {
                     String message;
                     pareserController.ParseFile(fbd.FileName, out message);
-                    
                 }
             }
         }
