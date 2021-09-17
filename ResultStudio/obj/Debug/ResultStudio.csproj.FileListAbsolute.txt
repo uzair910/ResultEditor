@@ -35,3 +35,4 @@ G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.exe
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.pdb
 G:\JavaApp\App\ResultEditor\ResultStudio\bin\Debug\System.Collections.NonGeneric.dll
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.csproj.CopyComplete
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.Views.LogForm.resources

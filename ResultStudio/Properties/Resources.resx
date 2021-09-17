@@ -137,6 +137,10 @@
     <value>Vector array must contain exactly three components.</value>
     <comment>Error text if vector array is invalid. </comment>
   </data>
+  <data name="sIntialDirectoryPath" xml:space="preserve">
+    <value>..\\Library\\Input</value>
+    <comment>Intial path to load file selection dialog</comment>
+  </data>
   <data name="sMeasurementText" xml:space="preserve">
     <value>Measurement</value>
     <comment>To compare and and skip reading line if it contains header text</comment>

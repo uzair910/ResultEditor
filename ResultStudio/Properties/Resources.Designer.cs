@@ -106,6 +106,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ..\\Library\\Input.
+        /// </summary>
+        internal static string sIntialDirectoryPath {
+            get {
+                return ResourceManager.GetString("sIntialDirectoryPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Measurement.
         /// </summary>
         internal static string sMeasurementText {

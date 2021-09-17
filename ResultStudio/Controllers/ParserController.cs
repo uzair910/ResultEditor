@@ -11,19 +11,20 @@ namespace ResultStudio.Controllers
     public class ParserController
     {
         //private ArrayList measurements;
-      
-      
+
+
         public void ParseFile(string sfilePath, out string messageLog, out Dictionary<int, Vector> data)
         {
+            messageLog = "\nReading data from file:  " + sfilePath;
+            // skip line if data is incorrect or the columns don't match
+            int iLinesSkipped = 0;
             data = new Dictionary<int, Vector>();
             try
             {
-                messageLog = "Data being read from location:  " + sfilePath;
                 using (StreamReader file = new StreamReader(sfilePath))
                 {
                     // We use separator so it doesn't matter what kind of decimal point is used in the input text files
                     var separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
-                    int iLinesSkipped = 0; // skip line if data is incorrect or the columns don't match
                     string sLine;
                     while ((sLine = file.ReadLine()) != null)
                     {
@@ -33,6 +34,7 @@ namespace ResultStudio.Controllers
                         // Ignore line if its the header.
                         if (null == sCols || sCols[0].ToUpper() == Properties.Resources.sMeasurementText.ToUpper())
                         {
+                            messageLog += "\nHeader text found";
                             continue;
                         }
 
@@ -47,7 +49,7 @@ namespace ResultStudio.Controllers
                         // Skip parsing if the columns length is not equal to 3. Or if the part id is 0.
                         if (iPartID == 0 || sAxis == '\0' || sCols.Length != Int32.Parse(Properties.Resources.iInputFileDefaultColumnLength))
                         {
-                            messageLog += "\nSKIPPED: " + sLine;
+                            messageLog += "\nSKIPPIED: Error reading the line: " + sLine;
                             iLinesSkipped++;
                             continue;
                         }
@@ -63,13 +65,10 @@ namespace ResultStudio.Controllers
                         else
                         {
                             // part not already added to the model, lets add it now, along with the value. 
-                            Vector v = new Vector() ;
+                            Vector v = new Vector();
                             AssignVectorValue(sAxis, dValue, ref v);
                             data.Add(iPartID, v);
                         }
-
-
-                        Console.WriteLine(sLine);
                     }
                     file.Close();
                 }
@@ -78,6 +77,11 @@ namespace ResultStudio.Controllers
             {
                 messageLog = "Crash! Error thrown: \n" + e.ToString();
                 return;
+            }
+            finally
+            {
+                messageLog += "\nFile read complete." +
+                    "\nTotal entries skipped: " + iLinesSkipped;
             }
         }
         private const char sXAxis = 'X';

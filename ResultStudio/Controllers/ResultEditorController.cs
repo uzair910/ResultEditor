@@ -12,12 +12,19 @@ namespace ResultStudio.Controllers
     {
         private Dictionary<int, Vector> data;
         private ParserController parser;
-        public void ReadFile(string sfilePath, out string messageLog)
+
+        public ResultEditorController()
         {
+            data = new Dictionary<int, Vector>();
+            parser = new ParserController();
+        }
+        public Dictionary<int, Vector> ReadFile(string sfilePath, out string messageLog)
+        {
+
             messageLog = String.Empty;
-
+            // parse data from file and get a dictionary object out of it.
             parser.ParseFile(sfilePath, out messageLog, out data);
-
+            return data;
 
         }
     }

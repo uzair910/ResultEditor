@@ -54,7 +54,14 @@
   <ItemGroup>
     <Compile Include="Common\Vector.cs" />
     <Compile Include="Controllers\ParserController.cs" />
+    <Compile Include="Controllers\ResultEditorController.cs" />
     <Compile Include="Models\MeasurementDataModel.cs" />
+    <Compile Include="Views\LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\LogForm.Designer.cs">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResultStudioForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +80,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\LogForm.resx">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ResultStudioForm.resx">
       <DependentUpon>ResultStudioForm.cs</DependentUpon>
     </EmbeddedResource>
