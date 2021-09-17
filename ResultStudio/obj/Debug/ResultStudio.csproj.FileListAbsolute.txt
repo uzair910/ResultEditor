@@ -1,0 +1,25 @@
+c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultStudio.exe
+c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultStudio.pdb
+c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\ResultStudio\obj\Debug\ResultStudio.csprojResolveAssemblyReference.cache
+c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\ResultStudio\obj\Debug\ResultStudio.Properties.Resources.resources
+c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\ResultStudio\obj\Debug\ResultStudio.csproj.GenerateResource.Cache
+c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\ResultStudio\obj\Debug\ResultStudio.exe
+c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\ResultStudio\obj\Debug\ResultStudio.pdb
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\obj\Debug\ResultStudio.ResultStudioForm.resources
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultDatabase.dll
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultModel.dll
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultPresenter.dll
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultDatabase.pdb
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultModel.pdb
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultPresenter.pdb
+C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\ResultStudio\bin\Debug\ResultStudio.exe.config
+H:\MapVision Ex\ResultStudio\ResultStudio\bin\Debug\ResultStudio.exe.config
+H:\MapVision Ex\ResultStudio\ResultStudio\bin\Debug\ResultStudio.exe
+H:\MapVision Ex\ResultStudio\ResultStudio\bin\Debug\ResultStudio.pdb
+H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.csproj.AssemblyReference.cache
+H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.Properties.Resources.resources
+H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.ResultStudioForm.resources
+H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.csproj.GenerateResource.cache
+H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.csproj.CoreCompileInputs.cache
+H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.exe
+H:\MapVision Ex\ResultStudio\ResultStudio\obj\Debug\ResultStudio.pdb
