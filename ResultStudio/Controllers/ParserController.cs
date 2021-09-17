@@ -32,9 +32,9 @@ namespace ResultStudio.Controllers
                         string[] sCols = sLine.Split(' ');
 
                         // Ignore line if its the header.
-                        if (null == sCols || sCols[0].ToUpper() == Properties.Resources.sMeasurementText.ToUpper())
+                        if (null == sCols || sCols.Length != Int32.Parse(Properties.Resources.iInputFileDefaultColumnLength) || sCols[0].ToUpper() == Properties.Resources.sMeasurementText.ToUpper())
                         {
-                            messageLog += "\nHeader text found";
+                            messageLog += "\nLine skipped. Either it contained Header text or it had invalid format.";
                             continue;
                         }
 
@@ -47,7 +47,7 @@ namespace ResultStudio.Controllers
                         Double.TryParse(Regex.Replace(sCols[2], "[.,]", separator), out dValue);
 
                         // Skip parsing if the columns length is not equal to 3. Or if the part id is 0.
-                        if (iPartID == 0 || sAxis == '\0' || sCols.Length != Int32.Parse(Properties.Resources.iInputFileDefaultColumnLength))
+                        if (iPartID == 0 || sAxis == '\0' )
                         {
                             messageLog += "\nSKIPPIED: Error reading the line: " + sLine;
                             iLinesSkipped++;

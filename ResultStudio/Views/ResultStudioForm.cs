@@ -53,8 +53,7 @@ namespace ResultStudio
                     data = resultEditorController.ReadFile(fbd.FileName, out message);
                     logBuilder.AppendLine(message);
                     LoadDataGrid();
-                    visualRepController.DataSource = dataSet;
-                    visualRepController.Dictionary = data;
+                    visualRepController.DataSet = data;
                     PopulateChart();
                 }
             }
@@ -72,10 +71,91 @@ namespace ResultStudio
             {
                 series.Points.Clear();
             }
+            //Y Axis chart
+            foreach (var series in chartYAxis.Series)
+            {
+                series.Points.Clear();
+            }
+            //Z Axis chart
+            foreach (var series in chartZAxis.Series)
+            {
+                series.Points.Clear();
+            }
         }
 
 
         #region Helper methods
+
+
+        private void PopulateChart()
+        {
+            string message = string.Empty; ;
+            // Main chart showing all three axis together.
+            visualRepController.PopulatePointDistributionGraph(ref chartAxisData, out message);
+            logBuilder.AppendLine(message);
+
+            // load individual statistics page
+            PopulateAxisPage(Properties.Resources.sAxisX);
+            PopulateAxisPage(Properties.Resources.sAxisY);
+            PopulateAxisPage(Properties.Resources.sAxisZ);
+
+            // If message contains error text, maybe we can prompt that.
+            if (message.Contains("Error")) { }
+
+            chartTabControl.Visible = true;
+        }
+
+        private void PopulateAxisPage(string sAxis)
+        {
+            string message = string.Empty;
+            Chart chartToBeLoaded;
+            switch (sAxis)
+            {
+                case "X":
+                    chartToBeLoaded = chartXAxis;
+                    break;
+                case "Y":
+                    chartToBeLoaded = chartYAxis;
+                    break;
+                case "Z":
+                    chartToBeLoaded = chartZAxis;
+                    break;
+                default:
+                    chartToBeLoaded = null;
+                    break;
+            }
+            if (chartToBeLoaded == null)
+            {
+                message = "Error: Wrong chart parameter passed to ResultsStudioForm.PopulateAxisPage";
+            }
+            else
+            {
+                //Populate Grid
+                visualRepController.PopulateAxisGraph(ref chartToBeLoaded, sAxis, out message);
+            }
+            logBuilder.AppendLine(message);
+            // Populate stats control
+        }
+
+        private void LoadDataGrid()
+        {
+            dataSet = new BindingSource();
+            dataGridView.DataSource = dataSet;
+
+            if (data == null)
+                return;
+
+            // Need to convert dictionary into a table/array form. Using Linq
+            var _priceDataArray = (from entry in data
+                                   orderby entry.Key
+                                   select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
+            dataSet.DataSource = _priceDataArray;
+            // give meaning full name to part id column.. Key doesnt seem suitable.
+            dataGridView.Columns["Key"].HeaderText = Properties.Resources.sPartID;
+        }
+        #endregion
+
+        #region dataBinding
 
         // reference: https://stackoverflow.com/questions/13584061/how-to-enable-zooming-in-microsoft-chart-control-by-using-mouse-wheel
         private void chart_MouseWheel(object sender, MouseEventArgs e)
@@ -109,36 +189,6 @@ namespace ResultStudio
             }
             catch { }
         }
-        private void PopulateChart()
-        {
-            String message = string.Empty; ;
-            visualRepController.PopulatePointDistributionGraph(ref chartAxisData, out message);
-            logBuilder.AppendLine(message);
-
-            // If message contains error text, maybe we can prompt that.
-
-
-            chartTabControl.Visible = true;
-        }
-
-        private void LoadDataGrid()
-        {
-            dataSet = new BindingSource();
-            dataGridView.DataSource = dataSet;
-
-            if (data == null)
-                return;
-
-            // Need to convert dictionary into a table/array form. Using Linq
-            var _priceDataArray = (from entry in data
-                                   orderby entry.Key
-                                   select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
-            dataSet.DataSource = _priceDataArray;
-            // give meaning full name to part id column.. Key doesnt seem suitable.
-            dataGridView.Columns["Key"].HeaderText = Properties.Resources.sPartID;
-        }
-        #endregion
-
         private void btnLog_Click(object sender, EventArgs e)
         {
             using (var logDialog = new LogForm(logBuilder))
@@ -148,8 +198,8 @@ namespace ResultStudio
             }
         }
 
-        Point? prevPosition = null;
-        ToolTip tooltip = new ToolTip();
+        private Point? prevPosition = null;
+        private ToolTip tooltip = new ToolTip();
         private void chartAxisData_MouseMove(object sender, MouseEventArgs e)
         {
             var pos = e.Location;
@@ -178,5 +228,6 @@ namespace ResultStudio
         {
             ClearCharts();
         }
+        #endregion
     }
 }
