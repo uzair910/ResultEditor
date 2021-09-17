@@ -97,6 +97,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: No data found. .
+        /// </summary>
+        internal static string sErrNoData {
+            get {
+                return ResourceManager.GetString("sErrNoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vector array must contain exactly three components..
         /// </summary>
         internal static string sErrTextInvalidVector {

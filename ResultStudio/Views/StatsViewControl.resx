@@ -117,40 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="iInputFileDefaultColumnLength" xml:space="preserve">
-    <value>3</value>
-    <comment>To compare and check the valid columns in a parsed input file.</comment>
-  </data>
-  <data name="sAxisX" xml:space="preserve">
-    <value>X</value>
-    <comment>Column header text</comment>
-  </data>
-  <data name="sAxisY" xml:space="preserve">
-    <value>Y</value>
-    <comment>Column header text</comment>
-  </data>
-  <data name="sAxisZ" xml:space="preserve">
-    <value>Z</value>
-    <comment>Column header text</comment>
-  </data>
-  <data name="sErrNoData" xml:space="preserve">
-    <value>Error: No data found. </value>
-    <comment>Error to be thrown if chart is loaded without any data.</comment>
-  </data>
-  <data name="sErrTextInvalidVector" xml:space="preserve">
-    <value>Vector array must contain exactly three components.</value>
-    <comment>Error text if vector array is invalid. </comment>
-  </data>
-  <data name="sIntialDirectoryPath" xml:space="preserve">
-    <value>..\\Library\\Input</value>
-    <comment>Intial path to load file selection dialog</comment>
-  </data>
-  <data name="sMeasurementText" xml:space="preserve">
-    <value>Measurement</value>
-    <comment>To compare and and skip reading line if it contains header text</comment>
-  </data>
-  <data name="sPartID" xml:space="preserve">
-    <value>Part ID</value>
-    <comment>Column header text</comment>
-  </data>
 </root>
