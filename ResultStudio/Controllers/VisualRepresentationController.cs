@@ -25,7 +25,7 @@ namespace ResultStudio.Controllers
             set { this.data = value; }
         }
 
-        public void PopulateAxisGraph(ref Chart canvasChart, string axisType, out string messageLog)
+        public void PopulateAxisGraph( Chart canvasChart, string axisType, out string messageLog)
         {
             messageLog = string.Empty;
             try
@@ -41,20 +41,38 @@ namespace ResultStudio.Controllers
                     value = GetAxisValue(part, axisType);
                     canvasChart.Series[0].Points.AddXY(part.Key, value);
                 }
-                SetChartStyle(ref canvasChart);
+                SetChartStyle(canvasChart);
 
                 double dMinimum = 0;
                 double dMaximum = 0;
                 GetMinMaxValue(ref dMinimum, ref dMaximum, axisType);
                 canvasChart.ChartAreas[0].AxisY.Minimum = dMinimum;
                 canvasChart.ChartAreas[0].AxisY.Maximum = dMaximum;
-                // Can have smaller intervals for individual graphs
+                // No need for legends in these charts.
+                canvasChart.Series[0].Color = GetColorForLine(axisType);
+                canvasChart.Legends.Clear();
             }
             catch (Exception e)
             {
                 messageLog += "\n ERROR in loading main chart: " + e.ToString();
             }
 
+        }
+
+        private Color GetColorForLine(string axisType)
+        {
+            switch (axisType)
+            {
+                case "X":
+                    return Color.Blue;
+                case "Y":
+                    return Color.Green;
+                case "Z":
+                    return Color.OrangeRed;
+                default:
+                    return Color.Black;
+            }
+          
         }
 
         private void GetMinMaxValue(ref double dMinimum, ref double dMaximum, string axisType)
@@ -93,7 +111,7 @@ namespace ResultStudio.Controllers
             }
         }
 
-        public void PopulatePointDistributionGraph(ref Chart canvasChart, out string messageLog)
+        public void PopulatePointDistributionGraph( Chart canvasChart, out string messageLog)
         {
             messageLog = string.Empty;
             try
@@ -109,7 +127,10 @@ namespace ResultStudio.Controllers
                     canvasChart.Series[1].Points.AddXY(part.Key, part.Value.Y);
                     canvasChart.Series[2].Points.AddXY(part.Key, part.Value.Z);
                 }
-                SetChartStyle(ref canvasChart);
+                SetChartStyle( canvasChart);
+                canvasChart.Series[0].Color = Color.Blue; ;
+                canvasChart.Series[1].Color = Color.Green; ;
+                canvasChart.Series[2].Color = Color.OrangeRed;
                 GetMinMaxFromData();
             }
             catch (Exception e)
@@ -129,7 +150,7 @@ namespace ResultStudio.Controllers
             dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
         }
 
-        private void SetChartStyle(ref Chart canvasChart)
+        private void SetChartStyle( Chart canvasChart)
         {
             canvasChart.ChartAreas[0].CursorX.IsUserEnabled = true;
             canvasChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
@@ -145,6 +166,7 @@ namespace ResultStudio.Controllers
             canvasChart.ChartAreas[0].AxisX.Minimum = 1;
             canvasChart.ChartAreas[0].AxisX.Maximum = 20;
 
+         
         }
 
 

@@ -174,6 +174,7 @@
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series4.Legend = "Legend1";
+            series4.MarkerBorderWidth = 2;
             series4.Name = "X Axis Values";
             series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
             series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
@@ -251,8 +252,11 @@
             this.chartYAxis.Location = new System.Drawing.Point(3, 3);
             this.chartYAxis.Name = "chartYAxis";
             series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series5.Legend = "Legend1";
-            series5.Name = "Series1";
+            series5.MarkerBorderWidth = 2;
+            series5.MarkerColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            series5.Name = "Y Axis Values";
             this.chartYAxis.Series.Add(series5);
             this.chartYAxis.Size = new System.Drawing.Size(533, 386);
             this.chartYAxis.TabIndex = 1;

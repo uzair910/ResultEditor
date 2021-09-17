@@ -91,7 +91,7 @@ namespace ResultStudio
         {
             string message = string.Empty; ;
             // Main chart showing all three axis together.
-            visualRepController.PopulatePointDistributionGraph(ref chartAxisData, out message);
+            visualRepController.PopulatePointDistributionGraph(chartAxisData, out message);
             logBuilder.AppendLine(message);
 
             // load individual statistics page
@@ -131,7 +131,7 @@ namespace ResultStudio
             else
             {
                 //Populate Grid
-                visualRepController.PopulateAxisGraph(ref chartToBeLoaded, sAxis, out message);
+                visualRepController.PopulateAxisGraph( chartToBeLoaded, sAxis, out message);
             }
             logBuilder.AppendLine(message);
             // Populate stats control
