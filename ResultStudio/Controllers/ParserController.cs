@@ -1,45 +1,72 @@
 ﻿using ResultStudio.Models;
 using System;
-using System.Collections;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using ResultStudio.Common;
 
 namespace ResultStudio.Controllers
 {
     public class ParserController
     {
-        private ArrayList measurements;
-        public ArrayList<MeasurementDataModel> list = new ArrayList<>();
-        public void ParseFile(string sfilePath, out string message)
+        //private ArrayList measurements;
+      
+      
+        public void ParseFile(string sfilePath, out string messageLog, out Dictionary<int, Vector> data)
         {
+            data = new Dictionary<int, Vector>();
             try
             {
-                message = "Hello World " + sfilePath;
+                messageLog = "Data being read from location:  " + sfilePath;
                 using (StreamReader file = new StreamReader(sfilePath))
                 {
+                    // We use separator so it doesn't matter what kind of decimal point is used in the input text files
+                    var separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
                     int iLinesSkipped = 0; // skip line if data is incorrect or the columns don't match
                     string sLine;
                     while ((sLine = file.ReadLine()) != null)
                     {
-                        string[] sCols = sLine.Split(' '); // Assuming the columns are separated by single space char.
-                       
-                        // Ignore if the first line includes header text
-                        if (sCols[0] == Properties.Resources.sAxisY)
+                        // Assuming the columns are separated by single space char.
+                        string[] sCols = sLine.Split(' ');
+
+                        // Ignore line if its the header.
+                        if (null == sCols || sCols[0].ToUpper() == Properties.Resources.sMeasurementText.ToUpper())
                         {
-                            continue; // Skip parse process for this line.
+                            continue;
                         }
-                        // Skip parsing if the columns mismatch
-                        if (sCols.Length != Int32.Parse(Properties.Resources.iInputFileDefaultColumnLength)) // Parse not exactly super safe. 
+
+                        int iPartID;
+                        char sAxis;
+                        double dValue;
+                        // partID will be zero incase the first column is anything but a integer number. 
+                        Int32.TryParse(sCols[0], out iPartID);
+                        Char.TryParse(sCols[1].ToUpper(), out sAxis);
+                        Double.TryParse(Regex.Replace(sCols[2], "[.,]", separator), out dValue);
+
+                        // Skip parsing if the columns length is not equal to 3. Or if the part id is 0.
+                        if (iPartID == 0 || sAxis == '\0' || sCols.Length != Int32.Parse(Properties.Resources.iInputFileDefaultColumnLength))
                         {
+                            messageLog += "\nSKIPPED: " + sLine;
                             iLinesSkipped++;
                             continue;
                         }
 
-                        // here comes the tricky part.. 
                         // For each measurement, there should exist 3 value, for axis x,y and z. Lets confirm that.
-
-
+                        // if partID already exists in the list, then add the coordinate. Otherwise, insert the part and the coordinate.
+                        if (data.ContainsKey(iPartID))
+                        {
+                            Vector v = data[iPartID];
+                            AssignVectorValue(sAxis, dValue, ref v);
+                            data[iPartID] = v;
+                        }
+                        else
+                        {
+                            // part not already added to the model, lets add it now, along with the value. 
+                            Vector v = new Vector() ;
+                            AssignVectorValue(sAxis, dValue, ref v);
+                            data.Add(iPartID, v);
+                        }
 
 
                         Console.WriteLine(sLine);
@@ -49,9 +76,31 @@ namespace ResultStudio.Controllers
             }
             catch (Exception e)
             {
-                message = "Crash!\n" + e.ToString();
+                messageLog = "Crash! Error thrown: \n" + e.ToString();
                 return;
             }
         }
+        private const char sXAxis = 'X';
+        private const char sYAxis = 'Y';
+        private const char sZAxis = 'Z';
+
+
+        #region helper methods
+        private void AssignVectorValue(char sAxis, double dValue, ref Vector v)
+        {
+            switch (sAxis)
+            {
+                case sXAxis:
+                    v.X = dValue;
+                    break;
+                case sYAxis:
+                    v.Y = dValue;
+                    break;
+                case sZAxis:
+                    v.Z = dValue;
+                    break;
+            }
+        }
+        #endregion
     }
 }

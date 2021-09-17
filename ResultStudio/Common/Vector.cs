@@ -7,32 +7,36 @@ namespace ResultStudio.Common
 {
     public struct Vector
     {
-        private readonly double x;
+        // naming fromat : memeber_TypeAxis
+        private double m_dX;
 
-        private readonly double y;
+        private double m_dY;
 
-        private readonly double z;
+        private double m_dZ;
 
         public double X
         {
-            get { return this.x; }
+            get { return this.m_dX; }
+            set { this.m_dX = value; }
         }
 
         public double Y
         {
-            get { return this.y; }
+            get { return this.m_dY; }
+            set { this.m_dY = value; }
         }
 
         public double Z
         {
-            get { return this.z; }
+            get { return this.m_dZ; }
+            set { this.m_dZ = value; }
         }
 
         public Vector(double x, double y, double z)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            this.m_dX = x;
+            this.m_dY = y;
+            this.m_dZ = z;
         }
 
         public static Vector Add(Vector v1, Vector v2)
@@ -54,7 +58,7 @@ namespace ResultStudio.Common
         // Not sure if i need these. TBD. Uzair
         public double[] Array
         {
-            get { return new double[] { x, y, z }; }
+            get { return new double[] { m_dX, m_dY, m_dZ }; }
         }
 
         public double this[int index]

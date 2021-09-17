@@ -29,6 +29,7 @@ namespace ResultStudio
             {
                 fbd.InitialDirectory = Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory()), sIntialDirectoryPath);
                 fbd.Filter = "txt files (*.txt)|*.txt";
+
                 DialogResult result = fbd.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.FileName))
                 {
@@ -37,5 +38,9 @@ namespace ResultStudio
                 }
             }
         }
+
+        #region Helper methods
+   
+        #endregion
     }
 }

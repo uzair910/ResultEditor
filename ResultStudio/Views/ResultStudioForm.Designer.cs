@@ -31,12 +31,12 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.btnReadFile = new System.Windows.Forms.Button();
             this.dgcPartID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgcAxisX = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgcAxisY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgcAxisZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnReadFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
@@ -53,30 +53,6 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(461, 464);
             this.dataGridView.TabIndex = 0;
-            // 
-            // chart
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            this.chart.Location = new System.Drawing.Point(479, 13);
-            this.chart.Name = "chart";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series";
-            this.chart.Series.Add(series1);
-            this.chart.Size = new System.Drawing.Size(517, 577);
-            this.chart.TabIndex = 1;
-            // 
-            // btnReadFile
-            // 
-            this.btnReadFile.Location = new System.Drawing.Point(12, 13);
-            this.btnReadFile.Name = "btnReadFile";
-            this.btnReadFile.Size = new System.Drawing.Size(148, 23);
-            this.btnReadFile.TabIndex = 2;
-            this.btnReadFile.Text = "Open File..";
-            this.btnReadFile.UseVisualStyleBackColor = true;
-            this.btnReadFile.Click += new System.EventHandler(this.btnReadFile_Click);
             // 
             // dgcPartID
             // 
@@ -102,12 +78,36 @@
             this.dgcAxisZ.Name = "dgcAxisZ";
             this.dgcAxisZ.ReadOnly = true;
             // 
+            // chart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            this.chart.Location = new System.Drawing.Point(479, 13);
+            this.chart.Name = "chart";
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Series";
+            this.chart.Series.Add(series1);
+            this.chart.Size = new System.Drawing.Size(517, 577);
+            this.chart.TabIndex = 1;
+            // 
+            // btnReadFile
+            // 
+            this.btnReadFile.Location = new System.Drawing.Point(12, 13);
+            this.btnReadFile.Name = "btnReadFile";
+            this.btnReadFile.Size = new System.Drawing.Size(148, 23);
+            this.btnReadFile.TabIndex = 2;
+            this.btnReadFile.Text = "Open File..";
+            this.btnReadFile.UseVisualStyleBackColor = true;
+            this.btnReadFile.Click += new System.EventHandler(this.btnReadFile_Click);
+            // 
             // ResultStudioForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 602);
+            this.ClientSize = new System.Drawing.Size(1008, 621);
             this.Controls.Add(this.btnReadFile);
             this.Controls.Add(this.chart);
             this.Controls.Add(this.dataGridView);

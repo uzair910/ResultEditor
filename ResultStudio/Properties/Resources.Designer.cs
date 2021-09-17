@@ -106,6 +106,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Measurement.
+        /// </summary>
+        internal static string sMeasurementText {
+            get {
+                return ResourceManager.GetString("sMeasurementText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Part ID.
         /// </summary>
         internal static string sPartID {
