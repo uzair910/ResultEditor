@@ -16,9 +16,10 @@ namespace ResultStudio.Common
 
         private double m_dAverage;
 
-        private int m_dMax_PartID;
 
-        private int m_dMin_PartID;
+        private int m_iMax_PartID;
+
+        private int m_iMin_PartID;
 
         private string sAxis;
 
@@ -39,11 +40,15 @@ namespace ResultStudio.Common
         }
         public int GetMinPartID()
         {
-            return m_dMin_PartID;
+            return m_iMin_PartID;
         }
         public int GetMaxPartID()
         {
-            return m_dMax_PartID;
+            return m_iMax_PartID;
+        }
+        public double GetAverageValue()
+        {
+            return m_dAverage;
         }
 
         private void SetMinMaxValue()
@@ -53,26 +58,28 @@ namespace ResultStudio.Common
                 case "X":
                     m_dMinimum = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
                     m_dMaximum = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
-
-                    m_dMin_PartID = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Key;
-                    m_dMax_PartID = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Key;
+                    m_dAverage = data.Sum(x => x.Value.X) / data.Count();
+                    m_iMin_PartID = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Key;
+                    m_iMax_PartID = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Key;
                     break;
                 case "Y":
                     m_dMinimum = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
                     m_dMaximum = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
-
-                    m_dMin_PartID = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Key;
-                    m_dMax_PartID = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Key;
+                    m_dAverage = data.Sum(x => x.Value.Y) / data.Count();
+                    m_iMin_PartID = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Key;
+                    m_iMax_PartID = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Key;
                     break;
                 case "Z":
                     m_dMinimum = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
                     m_dMaximum = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
-
-                    m_dMin_PartID = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Key;
-                    m_dMax_PartID = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Key;
+                    m_dAverage = data.Sum(x => x.Value.Z) / data.Count();
+                    m_iMin_PartID = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Key;
+                    m_iMax_PartID = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Key;
                     break;
 
             }
         }
+
+      
     }
 }

@@ -20,9 +20,9 @@ namespace ResultStudio.Views
             axisStats = null;
 
         }
-
         public AxisStatistics AxisStatistics { set { this.axisStats = value; } get { return this.axisStats; } }
-        public void AssignTexts(out string message)
+        
+        public void LoadControl(out string message)
         {
             message = string.Empty;
             if (axisStats == null)
@@ -34,6 +34,7 @@ namespace ResultStudio.Views
             // Set labels: 
             lblMaximum.Text = Properties.Resources.sTextMaximum.Replace("#VALUE#", axisStats.GetMaximumValue().ToString()).Replace("#PARTID#", axisStats.GetMaxPartID().ToString());
             lblMinimum.Text = Properties.Resources.sTextMaximum.Replace("#VALUE#", axisStats.GetMinimumValue().ToString()).Replace("#PARTID#", axisStats.GetMinPartID().ToString());
+            lblAverage.Text = Properties.Resources.sTextAverage.Replace("#VALUE#", axisStats.GetAverageValue().ToString());
 
         }
     }

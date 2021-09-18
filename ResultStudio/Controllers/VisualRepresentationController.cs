@@ -101,7 +101,7 @@ namespace ResultStudio.Controllers
                 }
 
                 controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxis, ref data);
-                controlToBeLoaded.AssignTexts(out messageLog) ;
+                controlToBeLoaded.LoadControl(out messageLog) ;
 
                 List<Vector> vectorList = new List<Vector>();
                 foreach (KeyValuePair<int, Vector> part in data)
