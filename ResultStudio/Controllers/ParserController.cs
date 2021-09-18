@@ -11,7 +11,9 @@ namespace ResultStudio.Controllers
     public class ParserController
     {
         //private ArrayList measurements;
-
+        private const char sXAxis = 'X';
+        private const char sYAxis = 'Y';
+        private const char sZAxis = 'Z';
 
         public void ParseFile(string sfilePath, out string messageLog, out Dictionary<int, Vector> data)
         {
@@ -84,10 +86,15 @@ namespace ResultStudio.Controllers
                     "\nTotal entries skipped: " + iLinesSkipped;
             }
         }
-        private const char sXAxis = 'X';
-        private const char sYAxis = 'Y';
-        private const char sZAxis = 'Z';
 
+        public ParserController()
+        {
+
+        }
+
+        ~ParserController()
+        {
+        }
 
         #region helper methods
         private void AssignVectorValue(char sAxis, double dValue, ref Vector v)
@@ -106,5 +113,7 @@ namespace ResultStudio.Controllers
             }
         }
         #endregion
+
+
     }
 }

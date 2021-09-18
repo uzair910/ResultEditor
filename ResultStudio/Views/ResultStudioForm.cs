@@ -32,9 +32,10 @@ namespace ResultStudio
             chartTabControl.Visible = false;
             resultEditorController = new ResultEditorController();
             visualRepController = new VisualRepresentationController();
+            // Just to keep log
             logBuilder = new StringBuilder();
+            // Zoom would be useful for chart showing all three axis altogether. 
             chartAxisData.MouseWheel += chart_MouseWheel;
-            chartXAxis.MouseWheel += chart_MouseWheel;
 
         }
 
@@ -131,7 +132,7 @@ namespace ResultStudio
             else
             {
                 //Populate Grid
-                visualRepController.PopulateAxisGraph( chartToBeLoaded, sAxis, out message);
+                visualRepController.PopulateAxisGraph(chartToBeLoaded, sAxis, out message);
             }
             logBuilder.AppendLine(message);
             // Populate stats control
@@ -140,7 +141,7 @@ namespace ResultStudio
         private void LoadDataGrid()
         {
             dataSet = new BindingSource();
-            dataGridView.DataSource = dataSet;
+            dgvData.DataSource = dataSet;
 
             if (data == null)
                 return;
@@ -151,19 +152,18 @@ namespace ResultStudio
                                    select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
             dataSet.DataSource = _priceDataArray;
             // give meaning full name to part id column.. Key doesnt seem suitable.
-            dataGridView.Columns["Key"].HeaderText = Properties.Resources.sPartID;
+            dgvData.Columns["Key"].HeaderText = Properties.Resources.sPartID;
         }
         #endregion
 
         #region dataBinding
 
-        // reference: https://stackoverflow.com/questions/13584061/how-to-enable-zooming-in-microsoft-chart-control-by-using-mouse-wheel
         private void chart_MouseWheel(object sender, MouseEventArgs e)
         {
+            // Code snippet taken from reference: https://stackoverflow.com/questions/13584061/how-to-enable-zooming-in-microsoft-chart-control-by-using-mouse-wheel
             var chart = (Chart)sender;
             var xAxis = chart.ChartAreas[0].AxisX;
             var yAxis = chart.ChartAreas[0].AxisY;
-
             try
             {
                 if (e.Delta < 0) // Scrolled down.
@@ -227,6 +227,14 @@ namespace ResultStudio
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearCharts();
+            ClearGrid();
+        }
+
+        private void ClearGrid()
+        {
+            dgvData.Rows.Clear();
+            dgvData.Refresh();
+            chartTabControl.Visible = false;
         }
         #endregion
     }

@@ -18,14 +18,43 @@ namespace ResultStudio.Controllers
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
         }
-
+        ~VisualRepresentationController()
+        {
+        }
 
         public Dictionary<int, Vector> DataSet
         {
             set { this.data = value; }
         }
 
-        public void PopulateAxisGraph( Chart canvasChart, string axisType, out string messageLog)
+        public void PopulatePointDistributionGraph(Chart canvasChart, out string messageLog)
+        {
+            messageLog = string.Empty;
+            try
+            {
+                if (data == null)
+                {
+                    messageLog = Properties.Resources.sErrNoData;
+                }
+
+                foreach (KeyValuePair<int, Vector> part in data)
+                {
+                    canvasChart.Series[0].Points.AddXY(part.Key, part.Value.X);
+                    canvasChart.Series[1].Points.AddXY(part.Key, part.Value.Y);
+                    canvasChart.Series[2].Points.AddXY(part.Key, part.Value.Z);
+                }
+                SetChartStyles(canvasChart);
+                canvasChart.Series[0].Color = Color.Blue; ;
+                canvasChart.Series[1].Color = Color.Green; ;
+                canvasChart.Series[2].Color = Color.OrangeRed;
+                GetMinMaxFromData();
+            }
+            catch (Exception e)
+            {
+                messageLog += "\n ERROR in loading main chart: " + e.ToString();
+            }
+        }
+        public void PopulateAxisGraph(Chart canvasChart, string axisType, out string messageLog)
         {
             messageLog = string.Empty;
             try
@@ -41,7 +70,7 @@ namespace ResultStudio.Controllers
                     value = GetAxisValue(part, axisType);
                     canvasChart.Series[0].Points.AddXY(part.Key, value);
                 }
-                SetChartStyle(canvasChart);
+                SetChartStyles(canvasChart);
 
                 double dMinimum = 0;
                 double dMaximum = 0;
@@ -72,7 +101,7 @@ namespace ResultStudio.Controllers
                 default:
                     return Color.Black;
             }
-          
+
         }
 
         private void GetMinMaxValue(ref double dMinimum, ref double dMaximum, string axisType)
@@ -92,7 +121,7 @@ namespace ResultStudio.Controllers
                     dMaximum = dMaxZ;
                     break;
                 default:
-                    break ;
+                    break;
             }
         }
 
@@ -111,34 +140,6 @@ namespace ResultStudio.Controllers
             }
         }
 
-        public void PopulatePointDistributionGraph( Chart canvasChart, out string messageLog)
-        {
-            messageLog = string.Empty;
-            try
-            {
-                if (data == null)
-                {
-                    messageLog = Properties.Resources.sErrNoData;
-                }
-
-                foreach (KeyValuePair<int, Vector> part in data)
-                {
-                    canvasChart.Series[0].Points.AddXY(part.Key, part.Value.X);
-                    canvasChart.Series[1].Points.AddXY(part.Key, part.Value.Y);
-                    canvasChart.Series[2].Points.AddXY(part.Key, part.Value.Z);
-                }
-                SetChartStyle( canvasChart);
-                canvasChart.Series[0].Color = Color.Blue; ;
-                canvasChart.Series[1].Color = Color.Green; ;
-                canvasChart.Series[2].Color = Color.OrangeRed;
-                GetMinMaxFromData();
-            }
-            catch (Exception e)
-            {
-                messageLog += "\n ERROR in loading main chart: " + e.ToString();
-            }
-        }
-
         private void GetMinMaxFromData()
         {
             dMinX = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
@@ -150,8 +151,9 @@ namespace ResultStudio.Controllers
             dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
         }
 
-        private void SetChartStyle( Chart canvasChart)
+        private void SetChartStyles(Chart canvasChart)
         {
+            // Could be moved to designer class for ResultStudio
             canvasChart.ChartAreas[0].CursorX.IsUserEnabled = true;
             canvasChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
             canvasChart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
@@ -166,9 +168,7 @@ namespace ResultStudio.Controllers
             canvasChart.ChartAreas[0].AxisX.Minimum = 1;
             canvasChart.ChartAreas[0].AxisX.Maximum = 20;
 
-         
+
         }
-
-
     }
 }

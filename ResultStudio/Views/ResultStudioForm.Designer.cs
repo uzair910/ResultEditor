@@ -42,7 +42,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvData = new System.Windows.Forms.DataGridView();
             this.btnReadFile = new System.Windows.Forms.Button();
             this.btnLog = new System.Windows.Forms.Button();
             this.chartTabControl = new System.Windows.Forms.TabControl();
@@ -57,7 +57,7 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.chartYAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartZAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.chartTabControl.SuspendLayout();
             this.tabChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartAxisData)).BeginInit();
@@ -71,13 +71,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartZAxis)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView
+            // dgvData
             // 
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(0, 55);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(460, 388);
-            this.dataGridView.TabIndex = 0;
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Location = new System.Drawing.Point(0, 55);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.Size = new System.Drawing.Size(460, 388);
+            this.dgvData.TabIndex = 0;
             // 
             // btnReadFile
             // 
@@ -181,6 +181,7 @@
             this.chartXAxis.Series.Add(series4);
             this.chartXAxis.Size = new System.Drawing.Size(533, 386);
             this.chartXAxis.TabIndex = 0;
+            this.chartXAxis.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartAxisData_MouseMove);
             // 
             // yAxisStatPage
             // 
@@ -208,7 +209,7 @@
             // 
             this.grpControls.Controls.Add(this.btnClear);
             this.grpControls.Controls.Add(this.btnReadFile);
-            this.grpControls.Controls.Add(this.dataGridView);
+            this.grpControls.Controls.Add(this.dgvData);
             this.grpControls.Controls.Add(this.btnLog);
             this.grpControls.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpControls.Location = new System.Drawing.Point(3, 3);
@@ -238,7 +239,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(148, 30);
             this.btnClear.TabIndex = 4;
-            this.btnClear.Text = "Clear Charts";
+            this.btnClear.Text = "Clear Everything";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -287,7 +288,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ResultStudioForm";
             this.Text = "Result Studio";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             this.chartTabControl.ResumeLayout(false);
             this.tabChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartAxisData)).EndInit();
@@ -305,7 +306,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.DataGridView dgvData;
         private System.Windows.Forms.Button btnReadFile;
         private System.Windows.Forms.Button btnLog;
         private System.Windows.Forms.TabControl chartTabControl;
