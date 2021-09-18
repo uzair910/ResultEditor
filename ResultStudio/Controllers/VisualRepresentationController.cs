@@ -16,6 +16,12 @@ namespace ResultStudio.Controllers
         private Dictionary<int, Vector> data;
         private double dMinX, dMinY, dMinZ, dMaxX, dMaxY, dMaxZ;
         private string m_sChartType = string.Empty;
+        private Chart m_chartXAxis;
+        private Chart m_chartYAxis;
+        private Chart m_chartZAxis;
+        public Chart XAxisChart { set { this.m_chartXAxis = value; } }
+        public Chart YAxisChart { set { this.m_chartYAxis = value; } }
+        public Chart ZAxisChart { set { this.m_chartZAxis = value; } }
         public VisualRepresentationController()
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
@@ -57,14 +63,21 @@ namespace ResultStudio.Controllers
                 messageLog += "\n ERROR in loading main chart: " + e.ToString();
             }
         }
-        public void PopulateAxisGraph(Chart canvasChart, string axisType, out string messageLog)
+        public void PopulateAxisGraph( string axisType, out string messageLog)
         {
+            Chart canvasChart = GetActiveChart(axisType);
+            if(canvasChart == null)
+            {
+                messageLog = Properties.Resources.sChartNotAssigned;
+                return;
+            }
             messageLog = string.Empty;
             try
             {
                 if (data == null)
                 {
                     messageLog = Properties.Resources.sErrNoData;
+                    return;
                 }
 
                 double value = 0;
@@ -90,6 +103,21 @@ namespace ResultStudio.Controllers
             }
             messageLog += "\n Axis chart load successful.";
 
+        }
+
+        private Chart GetActiveChart(string axisType)
+        {
+            switch (axisType)
+            {
+                case "X":
+                    return m_chartXAxis;
+                case "Y":
+                    return m_chartYAxis;
+                case "Z":
+                    return m_chartZAxis;
+                default:
+                    return null;
+            }
         }
 
         public void PopulateStatisticsControl(StatsViewControl controlToBeLoaded, string sAxis, out string messageLog)
@@ -138,6 +166,19 @@ namespace ResultStudio.Controllers
         private void ToleranceButtonClicked(object sender, EventArgs e)
         {
             AxisStatistics stats = ((StatsViewControl)sender).AxisStatistics;
+            
+            // canvas to be edited:
+            double tolerance = ((StatsViewControl)sender).Tolerance;
+            if(tolerance == 0)
+            {
+                // We ignore tolerance calculation if 0 is selected for tolerance.
+                return;
+            }
+            Chart canvasChart = GetActiveChart(stats.Axis);
+
+            // just to test..
+            //canvasChart.Series[0].ChartType = SeriesChartType.Area;
+
         }
 
         private Color GetColorForLine(string axisType)

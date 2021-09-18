@@ -102,14 +102,17 @@ namespace ResultStudio
                 case "X":
                     chartToBeLoaded = chartXAxis;
                     controlToBeLoaded = statsXAxis;
+                    visualRepController.XAxisChart = chartXAxis;
                     break;
                 case "Y":
                     chartToBeLoaded = chartYAxis;
                     controlToBeLoaded = statsYAxis;
+                    visualRepController.YAxisChart = chartYAxis;
                     break;
                 case "Z":
                     chartToBeLoaded = chartZAxis;
                     controlToBeLoaded = statsZAxis;
+                    visualRepController.ZAxisChart = chartZAxis;
                     break;
                 default:
                     chartToBeLoaded = null;
@@ -125,7 +128,7 @@ namespace ResultStudio
             else
             {
                 logBuilder.AppendLine("Loading chart for axis " + sAxis);
-                visualRepController.PopulateAxisGraph(chartToBeLoaded, sAxis, out message);
+                visualRepController.PopulateAxisGraph(sAxis, out message);
                 // Lets just add mouse wheel zoom to these charts aswell. 
                 chartToBeLoaded.MouseWheel += chart_MouseWheel;
             }

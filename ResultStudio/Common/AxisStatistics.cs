@@ -24,6 +24,8 @@ namespace ResultStudio.Common
             SetMinMaxValue();
         }
 
+        public string Axis { get { return sAxis; } }
+
         public double GetMaximumValue()
         {
             return Math.Round(m_dMaximum,3);

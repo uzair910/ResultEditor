@@ -133,6 +133,10 @@
     <value>Z</value>
     <comment>Column header text</comment>
   </data>
+  <data name="sChartNotAssigned" xml:space="preserve">
+    <value>Error: Trying to populate chart that is null. </value>
+    <comment>Error text if chart is not initialized before it is populated.</comment>
+  </data>
   <data name="sErrNoData" xml:space="preserve">
     <value>Error: No data found. </value>
     <comment>Error to be thrown if chart is loaded without any data.</comment>

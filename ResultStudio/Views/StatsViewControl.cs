@@ -77,5 +77,13 @@ namespace ResultStudio.Views
         {
             OnToleranceButtonClicked(e);
         }
+
+        public double Tolerance { 
+            get {
+                double m_dtolerance = -1;
+                double.TryParse(txtTolerace.Text, out m_dtolerance);
+                return m_dtolerance; 
+            } 
+        }
     }
 }

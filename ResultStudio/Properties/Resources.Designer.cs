@@ -97,6 +97,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: Trying to populate chart that is null. .
+        /// </summary>
+        internal static string sChartNotAssigned {
+            get {
+                return ResourceManager.GetString("sChartNotAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: No data found. .
         /// </summary>
         internal static string sErrNoData {
