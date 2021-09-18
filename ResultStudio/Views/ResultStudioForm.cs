@@ -17,15 +17,16 @@ namespace ResultStudio
 {
     public partial class ResultStudioForm : Form
     {
-        //private const string sIntialDirectoryPath = "..\\Library\\Input";
+        #region Private Variables
         private ResultEditorController resultEditorController;
         private VisualRepresentationController visualRepController;
-
         private StringBuilder logBuilder;
         // change into a meaningful name
         private Dictionary<int, Vector> data;
         // Data source
         BindingSource dataSet;
+        #endregion
+
         public ResultStudioForm()
         {
             InitializeComponent();
@@ -36,8 +37,16 @@ namespace ResultStudio
             logBuilder = new StringBuilder();
             // Zoom would be useful for chart showing all three axis altogether. 
             chartAxisData.MouseWheel += chart_MouseWheel;
-            // Populate DropDown with Chart types.
+            // Populate DropDown with filtered Chart types.
             BindSeriesTypesToCombo(typeof(FilteredSeriesChartType), cmbSeriesCol);
+        }
+
+        #region Helper methods
+        private void ClearGrid()
+        {
+            dgvData.Rows.Clear();
+            dgvData.Refresh();
+            chartTabControl.Visible = false;
         }
 
         private void ClearCharts()
@@ -62,11 +71,10 @@ namespace ResultStudio
             {
                 series.Points.Clear();
             }
+
+            // No point seeing empty charts, let hide the grids..
+            chartTabControl.Visible = false;
         }
-
-
-        #region Helper methods
-
 
         private void PopulateChart()
         {
@@ -84,6 +92,7 @@ namespace ResultStudio
             // If message contains error text, maybe we can prompt that.
             if (message.Contains("Error")) { }
 
+            // Grids are loaded, better make it visible. 
             chartTabControl.Visible = true;
         }
 
@@ -119,8 +128,7 @@ namespace ResultStudio
             }
             else
             {
-                logBuilder.AppendLine("Loading chart for axis " + sAxis
-                    );
+                logBuilder.AppendLine("Loading chart for axis " + sAxis);
                 visualRepController.PopulateAxisGraph(chartToBeLoaded, sAxis, out message);
                 // Lets just add mouse wheel zoom to these charts aswell. 
                 chartToBeLoaded.MouseWheel += chart_MouseWheel;
@@ -260,17 +268,13 @@ namespace ResultStudio
             ClearGrid();
         }
 
-        private void ClearGrid()
-        {
-            dgvData.Rows.Clear();
-            dgvData.Refresh();
-            chartTabControl.Visible = false;
-        }
-        #endregion
-
         private void cmbSeriesCol_SelectedIndexChanged(object sender, EventArgs e)
         {
             visualRepController.SetChartType(chartAxisData, ((KeyValuePair<string, int>)cmbSeriesCol.SelectedItem).Key);
         }
+
+        #endregion
+    
+
     }
 }
