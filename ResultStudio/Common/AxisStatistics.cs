@@ -113,7 +113,7 @@ namespace ResultStudio.Common
         {
             m_dTolerancePercentage = tolerancePercentage;
             // To calulate min and max range, lets calculate the tolerance from variation. 
-            double toleranceValue = (tolerancePercentage / 100);
+            double toleranceValue = GetVariation()*(tolerancePercentage / 100);
 
             // Min and Max tolernace = mean +/- toleranceValue
             m_dToleranceMin = Math.Round(m_dAverage - toleranceValue, 3);

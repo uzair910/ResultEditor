@@ -35,6 +35,8 @@ namespace ResultStudio.Controllers
             set { this.data = value; }
         }
 
+        public double MinToleranceValue { get; internal set; }
+
         public void PopulatePointDistributionGraph(Chart canvasChart, out string messageLog)
         {
             messageLog = string.Empty;
@@ -63,10 +65,10 @@ namespace ResultStudio.Controllers
                 messageLog += "\n ERROR in loading main chart: " + e.ToString();
             }
         }
-        public void PopulateAxisGraph( string axisType, out string messageLog)
+        public void PopulateAxisGraph(string axisType, out string messageLog)
         {
             Chart canvasChart = GetActiveChart(axisType);
-            if(canvasChart == null)
+            if (canvasChart == null)
             {
                 messageLog = Properties.Resources.sChartNotAssigned;
                 return;
@@ -93,8 +95,8 @@ namespace ResultStudio.Controllers
                 GetMinMaxValue(ref dMinimum, ref dMaximum, axisType);
                 canvasChart.ChartAreas[0].AxisY.Minimum = dMinimum;
                 canvasChart.ChartAreas[0].AxisY.Maximum = dMaximum;
-                // No need for legends in these charts.
                 canvasChart.Series[0].Color = GetColorForLine(axisType);
+                // No need for legends in these charts.
                 canvasChart.Legends.Clear();
             }
             catch (Exception e)
@@ -131,17 +133,14 @@ namespace ResultStudio.Controllers
                 }
 
                 controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxis, ref data);
-                // need to 
                 controlToBeLoaded.ToleranceButtonClicked += ToleranceButtonClicked;
 
-                controlToBeLoaded.LoadControl(out messageLog) ;
+                controlToBeLoaded.LoadControl(out messageLog);
                 List<Vector> vectorList = new List<Vector>();
                 foreach (KeyValuePair<int, Vector> part in data)
                 {
                     //value = GetAxisValue(part, sAxis);
                 }
-
-               
 
             }
             catch (Exception e)
@@ -166,10 +165,10 @@ namespace ResultStudio.Controllers
         private void ToleranceButtonClicked(object sender, EventArgs e)
         {
             AxisStatistics stats = ((StatsViewControl)sender).AxisStatistics;
-            
+
             // canvas to be edited:
             double tolerance = ((StatsViewControl)sender).Tolerance;
-            if(tolerance == 0)
+            if (tolerance == 0)
             {
                 // We ignore tolerance calculation if 0 is selected for tolerance.
                 return;
@@ -179,6 +178,62 @@ namespace ResultStudio.Controllers
             // Caclulate tolerance range...
             stats.CalculateToleranceRange(tolerance);
             ((StatsViewControl)sender).SetToleranceValue();
+            
+            // Lets create tolerance series on the chart.
+            string serUpperToleranceName = "Upper tolerance limit";
+            string serLowerToleranceName = "Lower tolerance limit";
+
+            Series setUpperTolernace = null;
+            Series seLowerTolerance = null;
+            // check if series havenot been added already
+            if (!(canvasChart.Series.IndexOf(serUpperToleranceName) != -1))
+            {
+                setUpperTolernace = canvasChart.Series.Add(serUpperToleranceName);
+                seLowerTolerance = canvasChart.Series.Add(serLowerToleranceName);
+            }
+            else
+            {
+                setUpperTolernace = canvasChart.Series.FindByName(serUpperToleranceName);
+                setUpperTolernace.Points.Clear();
+                seLowerTolerance = canvasChart.Series.FindByName(serLowerToleranceName);
+                seLowerTolerance.Points.Clear();
+            }
+
+            // check if series havenot been added already
+            if (!(canvasChart.Series.IndexOf(serUpperToleranceName) != -1))
+            {
+                setUpperTolernace = canvasChart.Series.Add(serUpperToleranceName);
+            }
+            else
+            {
+                setUpperTolernace = canvasChart.Series.FindByName(serUpperToleranceName);
+            }
+            
+            setUpperTolernace.ChartArea = canvasChart.ChartAreas[0].Name;
+            setUpperTolernace.Name = serUpperToleranceName;
+            setUpperTolernace.ChartType = SeriesChartType.Line;
+
+            seLowerTolerance.ChartArea = canvasChart.ChartAreas[0].Name;
+            seLowerTolerance.Name = serLowerToleranceName;
+            seLowerTolerance.ChartType = SeriesChartType.Line;
+
+            for (int index = 1; index <= data.Count; index++)
+            {
+                setUpperTolernace.Points.AddXY(index, stats.MaxToleranceValue);
+                seLowerTolerance.Points.AddXY(index, stats.MinToleranceValue);
+            }
+
+            // Max tolerance series will always be at index 1
+            canvasChart.Series[1].Color = Color.Red;
+            canvasChart.Series[1].BorderWidth = 4;
+            // Min tolerance series will always be at index 2
+            canvasChart.Series[2].Color = Color.Red;
+            canvasChart.Series[2].BorderWidth = 4;
+
+
+            // Lets see what values lie outside grid and highlight those...
+
+
         }
 
         private Color GetColorForLine(string axisType)
@@ -261,6 +316,6 @@ namespace ResultStudio.Controllers
             canvasChart.ChartAreas[0].AxisX.Minimum = 1;
             canvasChart.ChartAreas[0].AxisX.Maximum = 20;
         }
-       
+
     }
 }

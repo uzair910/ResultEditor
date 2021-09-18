@@ -163,6 +163,25 @@ namespace ResultStudio
             // give meaning full name to part id column.. Key doesnt seem suitable.
             dgvData.Columns["Key"].HeaderText = Properties.Resources.sPartID;
         }
+
+
+        public EventHandler HighlightDataGrid;
+        // To call this method when tolerance is calculated and we need to highlight rows that are outside tolerance range
+        private void HighlightDataGridRows()
+        {
+            if (resultEditorController.DataSet == null)
+                return;
+           double maxTolerance = visualRepController.MinToleranceValue;
+            double minTolerance = visualRepController.MinToleranceValue;
+
+            // Need to convert dictionary into a table/array form. Using Linq
+            var _priceDataArray = (from entry in resultEditorController.DataSet
+                                   orderby entry.Key
+                                   select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
+            //dataSet.DataSource = _priceDataArray;
+            //// give meaning full name to part id column.. Key doesnt seem suitable.
+            //dgvData.Columns["Key"].HeaderText = Properties.Resources.sPartID;
+        }
         #endregion
 
         #region dataBinding

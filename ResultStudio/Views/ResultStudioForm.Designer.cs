@@ -52,13 +52,13 @@
             this.chartAxisData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.xAxisStatsPage = new System.Windows.Forms.TabPage();
             this.chartXAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.statsXAxis = new ResultStudio.Views.StatsViewControl();
+            this.statsXAxis = new Views.StatsViewControl();
             this.yAxisStatPage = new System.Windows.Forms.TabPage();
             this.chartYAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.statsYAxis = new ResultStudio.Views.StatsViewControl();
+            this.statsYAxis = new Views.StatsViewControl();
             this.zAxisStatsPage = new System.Windows.Forms.TabPage();
             this.chartZAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.statsZAxis = new ResultStudio.Views.StatsViewControl();
+            this.statsZAxis = new Views.StatsViewControl();
             this.grpControls = new System.Windows.Forms.GroupBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
