@@ -17,6 +17,12 @@ namespace ResultStudio.Common
         private int m_iMax_PartID;
         private int m_iMin_PartID;
 
+        // Variables related to tolerance
+        private double m_dTolerancePercentage;
+        // Tolerance range min and max
+        private double m_dToleranceMin;
+        private double m_dToleranceMax;
+
         public AxisStatistics(string sAxis, ref Dictionary<int, Vector> dataset)
         {
             this.sAxis = sAxis;
@@ -26,13 +32,14 @@ namespace ResultStudio.Common
 
         public string Axis { get { return sAxis; } }
 
+      
         public double GetMaximumValue()
         {
-            return Math.Round(m_dMaximum,3);
+            return Math.Round(m_dMaximum, 3);
         }
         public double GetMinimumValue()
         {
-            return Math.Round(m_dMinimum,3);
+            return Math.Round(m_dMinimum, 3);
         }
         public int GetMinPartID()
         {
@@ -44,11 +51,11 @@ namespace ResultStudio.Common
         }
         public double GetAverageValue()
         {
-            return Math.Round(m_dAverage,3);
+            return Math.Round(m_dAverage, 3);
         }
         public double GetVariation()
         {
-            return Math.Round((Math.Abs(m_dMaximum - m_dMinimum)),3);
+            return Math.Round((Math.Abs(m_dMaximum - m_dMinimum)), 3);
         }
         private void SetMinMaxValue()
         {
@@ -78,5 +85,41 @@ namespace ResultStudio.Common
 
             }
         }
+
+
+        #region Tolerance related operation
+        public double TolerancePercentage
+        {
+            get
+            {
+                return m_dTolerancePercentage;
+            }
+        }
+        public double MaxToleranceValue
+        {
+            get
+            {
+                return m_dToleranceMax;
+            }
+        }
+        public double MinToleranceValue
+        {
+            get
+            {
+                return m_dToleranceMin;
+            }
+        }
+        public void CalculateToleranceRange(double tolerancePercentage)
+        {
+            m_dTolerancePercentage = tolerancePercentage;
+            // To calulate min and max range, lets calculate the tolerance from variation. 
+            double toleranceValue = (tolerancePercentage / 100);
+
+            // Min and Max tolernace = mean +/- toleranceValue
+            m_dToleranceMin = Math.Round(m_dAverage - toleranceValue, 3);
+            m_dToleranceMax = Math.Round(m_dAverage + toleranceValue, 3);
+
+        }
+        #endregion
     }
 }

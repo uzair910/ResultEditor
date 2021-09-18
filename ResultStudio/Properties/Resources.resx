@@ -135,7 +135,6 @@
   </data>
   <data name="sChartNotAssigned" xml:space="preserve">
     <value>Error: Trying to populate chart that is null. </value>
-    <comment>Error text if chart is not initialized before it is populated.</comment>
   </data>
   <data name="sErrNoData" xml:space="preserve">
     <value>Error: No data found. </value>
@@ -172,5 +171,8 @@
   <data name="sTextVariation" xml:space="preserve">
     <value>Variation in values is calculated to be #VALUE#</value>
     <comment>Text that goes into statistics control to show variation.</comment>
+  </data>
+  <data name="sToleranceExplaination" xml:space="preserve">
+    <value>Enter percentage to calculate tolerance range. For example, if variation is 20 and mean is 50, and tolerance input is 10%, then tolerance range will be between 48-52.  </value>
   </data>
 </root>

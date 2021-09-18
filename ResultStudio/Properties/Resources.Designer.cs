@@ -185,5 +185,14 @@ namespace ResultStudio.Properties {
                 return ResourceManager.GetString("sTextVariation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter percentage to calculate tolerance range. For example, if variation is 20 and mean is 50, and tolerance input is 10%, then tolerance range will be between 48-52.  .
+        /// </summary>
+        internal static string sToleranceExplaination {
+            get {
+                return ResourceManager.GetString("sToleranceExplaination", resourceCulture);
+            }
+        }
     }
 }

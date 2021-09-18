@@ -16,12 +16,15 @@ namespace ResultStudio.Views
     public partial class StatsViewControl : UserControl
     {
         private AxisStatistics axisStats;
+        ToolTip helpToolTip;
         public StatsViewControl()
         {
             InitializeComponent();
             axisStats = null;
-
+            helpToolTip = new ToolTip();
+            
         }
+        
         public AxisStatistics AxisStatistics { set { this.axisStats = value; } get { return this.axisStats; } }
 
         public void LoadControl(out string message)
@@ -35,7 +38,7 @@ namespace ResultStudio.Views
 
             // Set labels: 
             lblMaximum.Text = Properties.Resources.sTextMaximum.Replace("#VALUE#", axisStats.GetMaximumValue().ToString()).Replace("#PARTID#", axisStats.GetMaxPartID().ToString());
-            lblMinimum.Text = Properties.Resources.sTextMaximum.Replace("#VALUE#", axisStats.GetMinimumValue().ToString()).Replace("#PARTID#", axisStats.GetMinPartID().ToString());
+            lblMinimum.Text = Properties.Resources.sTextMinimum.Replace("#VALUE#", axisStats.GetMinimumValue().ToString()).Replace("#PARTID#", axisStats.GetMinPartID().ToString());
             lblAverage.Text = Properties.Resources.sTextAverage.Replace("#VALUE#", axisStats.GetAverageValue().ToString());
             lblVariationValue.Text = axisStats.GetVariation().ToString();
 
@@ -85,5 +88,22 @@ namespace ResultStudio.Views
                 return m_dtolerance; 
             } 
         }
+
+        private void ToleranceControls_MouseEnter(object sender, EventArgs e)
+        {
+                lblToleranceExplaination.Text = Properties.Resources.sToleranceExplaination;
+        }
+     
+        private void ToleranceControls_MouseLeave(object sender, EventArgs e)
+        {
+            lblToleranceExplaination.Text = string.Empty;
+        }
+
+        public void SetToleranceValue()
+        {
+            lblValLowerToleranceLimit.Text = axisStats.MinToleranceValue.ToString();
+            lblValToleranceUpperLimit.Text = axisStats.MaxToleranceValue.ToString();
+        }
     }
+
 }

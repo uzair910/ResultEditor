@@ -176,9 +176,9 @@ namespace ResultStudio.Controllers
             }
             Chart canvasChart = GetActiveChart(stats.Axis);
 
-            // just to test..
-            //canvasChart.Series[0].ChartType = SeriesChartType.Area;
-
+            // Caclulate tolerance range...
+            stats.CalculateToleranceRange(tolerance);
+            ((StatsViewControl)sender).SetToleranceValue();
         }
 
         private Color GetColorForLine(string axisType)
