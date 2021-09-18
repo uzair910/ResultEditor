@@ -8,20 +8,14 @@ namespace ResultStudio.Common
 {
     public class AxisStatistics
     {
-
         private Dictionary<int, Vector> data;
-        private double m_dMinimum;
-
-        private double m_dMaximum;
-
-        private double m_dAverage;
-
-
-        private int m_iMax_PartID;
-
-        private int m_iMin_PartID;
-
         private string sAxis;
+
+        private double m_dMinimum;
+        private double m_dMaximum;
+        private double m_dAverage;
+        private int m_iMax_PartID;
+        private int m_iMin_PartID;
 
         public AxisStatistics(string sAxis, ref Dictionary<int, Vector> dataset)
         {
@@ -32,11 +26,11 @@ namespace ResultStudio.Common
 
         public double GetMaximumValue()
         {
-            return m_dMaximum;
+            return Math.Round(m_dMaximum,3);
         }
         public double GetMinimumValue()
         {
-            return m_dMinimum;
+            return Math.Round(m_dMinimum,3);
         }
         public int GetMinPartID()
         {
@@ -48,9 +42,12 @@ namespace ResultStudio.Common
         }
         public double GetAverageValue()
         {
-            return m_dAverage;
+            return Math.Round(m_dAverage,3);
         }
-
+        public double GetVariation()
+        {
+            return Math.Round((Math.Abs(m_dMaximum - m_dMinimum)),3);
+        }
         private void SetMinMaxValue()
         {
             switch (sAxis)
@@ -79,7 +76,5 @@ namespace ResultStudio.Common
 
             }
         }
-
-      
     }
 }

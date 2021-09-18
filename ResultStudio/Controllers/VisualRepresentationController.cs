@@ -101,8 +101,10 @@ namespace ResultStudio.Controllers
                 }
 
                 controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxis, ref data);
-                controlToBeLoaded.LoadControl(out messageLog) ;
+                // need to 
+                controlToBeLoaded.ToleranceButtonClicked += ToleranceButtonClicked;
 
+                controlToBeLoaded.LoadControl(out messageLog) ;
                 List<Vector> vectorList = new List<Vector>();
                 foreach (KeyValuePair<int, Vector> part in data)
                 {
@@ -117,6 +119,12 @@ namespace ResultStudio.Controllers
                 messageLog += "\n ERROR in populating statistics: " + e.ToString();
             }
             messageLog += "\n Axis statistics load successful.";
+        }
+
+        //Close the form when you received the notification
+        private void ToleranceButtonClicked(object sender, EventArgs e)
+        {
+            AxisStatistics stats = ((StatsViewControl)sender).AxisStatistics;
         }
 
         private Color GetColorForLine(string axisType)
