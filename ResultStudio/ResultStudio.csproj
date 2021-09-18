@@ -50,9 +50,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AxisStatistics.cs" />
+    <Compile Include="Common\FilteredSeriesChartType.cs" />
     <Compile Include="Common\Vector.cs" />
     <Compile Include="Controllers\ParserController.cs" />
     <Compile Include="Controllers\ResultEditorController.cs" />

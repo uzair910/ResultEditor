@@ -4,7 +4,6 @@ using ResultStudio.Controllers;
 using ResultStudio.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -12,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Input;
 
 namespace ResultStudio
 {
@@ -36,27 +36,8 @@ namespace ResultStudio
             logBuilder = new StringBuilder();
             // Zoom would be useful for chart showing all three axis altogether. 
             chartAxisData.MouseWheel += chart_MouseWheel;
-        }
-
-        private void btnReadFile_Click(object sender, EventArgs e)
-        {
-            using (var fbd = new OpenFileDialog())
-            {
-                fbd.InitialDirectory = Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory()), Properties.Resources.sIntialDirectoryPath);
-                fbd.Filter = "txt files (*.txt)|*.txt";
-
-                DialogResult result = fbd.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.FileName))
-                {
-                    ClearCharts();
-                    String message;
-                    data = resultEditorController.ReadFile(fbd.FileName, out message);
-                    logBuilder.AppendLine(message);
-                    LoadDataGrid();
-                    visualRepController.DataSet = data;
-                    PopulateChart();
-                }
-            }
+            // Populate DropDown with Chart types.
+            BindSeriesTypesToCombo(typeof(FilteredSeriesChartType), cmbSeriesCol);
         }
 
         private void ClearCharts()
@@ -92,6 +73,7 @@ namespace ResultStudio
             string message = string.Empty; ;
             // Main chart showing all three axis together.
             visualRepController.PopulatePointDistributionGraph(chartAxisData, out message);
+            cmbSeriesCol.SelectedIndex = cmbSeriesCol.FindStringExact("Spline");
             logBuilder.AppendLine(message);
 
             // load individual statistics page
@@ -177,7 +159,35 @@ namespace ResultStudio
         #endregion
 
         #region dataBinding
+        private void btnReadFile_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new OpenFileDialog())
+            {
+                fbd.InitialDirectory = Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory()), Properties.Resources.sIntialDirectoryPath);
+                fbd.Filter = "txt files (*.txt)|*.txt";
 
+                DialogResult result = fbd.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.FileName))
+                {
+                    ClearCharts();
+                    String message;
+                    data = resultEditorController.ReadFile(fbd.FileName, out message);
+                    logBuilder.AppendLine(message);
+                    LoadDataGrid();
+                    visualRepController.DataSet = data;
+                    PopulateChart();
+                }
+            }
+        }
+
+        public void BindSeriesTypesToCombo(Type EnumType, ComboBox comboSeries)
+        {
+            String[] Names = Enum.GetNames(EnumType);
+            comboSeries.DataSource = Names.Select((Key, Value) =>
+                                        new { Key, Value }).ToDictionary(X => X.Key, X => X.Value + 1).OrderBy(i => i.Key).ToList(); ;
+
+            comboSeries.DisplayMember = "Key";
+        }
         private void chart_MouseWheel(object sender, MouseEventArgs e)
         {
             // Code snippet taken from reference: https://stackoverflow.com/questions/13584061/how-to-enable-zooming-in-microsoft-chart-control-by-using-mouse-wheel
@@ -257,5 +267,10 @@ namespace ResultStudio
             chartTabControl.Visible = false;
         }
         #endregion
+
+        private void cmbSeriesCol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            visualRepController.SetChartType(chartAxisData, ((KeyValuePair<string, int>)cmbSeriesCol.SelectedItem).Key);
+        }
     }
 }

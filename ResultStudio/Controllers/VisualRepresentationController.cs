@@ -15,6 +15,7 @@ namespace ResultStudio.Controllers
     {
         private Dictionary<int, Vector> data;
         private double dMinX, dMinY, dMinZ, dMaxX, dMaxY, dMaxZ;
+        private string m_sChartType = string.Empty;
         public VisualRepresentationController()
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
@@ -49,6 +50,7 @@ namespace ResultStudio.Controllers
                 canvasChart.Series[1].Color = Color.Green; ;
                 canvasChart.Series[2].Color = Color.OrangeRed;
                 GetMinMaxFromData();
+                m_sChartType = canvasChart.Series[0].ChartType.ToString();
             }
             catch (Exception e)
             {
@@ -119,6 +121,17 @@ namespace ResultStudio.Controllers
                 messageLog += "\n ERROR in populating statistics: " + e.ToString();
             }
             messageLog += "\n Axis statistics load successful.";
+        }
+
+        public void SetChartType(Chart canvasChart, string chartType)
+        {
+            canvasChart.Series[0].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
+            canvasChart.Series[1].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
+            canvasChart.Series[2].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
+        }
+        public string GetChartType()
+        {
+            return m_sChartType;
         }
 
         //Close the form when you received the notification
@@ -206,10 +219,7 @@ namespace ResultStudio.Controllers
 
             canvasChart.ChartAreas[0].AxisX.Minimum = 1;
             canvasChart.ChartAreas[0].AxisX.Maximum = 20;
-
-
         }
-
-      
+       
     }
 }
