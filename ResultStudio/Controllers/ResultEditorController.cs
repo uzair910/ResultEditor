@@ -23,6 +23,8 @@ namespace ResultStudio.Controllers
         {
         }
 
+        public Dictionary<int, Vector> DataSet { get { return data; } }
+
         public Dictionary<int, Vector> ReadFile(string sfilePath, out string messageLog)
         {
             messageLog = String.Empty;

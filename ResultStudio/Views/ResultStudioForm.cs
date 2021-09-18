@@ -21,10 +21,6 @@ namespace ResultStudio
         private ResultEditorController resultEditorController;
         private VisualRepresentationController visualRepController;
         private StringBuilder logBuilder;
-        // change into a meaningful name
-        private Dictionary<int, Vector> data;
-        // Data source
-        BindingSource dataSet;
         #endregion
 
         public ResultStudioForm()
@@ -150,14 +146,14 @@ namespace ResultStudio
 
         private void LoadDataGrid()
         {
-            dataSet = new BindingSource();
+            BindingSource dataSet = new BindingSource();
             dgvData.DataSource = dataSet;
 
-            if (data == null)
+            if (resultEditorController.DataSet == null)
                 return;
 
             // Need to convert dictionary into a table/array form. Using Linq
-            var _priceDataArray = (from entry in data
+            var _priceDataArray = (from entry in resultEditorController.DataSet
                                    orderby entry.Key
                                    select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
             dataSet.DataSource = _priceDataArray;
@@ -179,10 +175,10 @@ namespace ResultStudio
                 {
                     ClearCharts();
                     String message;
-                    data = resultEditorController.ReadFile(fbd.FileName, out message);
+                    resultEditorController.ReadFile(fbd.FileName, out message);
                     logBuilder.AppendLine(message);
                     LoadDataGrid();
-                    visualRepController.DataSet = data;
+                    visualRepController.DataSet =  resultEditorController.DataSet;
                     PopulateChart();
                 }
             }
