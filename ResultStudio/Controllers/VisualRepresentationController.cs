@@ -1,4 +1,5 @@
 ﻿using ResultStudio.Common;
+using ResultStudio.Views;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -85,7 +86,37 @@ namespace ResultStudio.Controllers
             {
                 messageLog += "\n ERROR in loading main chart: " + e.ToString();
             }
+            messageLog += "\n Axis chart load successful.";
 
+        }
+
+        public void PopulateStatisticsControl(StatsViewControl controlToBeLoaded, string sAxis, out string messageLog)
+        {
+            messageLog = string.Empty;
+            try
+            {
+                if (data == null)
+                {
+                    messageLog = Properties.Resources.sErrNoData;
+                }
+
+                controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxis, ref data);
+                controlToBeLoaded.AssignTexts(out messageLog) ;
+
+                List<Vector> vectorList = new List<Vector>();
+                foreach (KeyValuePair<int, Vector> part in data)
+                {
+                    //value = GetAxisValue(part, sAxis);
+                }
+
+               
+
+            }
+            catch (Exception e)
+            {
+                messageLog += "\n ERROR in populating statistics: " + e.ToString();
+            }
+            messageLog += "\n Axis statistics load successful.";
         }
 
         private Color GetColorForLine(string axisType)
@@ -170,5 +201,7 @@ namespace ResultStudio.Controllers
 
 
         }
+
+      
     }
 }

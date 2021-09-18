@@ -140,5 +140,41 @@ namespace ResultStudio.Properties {
                 return ResourceManager.GetString("sPartID", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The average calculated for this axis is #VALUE#..
+        /// </summary>
+        internal static string sTextAverage {
+            get {
+                return ResourceManager.GetString("sTextAverage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The maximum value found for this axis is #VALUE# against Part ID: #PARTID#.
+        /// </summary>
+        internal static string sTextMaximum {
+            get {
+                return ResourceManager.GetString("sTextMaximum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The minimum value found for this axis is #VALUE# against Part ID: #PARTID#.
+        /// </summary>
+        internal static string sTextMinimum {
+            get {
+                return ResourceManager.GetString("sTextMinimum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variation in values is calculated to be #VALUE#.
+        /// </summary>
+        internal static string sTextVariation {
+            get {
+                return ResourceManager.GetString("sTextVariation", resourceCulture);
+            }
+        }
     }
 }

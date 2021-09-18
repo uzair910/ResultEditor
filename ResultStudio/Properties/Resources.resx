@@ -153,4 +153,20 @@
     <value>Part ID</value>
     <comment>Column header text</comment>
   </data>
+  <data name="sTextAverage" xml:space="preserve">
+    <value>The average calculated for this axis is #VALUE#.</value>
+    <comment>Text that goes into statistics control to show average value.</comment>
+  </data>
+  <data name="sTextMaximum" xml:space="preserve">
+    <value>The maximum value found for this axis is #VALUE# against Part ID: #PARTID#</value>
+    <comment>Text that goes into statistics control to show maximum value.</comment>
+  </data>
+  <data name="sTextMinimum" xml:space="preserve">
+    <value>The minimum value found for this axis is #VALUE# against Part ID: #PARTID#</value>
+    <comment>Text that goes into statistics control to show minimum value.</comment>
+  </data>
+  <data name="sTextVariation" xml:space="preserve">
+    <value>Variation in values is calculated to be #VALUE#</value>
+    <comment>Text that goes into statistics control to show variation.</comment>
+  </data>
 </root>

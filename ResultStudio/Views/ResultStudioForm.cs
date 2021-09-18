@@ -36,7 +36,6 @@ namespace ResultStudio
             logBuilder = new StringBuilder();
             // Zoom would be useful for chart showing all three axis altogether. 
             chartAxisData.MouseWheel += chart_MouseWheel;
-
         }
 
         private void btnReadFile_Click(object sender, EventArgs e)
@@ -110,32 +109,53 @@ namespace ResultStudio
         {
             string message = string.Empty;
             Chart chartToBeLoaded;
+            Views.StatsViewControl controlToBeLoaded;
             switch (sAxis)
             {
                 case "X":
                     chartToBeLoaded = chartXAxis;
+                    controlToBeLoaded = statsXAxis;
                     break;
                 case "Y":
                     chartToBeLoaded = chartYAxis;
+                    controlToBeLoaded = statsYAxis;
                     break;
                 case "Z":
                     chartToBeLoaded = chartZAxis;
+                    controlToBeLoaded = statsZAxis;
                     break;
                 default:
                     chartToBeLoaded = null;
+                    controlToBeLoaded = null;
                     break;
             }
+
+            //Populate individual Axis Grid
             if (chartToBeLoaded == null)
             {
                 message = "Error: Wrong chart parameter passed to ResultsStudioForm.PopulateAxisPage";
             }
             else
             {
-                //Populate Grid
+                logBuilder.AppendLine("Loading chart for axis " + sAxis
+                    );
                 visualRepController.PopulateAxisGraph(chartToBeLoaded, sAxis, out message);
+                // Lets just add mouse wheel zoom to these charts aswell. 
+                chartToBeLoaded.MouseWheel += chart_MouseWheel;
             }
             logBuilder.AppendLine(message);
-            // Populate stats control
+
+            // Populate stats control for the axis
+            if (controlToBeLoaded == null)
+            {
+                message = "Error: Failed to find related statistic control from ID that was passed from ResultsStudioForm.PopulateAxisPage";
+            }
+            else
+            {
+                logBuilder.AppendLine("Loading statistics for axis " + sAxis);
+                visualRepController.PopulateStatisticsControl(controlToBeLoaded, sAxis, out message);
+            }
+            logBuilder.AppendLine(message);
         }
 
         private void LoadDataGrid()
