@@ -60,6 +60,7 @@
             this.chartZAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.statsZAxis = new Views.StatsViewControl();
             this.grpControls = new System.Windows.Forms.GroupBox();
+            this.lblOutOfBoundMessage = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -298,6 +299,7 @@
             // 
             // grpControls
             // 
+            this.grpControls.Controls.Add(this.lblOutOfBoundMessage);
             this.grpControls.Controls.Add(this.btnClear);
             this.grpControls.Controls.Add(this.btnReadFile);
             this.grpControls.Controls.Add(this.dgvData);
@@ -308,6 +310,15 @@
             this.grpControls.Size = new System.Drawing.Size(471, 608);
             this.grpControls.TabIndex = 5;
             this.grpControls.TabStop = false;
+            // 
+            // lblOutOfBoundMessage
+            // 
+            this.lblOutOfBoundMessage.AutoSize = true;
+            this.lblOutOfBoundMessage.Location = new System.Drawing.Point(6, 450);
+            this.lblOutOfBoundMessage.Name = "lblOutOfBoundMessage";
+            this.lblOutOfBoundMessage.Size = new System.Drawing.Size(0, 13);
+            this.lblOutOfBoundMessage.TabIndex = 5;
+            this.lblOutOfBoundMessage.Visible = false;
             // 
             // btnClear
             // 
@@ -355,6 +366,7 @@
             this.zAxisStatsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartZAxis)).EndInit();
             this.grpControls.ResumeLayout(false);
+            this.grpControls.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -382,6 +394,7 @@
         private Views.StatsViewControl statsZAxis;
         private System.Windows.Forms.ComboBox cmbSeriesCol;
         private System.Windows.Forms.Label lblComboText;
+        private System.Windows.Forms.Label lblOutOfBoundMessage;
     }
 }
 

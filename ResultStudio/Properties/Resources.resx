@@ -168,6 +168,10 @@
     <value>The minimum value found for this axis is #VALUE# against Part ID: #PARTID#</value>
     <comment>Text that goes into statistics control to show minimum value.</comment>
   </data>
+  <data name="sTextTolerenceHighlightMessage" xml:space="preserve">
+    <value>The values out of tolerance limits are highlighted in color Pink.</value>
+    <comment>To explian what pink highlighted columns mean.</comment>
+  </data>
   <data name="sTextVariation" xml:space="preserve">
     <value>Variation in values is calculated to be #VALUE#</value>
     <comment>Text that goes into statistics control to show variation.</comment>

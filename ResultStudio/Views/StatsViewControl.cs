@@ -29,6 +29,8 @@ namespace ResultStudio.Views
 
         public void LoadControl(out string message)
         {
+            txtTolerace.Text = string.Empty;
+            lblValToleranceUpperLimit.Text = lblValLowerToleranceLimit.Text = "Not yet defined.";
             message = string.Empty;
             if (axisStats == null)
             {
@@ -41,7 +43,6 @@ namespace ResultStudio.Views
             lblMinimum.Text = Properties.Resources.sTextMinimum.Replace("#VALUE#", axisStats.GetMinimumValue().ToString()).Replace("#PARTID#", axisStats.GetMinPartID().ToString());
             lblAverage.Text = Properties.Resources.sTextAverage.Replace("#VALUE#", axisStats.GetAverageValue().ToString());
             lblVariationValue.Text = axisStats.GetVariation().ToString();
-
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

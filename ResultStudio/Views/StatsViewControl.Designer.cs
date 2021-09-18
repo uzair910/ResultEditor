@@ -220,9 +220,8 @@ namespace ResultStudio.Views
             this.lblValToleranceUpperLimit.AutoSize = true;
             this.lblValToleranceUpperLimit.Location = new System.Drawing.Point(134, 90);
             this.lblValToleranceUpperLimit.Name = "lblValToleranceUpperLimit";
-            this.lblValToleranceUpperLimit.Size = new System.Drawing.Size(82, 13);
+            this.lblValToleranceUpperLimit.Size = new System.Drawing.Size(0, 13);
             this.lblValToleranceUpperLimit.TabIndex = 13;
-            this.lblValToleranceUpperLimit.Text = "Not yet defined.";
             // 
             // lblValLowerToleranceLimit
             // 

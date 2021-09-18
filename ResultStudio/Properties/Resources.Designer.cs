@@ -178,6 +178,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The values out of tolerance limits are highlighted in color Pink..
+        /// </summary>
+        internal static string sTextTolerenceHighlightMessage {
+            get {
+                return ResourceManager.GetString("sTextTolerenceHighlightMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Variation in values is calculated to be #VALUE#.
         /// </summary>
         internal static string sTextVariation {

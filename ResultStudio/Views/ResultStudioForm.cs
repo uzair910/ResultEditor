@@ -35,6 +35,7 @@ namespace ResultStudio
             chartAxisData.MouseWheel += chart_MouseWheel;
             // Populate DropDown with filtered Chart types.
             BindSeriesTypesToCombo(typeof(FilteredSeriesChartType), cmbSeriesCol);
+            lblOutOfBoundMessage.Text = Properties.Resources.sTextTolerenceHighlightMessage;
         }
 
         #region Helper methods
@@ -90,6 +91,7 @@ namespace ResultStudio
 
             // Grids are loaded, better make it visible. 
             chartTabControl.Visible = true;
+            visualRepController.HighlightGridButtonClicked += HighlightDataGrid;
         }
 
         private void PopulateAxisPage(string sAxis)
@@ -165,22 +167,52 @@ namespace ResultStudio
         }
 
 
-        public EventHandler HighlightDataGrid;
         // To call this method when tolerance is calculated and we need to highlight rows that are outside tolerance range
-        private void HighlightDataGridRows()
+        private void HighlightDataGrid(object sender, EventArgs e)
         {
             if (resultEditorController.DataSet == null)
                 return;
-           double maxTolerance = visualRepController.MinToleranceValue;
-            double minTolerance = visualRepController.MinToleranceValue;
+            lblOutOfBoundMessage.Visible = true;
 
-            // Need to convert dictionary into a table/array form. Using Linq
-            var _priceDataArray = (from entry in resultEditorController.DataSet
-                                   orderby entry.Key
-                                   select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
-            //dataSet.DataSource = _priceDataArray;
-            //// give meaning full name to part id column.. Key doesnt seem suitable.
-            //dgvData.Columns["Key"].HeaderText = Properties.Resources.sPartID;
+            double maxTolerance = visualRepController.UpperToleranceValue;
+            double minTolerance = visualRepController.LowerToleranceValue;
+
+            //visualRepController.ActiveAxis
+            foreach (DataGridViewRow row in dgvData.Rows)
+            {
+
+                double xVal = double.Parse(row.Cells[Properties.Resources.sAxisX].Value.ToString());
+                double yVal = double.Parse(row.Cells[Properties.Resources.sAxisY].Value.ToString());
+                double zVal = double.Parse(row.Cells[Properties.Resources.sAxisZ].Value.ToString());
+
+                switch (visualRepController.ActiveAxis)
+                {
+                    case "X":
+                        if (xVal < minTolerance || xVal > maxTolerance)
+                            row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.Pink;
+                        else
+                            row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.White;
+                        break;
+                    case "Y":
+                        if (yVal < minTolerance || yVal > maxTolerance)
+                            row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.Pink;
+                        else
+                            row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.White;
+                        break;
+                    case "Z":
+                        if (zVal < minTolerance || zVal > maxTolerance)
+                            row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.Pink;
+                        else
+                            row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.White;
+                        break;
+                    default:
+                        break;
+                }
+                if (row.Cells[0].Value.ToString() == "someVal")
+                {
+                    row.DefaultCellStyle.BackColor = Color.Tomato;
+                }
+            }
         }
         #endregion
 
@@ -200,7 +232,7 @@ namespace ResultStudio
                     resultEditorController.ReadFile(fbd.FileName, out message);
                     logBuilder.AppendLine(message);
                     LoadDataGrid();
-                    visualRepController.DataSet =  resultEditorController.DataSet;
+                    visualRepController.DataSet = resultEditorController.DataSet;
                     PopulateChart();
                 }
             }
@@ -282,8 +314,12 @@ namespace ResultStudio
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            lblOutOfBoundMessage.Visible = false;
             ClearCharts();
             ClearGrid();
+            visualRepController.Clear();
+            resultEditorController.Clear();
+            logBuilder.Append("View Cleared.");
         }
 
         private void cmbSeriesCol_SelectedIndexChanged(object sender, EventArgs e)
@@ -292,7 +328,7 @@ namespace ResultStudio
         }
 
         #endregion
-    
+
 
     }
 }

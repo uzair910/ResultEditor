@@ -16,12 +16,15 @@ namespace ResultStudio.Controllers
         private Dictionary<int, Vector> data;
         private double dMinX, dMinY, dMinZ, dMaxX, dMaxY, dMaxZ;
         private string m_sChartType = string.Empty;
+        private string m_sActiveAxis = string.Empty; 
         private Chart m_chartXAxis;
         private Chart m_chartYAxis;
         private Chart m_chartZAxis;
         public Chart XAxisChart { set { this.m_chartXAxis = value; } }
         public Chart YAxisChart { set { this.m_chartYAxis = value; } }
         public Chart ZAxisChart { set { this.m_chartZAxis = value; } }
+
+        public string ActiveAxis { get { return this.m_sActiveAxis ; } }
         public VisualRepresentationController()
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
@@ -30,13 +33,23 @@ namespace ResultStudio.Controllers
         {
         }
 
+        public void Clear()
+        {
+            dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
+            m_chartXAxis = m_chartYAxis = m_chartZAxis =  null;
+            m_sChartType = m_sActiveAxis = string.Empty;
+            data = null;
+
+        }
         public Dictionary<int, Vector> DataSet
         {
             set { this.data = value; }
         }
 
-        public double MinToleranceValue { get; internal set; }
-
+        private double m_dUpperToleranceValue;
+        private double m_dLowerToleranceValue;
+        public double UpperToleranceValue { get { return m_dUpperToleranceValue; }}
+        public double LowerToleranceValue { get { return m_dLowerToleranceValue; } }
         public void PopulatePointDistributionGraph(Chart canvasChart, out string messageLog)
         {
             messageLog = string.Empty;
@@ -178,7 +191,9 @@ namespace ResultStudio.Controllers
             // Caclulate tolerance range...
             stats.CalculateToleranceRange(tolerance);
             ((StatsViewControl)sender).SetToleranceValue();
-            
+            m_dLowerToleranceValue = stats.MinToleranceValue;
+            m_dUpperToleranceValue = stats.MaxToleranceValue;
+
             // Lets create tolerance series on the chart.
             string serUpperToleranceName = "Upper tolerance limit";
             string serLowerToleranceName = "Lower tolerance limit";
@@ -230,10 +245,15 @@ namespace ResultStudio.Controllers
             canvasChart.Series[2].Color = Color.Red;
             canvasChart.Series[2].BorderWidth = 4;
 
-
+            m_sActiveAxis = stats.Axis;
             // Lets see what values lie outside grid and highlight those...
+            OnHighlightGridButtonClicked(e);
+        }
 
-
+        public event EventHandler HighlightGridButtonClicked;
+        protected virtual void OnHighlightGridButtonClicked(EventArgs e)
+        {
+            HighlightGridButtonClicked.Invoke(this, e);
         }
 
         private Color GetColorForLine(string axisType)
@@ -317,5 +337,6 @@ namespace ResultStudio.Controllers
             canvasChart.ChartAreas[0].AxisX.Maximum = 20;
         }
 
+        
     }
 }

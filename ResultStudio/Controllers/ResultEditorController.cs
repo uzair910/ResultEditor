@@ -34,5 +34,10 @@ namespace ResultStudio.Controllers
             return data;
 
         }
+
+        public void Clear()
+        {
+            data = null;
+        }
     }
 }
