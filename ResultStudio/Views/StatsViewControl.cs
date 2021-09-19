@@ -17,15 +17,23 @@ namespace ResultStudio.Views
     {
         private AxisStatistics axisStats;
         ToolTip helpToolTip;
+        public double Tolerance
+        {
+            get
+            {
+                double m_dtolerance = -1;
+                double.TryParse(txtTolerace.Text, out m_dtolerance);
+                return m_dtolerance;
+            }
+        }
+        public AxisStatistics AxisStatistics { set { this.axisStats = value; } get { return this.axisStats; } }
+
         public StatsViewControl()
         {
             InitializeComponent();
             axisStats = null;
             helpToolTip = new ToolTip();
-
         }
-
-        public AxisStatistics AxisStatistics { set { this.axisStats = value; } get { return this.axisStats; } }
 
         public void LoadControl(out string message)
         {
@@ -34,34 +42,29 @@ namespace ResultStudio.Views
             message = string.Empty;
             if (axisStats == null)
             {
-                message = "Error: Statistic View Class initialization didnot work correctly. AxisStatistics not initialized";
+                message = Properties.Resources.sAxisStatLoadError;
                 return;
             }
 
             // Set labels: 
-            lblValMax.Text = axisStats.GetMaximumValue().ToString();
-            lblValMin.Text = axisStats.GetMinimumValue().ToString();
-            lblValMean.Text = axisStats.GetAverageValue().ToString();
-            lblVariationValue.Text = axisStats.GetVariation().ToString();
-
+            SetStatisticsLabelValue();
             // no need to show tolerance varialbe right now. Hide them. 
             ToggleToleranceLabelVisibilty(false);
         }
 
-        private void ToggleToleranceLabelVisibilty(bool bIsVisible)
+        // Set label values.
+        public void SetStatisticsLabelValue()
         {
-            lblToleranceLowerLimit.Visible = lblToleranceUpperLimit.Visible = lblValToleranceLowerLimit.Visible = lblValToleranceUpperLimit.Visible = bIsVisible;
+            lblValMax.Text = axisStats.GetMaximumValue().ToString();
+            lblValMin.Text = axisStats.GetMinimumValue().ToString();
+            lblValMean.Text = axisStats.GetAverageValue().ToString();
+            lblVariationValue.Text = axisStats.GetVariation().ToString();
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        public void SetToleranceValue()
         {
-            // On enter press, invoke Visulaize Tolerance button
-            if (e.KeyChar == (char)13)
-                OnToleranceButtonClicked(e);
-
-            if (!isValidDecimal(e.KeyChar, txtTolerace.Text))
-                e.Handled = true;
-
+            lblValToleranceLowerLimit.Text = axisStats.MinToleranceValue.ToString();
+            lblValToleranceUpperLimit.Text = axisStats.MaxToleranceValue.ToString();
         }
 
         private bool isValidDecimal(char keyChar, string text)
@@ -83,7 +86,22 @@ namespace ResultStudio.Views
             return res;
         }
 
+        private void ToggleToleranceLabelVisibilty(bool bIsVisible)
+        {
+            lblToleranceLowerLimit.Visible = lblToleranceUpperLimit.Visible = lblValToleranceLowerLimit.Visible = lblValToleranceUpperLimit.Visible = bIsVisible;
+        }
+
+        #region events
         public event EventHandler ToleranceButtonClicked;
+        private void txtTolerace_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // On enter press, invoke Visulaize Tolerance button event
+            if (e.KeyChar == (char)13)
+                OnToleranceButtonClicked(e);
+
+            if (!isValidDecimal(e.KeyChar, txtTolerace.Text))
+                e.Handled = true;
+        }
         protected virtual void OnToleranceButtonClicked(EventArgs e)
         {
             ToggleToleranceLabelVisibilty(true);
@@ -94,32 +112,14 @@ namespace ResultStudio.Views
         {
             OnToleranceButtonClicked(e);
         }
-
-        public double Tolerance
-        {
-            get
-            {
-                double m_dtolerance = -1;
-                double.TryParse(txtTolerace.Text, out m_dtolerance);
-                return m_dtolerance;
-            }
-        }
-
         private void ToleranceControls_MouseEnter(object sender, EventArgs e)
         {
             lblToleranceExplaination.Text = Properties.Resources.sToleranceExplaination;
         }
-
         private void ToleranceControls_MouseLeave(object sender, EventArgs e)
         {
             lblToleranceExplaination.Text = string.Empty;
         }
-
-        public void SetToleranceValue()
-        {
-            lblValToleranceLowerLimit.Text = axisStats.MinToleranceValue.ToString();
-            lblValToleranceUpperLimit.Text = axisStats.MaxToleranceValue.ToString();
-        }
+        #endregion
     }
-
 }

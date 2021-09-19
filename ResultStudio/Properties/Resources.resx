@@ -121,6 +121,10 @@
     <value>3</value>
     <comment>To compare and check the valid columns in a parsed input file.</comment>
   </data>
+  <data name="sAxisStatLoadError" xml:space="preserve">
+    <value>Error: Statistic View Class initialization didnot work correctly. AxisStatistics not initialized</value>
+    <comment>Error Text if StatsViewControl.AxisStatistics  is null when control is loaded.</comment>
+  </data>
   <data name="sAxisX" xml:space="preserve">
     <value>X</value>
     <comment>Column header text</comment>

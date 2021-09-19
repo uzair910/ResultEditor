@@ -70,6 +70,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: Statistic View Class initialization didnot work correctly. AxisStatistics not initialized.
+        /// </summary>
+        internal static string sAxisStatLoadError {
+            get {
+                return ResourceManager.GetString("sAxisStatLoadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to X.
         /// </summary>
         internal static string sAxisX {
