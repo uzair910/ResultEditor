@@ -20,7 +20,7 @@ namespace ResultStudio.Views
         public LogForm(StringBuilder logText)
         {
             InitializeComponent();
-            logTextContainer.Text = logText.ToString();
+            logTextContainer.Text = logText.ToString().TrimEnd() ;
         }
 
         private void btnClose_Click(object sender, EventArgs e)

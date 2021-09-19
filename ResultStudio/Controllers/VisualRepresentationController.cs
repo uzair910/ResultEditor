@@ -88,7 +88,7 @@ namespace ResultStudio.Controllers
             }
             catch (Exception e)
             {
-                messageLog += "\n ERROR in loading main chart: " + e.ToString();
+                messageLog += "\nERROR in loading main chart: " + e.ToString();
             }
         }
 
@@ -133,9 +133,9 @@ namespace ResultStudio.Controllers
             }
             catch (Exception e)
             {
-                messageLog += "\n ERROR in loading main chart: " + e.ToString();
+                messageLog += "\nERROR in loading main chart: " + e.ToString();
             }
-            messageLog += "\n Axis chart load successful.";
+            messageLog += "Axis chart load successful.";
 
         }
 
@@ -188,16 +188,16 @@ namespace ResultStudio.Controllers
             }
             catch (Exception e)
             {
-                messageLog += "\n ERROR in populating statistics: " + e.ToString();
+                messageLog += "\nERROR in populating statistics: " + e.ToString();
             }
-            messageLog += "\n Axis statistics load successful.";
+            messageLog += "Axis statistics load successful.";
         }
-       
+
         /// <summary>
         /// This method is used to highlight columns that lie outside the tolerance range.
         /// </summary>
         /// <param name="dgvData">The data grid with all the rows. Passed as reference from the UI layer.</param>
-        /// <param name="messageLog"> to keep track of progress, that will be updated to the log view.</param>
+        /// <param name="messageLog"> To keep track of progress, that will be updated to the log view.</param>
         public void HighlightDataGrid(ref DataGridView dgvData, out string messageLog)
         {
             messageLog = string.Empty;
@@ -208,7 +208,6 @@ namespace ResultStudio.Controllers
                 sbOutOfBoundPart = new StringBuilder();
                 foreach (DataGridViewRow row in dgvData.Rows)
                 {
-
                     double xVal = double.Parse(row.Cells[Properties.Resources.sAxisX].Value.ToString());
                     double yVal = double.Parse(row.Cells[Properties.Resources.sAxisY].Value.ToString());
                     double zVal = double.Parse(row.Cells[Properties.Resources.sAxisZ].Value.ToString());
@@ -256,6 +255,48 @@ namespace ResultStudio.Controllers
             }
         }
 
+        /// <summary>
+        /// This method is used to place parts and axis values in the textbox where all axis are outside tolerance range.
+        /// This method doesn't have the best implementation. I had to compromise with either
+        ///     1. iterating throug grid items and seeing if all X Y and Z are pink, then add it to text.
+        ///     2. create new object containing Parts and points that lie outside tolerance and then compare results.
+        /// </summary>
+        /// <param name="outputControl">Reference of control where we want our data to be placed.</param>
+        /// /// <param name="dgvData">The data grid from the UI. If all the X,Y and Z columns are pink, that means the whole part is outlier.</param>
+        /// <param name="messageLog">To keep track of progress, that will be updated to the log view.</param>
+        public void PopulateOutliersText(ref RichTextBox outputControl, DataGridView dgvData, out string messageLog)
+        {
+            outputControl.Text = string.Empty;
+            messageLog = string.Empty;
+            if (data == null)
+                return;
+            try
+            {
+                sbOutOfBoundPart = new StringBuilder();
+                foreach (DataGridViewRow row in dgvData.Rows)
+                {
+                    string xVal = row.Cells[Properties.Resources.sAxisX].Value.ToString();
+                    string yVal = row.Cells[Properties.Resources.sAxisY].Value.ToString();
+                    string zVal = row.Cells[Properties.Resources.sAxisZ].Value.ToString();
+
+                    if (row.Cells[Properties.Resources.sAxisX].Style.BackColor == Color.Pink &&
+                        row.Cells[Properties.Resources.sAxisY].Style.BackColor == Color.Pink &&
+                        row.Cells[Properties.Resources.sAxisZ].Style.BackColor == Color.Pink)
+                    {
+                        outputControl.AppendText(row.Cells["Key"].Value.ToString() + "\t(" + xVal + "," + yVal + "," + zVal + ")\n");
+                        row.DefaultCellStyle.BackColor = Color.Firebrick;
+                    }else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.White;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                messageLog = "Error in highlighting grid:\n" + e.ToString();
+                return;
+            }
+        }
         /// <summary>
         /// Set the chart series type (visual representation of data)
         /// </summary>

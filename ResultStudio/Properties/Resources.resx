@@ -163,6 +163,9 @@
     <value>..\\Library\\Input</value>
     <comment>Intial path to load file selection dialog</comment>
   </data>
+  <data name="sLabelTextOutlierParts" xml:space="preserve">
+    <value>Part IDs with all axis values outside the tolerance range are highlighted in Red.</value>
+  </data>
   <data name="sMeasurementText" xml:space="preserve">
     <value>Measurement</value>
     <comment>To compare and and skip reading line if it contains header text</comment>
@@ -175,13 +178,12 @@
     <value>Part ID</value>
     <comment>Column header text</comment>
   </data>
-  <data name="sTextTolerenceHighlightMessage" xml:space="preserve">
-    <value>The values out of tolerance limits are highlighted in color Pink.</value>
-    <comment>To explian what pink highlighted columns mean.</comment>
+  <data name="sTextOutlierPart" xml:space="preserve">
+    <value>Outliers: (PartID (X,Y,Z)</value>
   </data>
-  <data name="sTextVariation" xml:space="preserve">
-    <value>Variation in values is calculated to be #VALUE#</value>
-    <comment>Text that goes into statistics control to show variation.</comment>
+  <data name="sTextTolerenceHighlightMessage" xml:space="preserve">
+    <value>Axis outside their respective tolerance are highlighted in Pink.</value>
+    <comment>The values out of tolerance limits are highlighted in color Pink.</comment>
   </data>
   <data name="sToleranceExplaination" xml:space="preserve">
     <value>Enter percentage to calculate tolerance range. For example, if variation is 20 and mean is 50, and tolerance input is 10%, then tolerance range will be between 48-52.  </value>

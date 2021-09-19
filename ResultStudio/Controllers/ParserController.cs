@@ -17,7 +17,7 @@ namespace ResultStudio.Controllers
 
         public void ParseFile(string sfilePath, out string messageLog, out Dictionary<int, Vector> data)
         {
-            messageLog = "\nReading data from file:  " + sfilePath;
+            messageLog = "Reading data from file:  " + sfilePath;
             // skip line if data is incorrect or the columns don't match
             int iLinesSkipped = 0;
             data = new Dictionary<int, Vector>();
@@ -36,7 +36,7 @@ namespace ResultStudio.Controllers
                         // Ignore line if its the header.
                         if (null == sCols || sCols.Length != Int32.Parse(Properties.Resources.iInputFileDefaultColumnLength) || sCols[0].ToUpper() == Properties.Resources.sMeasurementText.ToUpper())
                         {
-                            messageLog += "\nLine skipped. Either it contained Header text or it had invalid format.";
+                            messageLog += "Line skipped. \nEither it contained Header text or it had invalid format.";
                             continue;
                         }
 
@@ -51,7 +51,7 @@ namespace ResultStudio.Controllers
                         // Skip parsing if the columns length is not equal to 3. Or if the part id is 0.
                         if (iPartID == 0 || sAxis == '\0' )
                         {
-                            messageLog += "\nSKIPPIED: Error reading the line: " + sLine;
+                            messageLog += "\nSKIPPIED LINES: Error reading the line: " + sLine;
                             iLinesSkipped++;
                             continue;
                         }
@@ -77,13 +77,12 @@ namespace ResultStudio.Controllers
             }
             catch (Exception e)
             {
-                messageLog = "Crash! Error thrown: \n" + e.ToString();
+                messageLog = "ERROR: Crash! Error thrown: \n" + e.ToString();
                 return;
             }
             finally
             {
-                messageLog += "\nFile read complete." +
-                    "\nTotal entries skipped: " + iLinesSkipped;
+                messageLog += "File read complete.\nTotal entries skipped: " + iLinesSkipped;
             }
         }
 

@@ -169,6 +169,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Part IDs with all axis values outside the tolerance range are highlighted in Red..
+        /// </summary>
+        internal static string sLabelTextOutlierParts {
+            get {
+                return ResourceManager.GetString("sLabelTextOutlierParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Measurement.
         /// </summary>
         internal static string sMeasurementText {
@@ -196,20 +205,20 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The values out of tolerance limits are highlighted in color Pink..
+        ///   Looks up a localized string similar to Outliers: (PartID (X,Y,Z).
         /// </summary>
-        internal static string sTextTolerenceHighlightMessage {
+        internal static string sTextOutlierPart {
             get {
-                return ResourceManager.GetString("sTextTolerenceHighlightMessage", resourceCulture);
+                return ResourceManager.GetString("sTextOutlierPart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Variation in values is calculated to be #VALUE#.
+        ///   Looks up a localized string similar to Axis outside their respective tolerance are highlighted in Pink..
         /// </summary>
-        internal static string sTextVariation {
+        internal static string sTextTolerenceHighlightMessage {
             get {
-                return ResourceManager.GetString("sTextVariation", resourceCulture);
+                return ResourceManager.GetString("sTextTolerenceHighlightMessage", resourceCulture);
             }
         }
         

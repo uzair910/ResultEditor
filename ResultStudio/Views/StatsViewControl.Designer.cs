@@ -71,7 +71,7 @@ namespace ResultStudio.Views
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.9751F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.26381F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.24335F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 287F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 290F));
             this.tableLayoutPanel1.Controls.Add(this.lblValMean, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblValMax, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblMinimum, 0, 0);
@@ -203,7 +203,7 @@ namespace ResultStudio.Views
             this.lblTolerance.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTolerance.AutoSize = true;
             this.lblTolerance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTolerance.Location = new System.Drawing.Point(224, 7);
+            this.lblTolerance.Location = new System.Drawing.Point(223, 7);
             this.lblTolerance.Name = "lblTolerance";
             this.lblTolerance.Size = new System.Drawing.Size(93, 13);
             this.lblTolerance.TabIndex = 8;
@@ -214,7 +214,7 @@ namespace ResultStudio.Views
             // txtTolerace
             // 
             this.txtTolerace.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtTolerace.Location = new System.Drawing.Point(323, 4);
+            this.txtTolerace.Location = new System.Drawing.Point(322, 4);
             this.txtTolerace.MaxLength = 11;
             this.txtTolerace.Name = "txtTolerace";
             this.txtTolerace.Size = new System.Drawing.Size(121, 20);
@@ -225,7 +225,7 @@ namespace ResultStudio.Views
             // 
             // btnTolerance
             // 
-            this.btnTolerance.Location = new System.Drawing.Point(323, 31);
+            this.btnTolerance.Location = new System.Drawing.Point(322, 31);
             this.btnTolerance.Name = "btnTolerance";
             this.btnTolerance.Size = new System.Drawing.Size(121, 21);
             this.btnTolerance.TabIndex = 2;
@@ -238,7 +238,7 @@ namespace ResultStudio.Views
             this.lblToleranceUpperLimit.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblToleranceUpperLimit.AutoSize = true;
             this.lblToleranceUpperLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblToleranceUpperLimit.Location = new System.Drawing.Point(181, 63);
+            this.lblToleranceUpperLimit.Location = new System.Drawing.Point(180, 63);
             this.lblToleranceUpperLimit.Name = "lblToleranceUpperLimit";
             this.lblToleranceUpperLimit.Size = new System.Drawing.Size(136, 13);
             this.lblToleranceUpperLimit.TabIndex = 11;
@@ -248,7 +248,7 @@ namespace ResultStudio.Views
             // 
             this.lblValToleranceUpperLimit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblValToleranceUpperLimit.AutoSize = true;
-            this.lblValToleranceUpperLimit.Location = new System.Drawing.Point(323, 63);
+            this.lblValToleranceUpperLimit.Location = new System.Drawing.Point(322, 63);
             this.lblValToleranceUpperLimit.Name = "lblValToleranceUpperLimit";
             this.lblValToleranceUpperLimit.Size = new System.Drawing.Size(0, 13);
             this.lblValToleranceUpperLimit.TabIndex = 13;
@@ -258,7 +258,7 @@ namespace ResultStudio.Views
             this.lblToleranceLowerLimit.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblToleranceLowerLimit.AutoSize = true;
             this.lblToleranceLowerLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblToleranceLowerLimit.Location = new System.Drawing.Point(185, 91);
+            this.lblToleranceLowerLimit.Location = new System.Drawing.Point(184, 91);
             this.lblToleranceLowerLimit.Name = "lblToleranceLowerLimit";
             this.lblToleranceLowerLimit.Size = new System.Drawing.Size(132, 13);
             this.lblToleranceLowerLimit.TabIndex = 12;
@@ -268,7 +268,7 @@ namespace ResultStudio.Views
             // 
             this.lblValToleranceLowerLimit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblValToleranceLowerLimit.AutoSize = true;
-            this.lblValToleranceLowerLimit.Location = new System.Drawing.Point(323, 91);
+            this.lblValToleranceLowerLimit.Location = new System.Drawing.Point(322, 91);
             this.lblValToleranceLowerLimit.Name = "lblValToleranceLowerLimit";
             this.lblValToleranceLowerLimit.Size = new System.Drawing.Size(0, 13);
             this.lblValToleranceLowerLimit.TabIndex = 14;
@@ -278,16 +278,17 @@ namespace ResultStudio.Views
             this.lblTitleOutOfRangeParts.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblTitleOutOfRangeParts.AutoSize = true;
             this.lblTitleOutOfRangeParts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleOutOfRangeParts.Location = new System.Drawing.Point(456, 7);
+            this.lblTitleOutOfRangeParts.Location = new System.Drawing.Point(454, 7);
             this.lblTitleOutOfRangeParts.Name = "lblTitleOutOfRangeParts";
-            this.lblTitleOutOfRangeParts.Size = new System.Drawing.Size(31, 13);
+            this.lblTitleOutOfRangeParts.Size = new System.Drawing.Size(0, 13);
             this.lblTitleOutOfRangeParts.TabIndex = 18;
             // 
             // listOutOfBoundParts
             // 
             this.listOutOfBoundParts.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listOutOfBoundParts.Location = new System.Drawing.Point(456, 31);
+            this.listOutOfBoundParts.Location = new System.Drawing.Point(454, 31);
             this.listOutOfBoundParts.Name = "listOutOfBoundParts";
+            this.listOutOfBoundParts.ReadOnly = true;
             this.tableLayoutPanel1.SetRowSpan(this.listOutOfBoundParts, 4);
             this.listOutOfBoundParts.Size = new System.Drawing.Size(209, 106);
             this.listOutOfBoundParts.TabIndex = 19;

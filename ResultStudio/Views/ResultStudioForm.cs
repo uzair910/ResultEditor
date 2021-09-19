@@ -36,9 +36,23 @@ namespace ResultStudio
             // Populate DropDown with filtered Chart types.
             BindSeriesTypesToCombo();
             lblOutOfBoundMessage.Text = Properties.Resources.sTextTolerenceHighlightMessage;
+            lblOutliers.Text = Properties.Resources.sTextOutlierPart;
+            lblPartOutlier.Text = Properties.Resources.sLabelTextOutlierParts;
+            ToggleToleranceControlersVisibulity(false);
         }
 
+
+
         #region Helper methods
+        /// <summary>
+        /// Toggle visibility of contorls that we would require after the tolerance is calculated.
+        /// </summary>
+        /// <param name="bIsVisible"> boolean value to identify if the controls should be shown or not.</param>
+        private void ToggleToleranceControlersVisibulity(bool bIsVisible)
+        {
+            lblOutOfBoundMessage.Visible = lblOutliers.Visible = listOutOfBoundParts.Visible = lblPartOutlier.Visible = bIsVisible;
+        }
+
         /// <summary>
         /// the method clears the grid data.
         /// </summary>
@@ -54,6 +68,7 @@ namespace ResultStudio
         /// </summary>
         private void ClearCharts()
         {
+            ToggleToleranceControlersVisibulity(false);
             // Normal axis chart.
             foreach (var series in chartAxisData.Series)
             {
@@ -96,7 +111,7 @@ namespace ResultStudio
             PopulateAxisPage(Properties.Resources.sAxisZ);
 
             // If message contains error text, maybe we can prompt that.
-            
+
 
             // Grids are loaded, better make it visible. 
             chartTabControl.Visible = true;
@@ -115,7 +130,7 @@ namespace ResultStudio
             }
             else
             {
-                lblStatusBar.Text = string.Empty ;
+                lblStatusBar.Text = string.Empty;
             }
         }
 
@@ -206,9 +221,12 @@ namespace ResultStudio
         {
             string message = String.Empty;
             visualRepController.HighlightDataGrid(ref dgvData, out message);
-            lblOutOfBoundMessage.Visible = true;
             logBuilder.AppendLine(message);
 
+            // Update the Outliers control in the UI:
+            visualRepController.PopulateOutliersText(ref listOutOfBoundParts,dgvData, out message);
+
+            ToggleToleranceControlersVisibulity(true);
             // Update status bar after every process, incase there was error, it needs to be shown.
             UpdateStatus(message);
         }
