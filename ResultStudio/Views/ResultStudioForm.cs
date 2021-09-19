@@ -38,6 +38,7 @@ namespace ResultStudio
             lblOutOfBoundMessage.Text = Properties.Resources.sTextTolerenceHighlightMessage;
             lblOutliers.Text = Properties.Resources.sTextOutlierPart;
             lblPartOutlier.Text = Properties.Resources.sLabelTextOutlierParts;
+            lblTrends.Text = Properties.Resources.sLabelTextTrends;
             ToggleToleranceControlersVisibulity(false);
         }
 
@@ -50,7 +51,7 @@ namespace ResultStudio
         /// <param name="bIsVisible"> boolean value to identify if the controls should be shown or not.</param>
         private void ToggleToleranceControlersVisibulity(bool bIsVisible)
         {
-            lblOutOfBoundMessage.Visible = lblOutliers.Visible = listOutOfBoundParts.Visible = lblPartOutlier.Visible = bIsVisible;
+            lblOutOfBoundMessage.Visible = lblOutliers.Visible = listOutOfBoundParts.Visible = lblPartOutlier.Visible = lblTrends.Visible = txtTrendValue.Visible =bIsVisible;
         }
 
         /// <summary>
@@ -225,6 +226,9 @@ namespace ResultStudio
 
             // Update the Outliers control in the UI:
             visualRepController.PopulateOutliersText(ref listOutOfBoundParts,dgvData, out message);
+
+            // Update the Outliers Parts:
+            //visualRepController.PopulateTrendsText(ref txtTrendValue, out message);
 
             ToggleToleranceControlersVisibulity(true);
             // Update status bar after every process, incase there was error, it needs to be shown.

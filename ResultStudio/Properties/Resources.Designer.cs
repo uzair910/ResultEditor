@@ -178,6 +178,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trends in axis values as PartsID increases:.
+        /// </summary>
+        internal static string sLabelTextTrends {
+            get {
+                return ResourceManager.GetString("sLabelTextTrends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Measurement.
         /// </summary>
         internal static string sMeasurementText {

@@ -272,7 +272,7 @@ namespace ResultStudio.Controllers
                 return;
             try
             {
-                sbOutOfBoundPart = new StringBuilder();
+
                 foreach (DataGridViewRow row in dgvData.Rows)
                 {
                     string xVal = row.Cells[Properties.Resources.sAxisX].Value.ToString();
@@ -285,17 +285,35 @@ namespace ResultStudio.Controllers
                     {
                         outputControl.AppendText(row.Cells["Key"].Value.ToString() + "\t(" + xVal + "," + yVal + "," + zVal + ")\n");
                         row.DefaultCellStyle.BackColor = Color.Firebrick;
-                    }else
+                    }
+                    else
                     {
                         row.DefaultCellStyle.BackColor = Color.White;
                     }
                 }
+              
             }
             catch (Exception e)
             {
                 messageLog = "Error in highlighting grid:\n" + e.ToString();
                 return;
             }
+        }
+
+        private void GetOutOfBoundPointsForAxis(string sActiveAxis)
+        {
+            sbOutOfBoundPart = new StringBuilder();
+            foreach (KeyValuePair<int, Vector> part in data)
+            {
+                double val = GetAxisValue(part, sActiveAxis);
+                if (!TestRange(val, m_dLowerToleranceValue, m_dUpperToleranceValue))
+                    sbOutOfBoundPart.AppendLine("ID: " + part.Key.ToString() + ",\t Value:" + val);
+            }
+        }
+
+        private bool TestRange(double numberToCheck, double bottom, double top)
+        {
+            return (numberToCheck >= bottom && numberToCheck <= top);
         }
         /// <summary>
         /// Set the chart series type (visual representation of data)
@@ -485,6 +503,8 @@ namespace ResultStudio.Controllers
             canvasChart.Series[2].BorderWidth = 4;
 
             sActiveAxis = stats.Axis;
+            // Need to update text in StatsView ..
+            GetOutOfBoundPointsForAxis(sActiveAxis);
             // Lets see what values lie outside grid and highlight those...
             OnHighlightGridButtonClicked(e);
             ((StatsViewControl)sender).PartsOutOfToleranceRange = sbOutOfBoundPart;

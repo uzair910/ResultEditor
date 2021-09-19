@@ -166,6 +166,10 @@
   <data name="sLabelTextOutlierParts" xml:space="preserve">
     <value>Part IDs with all axis values outside the tolerance range are highlighted in Red.</value>
   </data>
+  <data name="sLabelTextTrends" xml:space="preserve">
+    <value>Trends in axis values as PartsID increases:</value>
+    <comment>Label to show trends text.</comment>
+  </data>
   <data name="sMeasurementText" xml:space="preserve">
     <value>Measurement</value>
     <comment>To compare and and skip reading line if it contains header text</comment>
