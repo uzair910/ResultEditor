@@ -151,33 +151,6 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The average calculated for this axis is #VALUE#..
-        /// </summary>
-        internal static string sTextAverage {
-            get {
-                return ResourceManager.GetString("sTextAverage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The maximum value found for this axis is #VALUE# against Part ID: #PARTID#.
-        /// </summary>
-        internal static string sTextMaximum {
-            get {
-                return ResourceManager.GetString("sTextMaximum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The minimum value found for this axis is #VALUE# against Part ID: #PARTID#.
-        /// </summary>
-        internal static string sTextMinimum {
-            get {
-                return ResourceManager.GetString("sTextMinimum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The values out of tolerance limits are highlighted in color Pink..
         /// </summary>
         internal static string sTextTolerenceHighlightMessage {
