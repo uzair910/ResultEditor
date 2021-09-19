@@ -15,16 +15,18 @@ namespace ResultStudio.Controllers
     {
         private Dictionary<int, Vector> data;
         private double dMinX, dMinY, dMinZ, dMaxX, dMaxY, dMaxZ;
-        private string m_sChartType = string.Empty;
-        private string m_sActiveAxis = string.Empty; 
-        private Chart m_chartXAxis;
-        private Chart m_chartYAxis;
-        private Chart m_chartZAxis;
-        public Chart XAxisChart { set { this.m_chartXAxis = value; } }
-        public Chart YAxisChart { set { this.m_chartYAxis = value; } }
-        public Chart ZAxisChart { set { this.m_chartZAxis = value; } }
+        private string sChartType = string.Empty;
+        private string sActiveAxis = string.Empty;
+        private Chart chartXAxis;
+        private Chart chartYAxis;
+        private Chart chartZAxis;
+        public Chart XAxisChart { set { this.chartXAxis = value; } }
+        public Chart YAxisChart { set { this.chartYAxis = value; } }
+        public Chart ZAxisChart { set { this.chartZAxis = value; } }
 
-        public string ActiveAxis { get { return this.m_sActiveAxis ; } }
+        public string ActiveAxis { get { return this.sActiveAxis; } }
+        // Out of tolerance range part and value string. 
+        private StringBuilder sbOutOfBoundPart;
         public VisualRepresentationController()
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
@@ -36,8 +38,8 @@ namespace ResultStudio.Controllers
         public void Clear()
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
-            m_chartXAxis = m_chartYAxis = m_chartZAxis =  null;
-            m_sChartType = m_sActiveAxis = string.Empty;
+            chartXAxis = chartYAxis = chartZAxis = null;
+            sChartType = sActiveAxis = string.Empty;
             data = null;
 
         }
@@ -48,7 +50,7 @@ namespace ResultStudio.Controllers
 
         private double m_dUpperToleranceValue;
         private double m_dLowerToleranceValue;
-        public double UpperToleranceValue { get { return m_dUpperToleranceValue; }}
+        public double UpperToleranceValue { get { return m_dUpperToleranceValue; } }
         public double LowerToleranceValue { get { return m_dLowerToleranceValue; } }
         public void PopulatePointDistributionGraph(Chart canvasChart, out string messageLog)
         {
@@ -71,7 +73,7 @@ namespace ResultStudio.Controllers
                 canvasChart.Series[1].Color = Color.Green; ;
                 canvasChart.Series[2].Color = Color.OrangeRed;
                 GetMinMaxFromData();
-                m_sChartType = canvasChart.Series[0].ChartType.ToString();
+                sChartType = canvasChart.Series[0].ChartType.ToString();
             }
             catch (Exception e)
             {
@@ -125,11 +127,11 @@ namespace ResultStudio.Controllers
             switch (axisType)
             {
                 case "X":
-                    return m_chartXAxis;
+                    return chartXAxis;
                 case "Y":
-                    return m_chartYAxis;
+                    return chartYAxis;
                 case "Z":
-                    return m_chartZAxis;
+                    return chartZAxis;
                 default:
                     return null;
             }
@@ -169,9 +171,65 @@ namespace ResultStudio.Controllers
             canvasChart.Series[1].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
             canvasChart.Series[2].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
         }
+
+        public void HighlightDataGrid(ref DataGridView dgvData, out string message)
+        {
+            message = string.Empty;
+            if (data == null)
+                return;
+            try
+            {
+                sbOutOfBoundPart = new StringBuilder();
+                foreach (DataGridViewRow row in dgvData.Rows)
+                {
+
+                    double xVal = double.Parse(row.Cells[Properties.Resources.sAxisX].Value.ToString());
+                    double yVal = double.Parse(row.Cells[Properties.Resources.sAxisY].Value.ToString());
+                    double zVal = double.Parse(row.Cells[Properties.Resources.sAxisZ].Value.ToString());
+
+                    switch (ActiveAxis)
+                    {
+                        case "X":
+                            if (xVal < LowerToleranceValue || xVal > UpperToleranceValue) { 
+                                row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.Pink;
+                                sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisX].Value.ToString());
+                            }
+                            else
+                                row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.White;
+                            break;
+                        case "Y":
+                            if (yVal < LowerToleranceValue || yVal > UpperToleranceValue) { 
+                                row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.Pink;
+                                sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisY].Value.ToString());
+                            }
+                            else
+                                row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.White;
+                            break;
+                        case "Z":
+                            if (zVal < LowerToleranceValue || zVal > UpperToleranceValue) { 
+                                row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.Pink;
+                                sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisZ].Value.ToString());
+                            }
+                            else
+                                row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.White;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                // Need to show the out of bound parts in the Statistic control tab:
+
+            }
+            catch (Exception e)
+            {
+                message = "Error in highlighting grid:\n" + e.ToString();
+                return;
+            }
+        }
+
         public string GetChartType()
         {
-            return m_sChartType;
+            return sChartType;
         }
 
         //Close the form when you received the notification
@@ -223,7 +281,7 @@ namespace ResultStudio.Controllers
             {
                 setUpperTolernace = canvasChart.Series.FindByName(serUpperToleranceName);
             }
-            
+
             setUpperTolernace.ChartArea = canvasChart.ChartAreas[0].Name;
             setUpperTolernace.Name = serUpperToleranceName;
             setUpperTolernace.ChartType = SeriesChartType.Line;
@@ -245,9 +303,10 @@ namespace ResultStudio.Controllers
             canvasChart.Series[2].Color = Color.Red;
             canvasChart.Series[2].BorderWidth = 4;
 
-            m_sActiveAxis = stats.Axis;
+            sActiveAxis = stats.Axis;
             // Lets see what values lie outside grid and highlight those...
             OnHighlightGridButtonClicked(e);
+            ((StatsViewControl)sender).PartsOutOfToleranceRange = sbOutOfBoundPart;
         }
 
         public event EventHandler HighlightGridButtonClicked;
@@ -337,6 +396,6 @@ namespace ResultStudio.Controllers
             canvasChart.ChartAreas[0].AxisX.Maximum = 20;
         }
 
-        
+
     }
 }

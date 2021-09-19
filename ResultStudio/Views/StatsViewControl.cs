@@ -16,7 +16,6 @@ namespace ResultStudio.Views
     public partial class StatsViewControl : UserControl
     {
         private AxisStatistics axisStats;
-        ToolTip helpToolTip;
         public double Tolerance
         {
             get
@@ -28,24 +27,38 @@ namespace ResultStudio.Views
         }
         public AxisStatistics AxisStatistics { set { this.axisStats = value; } get { return this.axisStats; } }
 
+        // Out of tolerance range part(s) and their corresponding axis value
+        private StringBuilder sb_OutOfBoundParts;
+
         public StatsViewControl()
         {
             InitializeComponent();
             axisStats = null;
-            helpToolTip = new ToolTip();
+            // can be moved to designer. 
+            this.lblTitleOutOfRangeParts.Text = Properties.Resources.sHeaderOutOfToleranceParts;
+            sb_OutOfBoundParts = new StringBuilder();
         }
 
+        public StringBuilder PartsOutOfToleranceRange
+        {
+            set
+            {
+                sb_OutOfBoundParts = value;
+                if (string.IsNullOrEmpty(value.ToString())) 
+                    listOutOfBoundParts.Text = Properties.Resources.sNoneText;
+                else
+                    listOutOfBoundParts.Text = sb_OutOfBoundParts.ToString();
+            }
+        }
         public void LoadControl(out string message)
         {
             txtTolerace.Text = string.Empty;
-            lblValToleranceUpperLimit.Text = lblValToleranceLowerLimit.Text = "Not yet defined.";
             message = string.Empty;
             if (axisStats == null)
             {
                 message = Properties.Resources.sAxisStatLoadError;
                 return;
             }
-
             // Set labels: 
             SetStatisticsLabelValue();
             // no need to show tolerance varialbe right now. Hide them. 
@@ -89,6 +102,7 @@ namespace ResultStudio.Views
         private void ToggleToleranceLabelVisibilty(bool bIsVisible)
         {
             lblToleranceLowerLimit.Visible = lblToleranceUpperLimit.Visible = lblValToleranceLowerLimit.Visible = lblValToleranceUpperLimit.Visible = bIsVisible;
+            lblTitleOutOfRangeParts.Visible = listOutOfBoundParts.Visible = bIsVisible;
         }
 
         #region events
@@ -104,9 +118,16 @@ namespace ResultStudio.Views
         }
         protected virtual void OnToleranceButtonClicked(EventArgs e)
         {
+            // Incase there is no value in textbox, show a tool tip prompting user to enter a value
+            if (string.IsNullOrEmpty(txtTolerace.Text))
+            {
+                new ToolTip().Show(Properties.Resources.sEnterValueText, txtTolerace);
+                return;
+            }
             ToggleToleranceLabelVisibilty(true);
             ToleranceButtonClicked.Invoke(this, e);
         }
+
         // method should be invoked in parent control, so that charts can be updated accordingly.
         private void btnTolerance_Click(object sender, EventArgs e)
         {

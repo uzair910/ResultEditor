@@ -140,6 +140,9 @@
   <data name="sChartNotAssigned" xml:space="preserve">
     <value>Error: Trying to populate chart that is null. </value>
   </data>
+  <data name="sEnterValueText" xml:space="preserve">
+    <value>Enter a value</value>
+  </data>
   <data name="sErrNoData" xml:space="preserve">
     <value>Error: No data found. </value>
     <comment>Error to be thrown if chart is loaded without any data.</comment>
@@ -148,6 +151,10 @@
     <value>Vector array must contain exactly three components.</value>
     <comment>Error text if vector array is invalid. </comment>
   </data>
+  <data name="sHeaderOutOfToleranceParts" xml:space="preserve">
+    <value>Part(s) out of range:</value>
+    <comment>Label text .</comment>
+  </data>
   <data name="sIntialDirectoryPath" xml:space="preserve">
     <value>..\\Library\\Input</value>
     <comment>Intial path to load file selection dialog</comment>
@@ -155,6 +162,10 @@
   <data name="sMeasurementText" xml:space="preserve">
     <value>Measurement</value>
     <comment>To compare and and skip reading line if it contains header text</comment>
+  </data>
+  <data name="sNoneText" xml:space="preserve">
+    <value>No Parts lies outside the calculated tolerance range.</value>
+    <comment>when no part lies outside the range, show this</comment>
   </data>
   <data name="sPartID" xml:space="preserve">
     <value>Part ID</value>

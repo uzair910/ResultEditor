@@ -39,5 +39,13 @@ namespace ResultStudio.Controllers
         {
             data = null;
         }
+
+        public object GetResultsList()
+        {
+            return
+                 (from entry in DataSet
+                  orderby entry.Key
+                  select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
+        }
     }
 }

@@ -158,61 +158,18 @@ namespace ResultStudio
                 return;
 
             // Need to convert dictionary into a table/array form. Using Linq
-            var _priceDataArray = (from entry in resultEditorController.DataSet
-                                   orderby entry.Key
-                                   select new { entry.Key, entry.Value.X, entry.Value.Y, entry.Value.Z }).ToList();
-            dataSet.DataSource = _priceDataArray;
+            dataSet.DataSource = resultEditorController.GetResultsList(); ;
             // give meaning full name to part id column.. Key doesnt seem suitable.
             dgvData.Columns["Key"].HeaderText = Properties.Resources.sPartID;
         }
 
-
         // To call this method when tolerance is calculated and we need to highlight rows that are outside tolerance range
         private void HighlightDataGrid(object sender, EventArgs e)
         {
-            if (resultEditorController.DataSet == null)
-                return;
+            string message = String.Empty;
+            visualRepController.HighlightDataGrid(ref dgvData, out message);
             lblOutOfBoundMessage.Visible = true;
-
-            double maxTolerance = visualRepController.UpperToleranceValue;
-            double minTolerance = visualRepController.LowerToleranceValue;
-
-            //visualRepController.ActiveAxis
-            foreach (DataGridViewRow row in dgvData.Rows)
-            {
-
-                double xVal = double.Parse(row.Cells[Properties.Resources.sAxisX].Value.ToString());
-                double yVal = double.Parse(row.Cells[Properties.Resources.sAxisY].Value.ToString());
-                double zVal = double.Parse(row.Cells[Properties.Resources.sAxisZ].Value.ToString());
-
-                switch (visualRepController.ActiveAxis)
-                {
-                    case "X":
-                        if (xVal < minTolerance || xVal > maxTolerance)
-                            row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.Pink;
-                        else
-                            row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.White;
-                        break;
-                    case "Y":
-                        if (yVal < minTolerance || yVal > maxTolerance)
-                            row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.Pink;
-                        else
-                            row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.White;
-                        break;
-                    case "Z":
-                        if (zVal < minTolerance || zVal > maxTolerance)
-                            row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.Pink;
-                        else
-                            row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.White;
-                        break;
-                    default:
-                        break;
-                }
-                if (row.Cells[0].Value.ToString() == "someVal")
-                {
-                    row.DefaultCellStyle.BackColor = Color.Tomato;
-                }
-            }
+            logBuilder.AppendLine(message);
         }
         #endregion
 
@@ -243,7 +200,6 @@ namespace ResultStudio
             String[] Names = Enum.GetNames(EnumType);
             comboSeries.DataSource = Names.Select((Key, Value) =>
                                         new { Key, Value }).ToDictionary(X => X.Key, X => X.Value + 1).OrderBy(i => i.Key).ToList(); ;
-
             comboSeries.DisplayMember = "Key";
         }
         private void chart_MouseWheel(object sender, MouseEventArgs e)

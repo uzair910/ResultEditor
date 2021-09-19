@@ -115,6 +115,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter a value.
+        /// </summary>
+        internal static string sEnterValueText {
+            get {
+                return ResourceManager.GetString("sEnterValueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: No data found. .
         /// </summary>
         internal static string sErrNoData {
@@ -133,6 +142,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Part(s) out of range:.
+        /// </summary>
+        internal static string sHeaderOutOfToleranceParts {
+            get {
+                return ResourceManager.GetString("sHeaderOutOfToleranceParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ..\\Library\\Input.
         /// </summary>
         internal static string sIntialDirectoryPath {
@@ -147,6 +165,15 @@ namespace ResultStudio.Properties {
         internal static string sMeasurementText {
             get {
                 return ResourceManager.GetString("sMeasurementText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Parts lies outside the calculated tolerance range..
+        /// </summary>
+        internal static string sNoneText {
+            get {
+                return ResourceManager.GetString("sNoneText", resourceCulture);
             }
         }
         
