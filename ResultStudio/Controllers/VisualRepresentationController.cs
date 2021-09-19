@@ -13,6 +13,7 @@ namespace ResultStudio.Controllers
 {
     public class VisualRepresentationController
     {
+        #region Variable declarations and Constructor/Destructor
         private Dictionary<int, Vector> data;
         private double dMinX, dMinY, dMinZ, dMaxX, dMaxY, dMaxZ;
         private string sChartType = string.Empty;
@@ -44,6 +45,7 @@ namespace ResultStudio.Controllers
         ~VisualRepresentationController()
         {
         }
+        #endregion
 
         /// <summary>
         /// Clear local variables.
@@ -336,19 +338,6 @@ namespace ResultStudio.Controllers
         }
 
         /// <summary>
-        /// Set the min and max values for each  Axis from the data set.
-        /// </summary>
-        private void AssignMinMaxFromData()
-        {
-            dMinX = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
-            dMinY = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
-            dMinZ = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
-            dMaxX = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
-            dMaxY = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
-            dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
-        }
-
-        /// <summary>
         /// Set the styles of the chart.
         /// </summary>
         /// <param name="canvasChart">Chart to be editted.</param>
@@ -370,6 +359,18 @@ namespace ResultStudio.Controllers
             canvasChart.ChartAreas[0].AxisX.Maximum = 20;
         }
 
+        /// <summary>
+        /// Set the min and max values for each  Axis from the data set.
+        /// </summary>
+        private void AssignMinMaxFromData()
+        {
+            dMinX = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
+            dMinY = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
+            dMinZ = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
+            dMaxX = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
+            dMaxY = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
+            dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
+        }
 
         #region Data Bindings.
         private void ToleranceButtonClicked(object sender, EventArgs e)

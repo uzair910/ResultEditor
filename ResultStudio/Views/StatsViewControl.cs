@@ -26,10 +26,8 @@ namespace ResultStudio.Views
             }
         }
         public AxisStatistics AxisStatistics { set { this.axisStats = value; } get { return this.axisStats; } }
-
         // Out of tolerance range part(s) and their corresponding axis value
         private StringBuilder sb_OutOfBoundParts;
-
         public StatsViewControl()
         {
             InitializeComponent();
@@ -38,11 +36,11 @@ namespace ResultStudio.Views
             this.lblTitleOutOfRangeParts.Text = Properties.Resources.sHeaderOutOfToleranceParts;
             sb_OutOfBoundParts = new StringBuilder();
         }
-
         public StringBuilder PartsOutOfToleranceRange
         {
             set
             {
+                // sets the text box with a list of all the parts that are outside tolerance range.
                 sb_OutOfBoundParts = value;
                 if (string.IsNullOrEmpty(value.ToString())) 
                     listOutOfBoundParts.Text = Properties.Resources.sNoneText;
@@ -50,6 +48,11 @@ namespace ResultStudio.Views
                     listOutOfBoundParts.Text = sb_OutOfBoundParts.ToString();
             }
         }
+
+        /// <summary>
+        /// Loads the control.
+        /// </summary>
+        /// <param name="message">The message for the logging purposes</param>
         public void LoadControl(out string message)
         {
             txtTolerace.Text = string.Empty;
@@ -64,8 +67,9 @@ namespace ResultStudio.Views
             // no need to show tolerance varialbe right now. Hide them. 
             ToggleToleranceLabelVisibilty(false);
         }
-
-        // Set label values.
+        /// <summary>
+        /// Set Statistics Label values.. 
+        /// </summary>
         public void SetStatisticsLabelValue()
         {
             lblValMax.Text = axisStats.GetMaximumValue().ToString();
@@ -74,12 +78,21 @@ namespace ResultStudio.Views
             lblVariationValue.Text = axisStats.GetVariation().ToString();
         }
 
+        /// <summary>
+        /// Set ToleranceLabel values.. 
+        /// </summary>
         public void SetToleranceValue()
         {
             lblValToleranceLowerLimit.Text = axisStats.MinToleranceValue.ToString();
             lblValToleranceUpperLimit.Text = axisStats.MaxToleranceValue.ToString();
         }
 
+        /// <summary>
+        /// Validate that the value in tolerance textbox is a valid decimal value.
+        /// </summary>
+        /// <param name="keyChar"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private bool isValidDecimal(char keyChar, string text)
         {
             bool res = true;
@@ -99,6 +112,10 @@ namespace ResultStudio.Views
             return res;
         }
 
+        /// <summary>
+        /// Trigers the visibility of Tolerance related controls.
+        /// </summary>
+        /// <param name="bIsVisible"></param>
         private void ToggleToleranceLabelVisibilty(bool bIsVisible)
         {
             lblToleranceLowerLimit.Visible = lblToleranceUpperLimit.Visible = lblValToleranceLowerLimit.Visible = lblValToleranceUpperLimit.Visible = bIsVisible;
@@ -127,16 +144,23 @@ namespace ResultStudio.Views
             ToggleToleranceLabelVisibilty(true);
             ToleranceButtonClicked.Invoke(this, e);
         }
-
-        // method should be invoked in parent control, so that charts can be updated accordingly.
         private void btnTolerance_Click(object sender, EventArgs e)
         {
             OnToleranceButtonClicked(e);
         }
+
+        // Can just use MouseOver... replace it.. TBD
+        /// <summary>
+        /// Show text explaining how tolerance works in this project , when mouse hovers over tolerace controls (textbox and label)
+        /// </summary>
         private void ToleranceControls_MouseEnter(object sender, EventArgs e)
         {
             lblToleranceExplaination.Text = Properties.Resources.sToleranceExplaination;
         }
+
+        /// <summary>
+        /// Hide text explaining how tolerance works in this project , when mouse leaves tolerace controls (textbox and label)
+        /// </summary>
         private void ToleranceControls_MouseLeave(object sender, EventArgs e)
         {
             lblToleranceExplaination.Text = string.Empty;
