@@ -20,13 +20,23 @@ namespace ResultStudio.Controllers
         private Chart chartXAxis;
         private Chart chartYAxis;
         private Chart chartZAxis;
+        private double m_dUpperToleranceValue;
+        private double m_dLowerToleranceValue;
+
         public Chart XAxisChart { set { this.chartXAxis = value; } }
         public Chart YAxisChart { set { this.chartYAxis = value; } }
         public Chart ZAxisChart { set { this.chartZAxis = value; } }
-
         public string ActiveAxis { get { return this.sActiveAxis; } }
+        public Dictionary<int, Vector> DataSet
+        {
+            set { this.data = value; }
+        }
+        public double UpperToleranceValue { get { return m_dUpperToleranceValue; } }
+        public double LowerToleranceValue { get { return m_dLowerToleranceValue; } }
+
         // Out of tolerance range part and value string. 
         private StringBuilder sbOutOfBoundPart;
+
         public VisualRepresentationController()
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
@@ -35,23 +45,22 @@ namespace ResultStudio.Controllers
         {
         }
 
+        /// <summary>
+        /// Clear local variables.
+        /// </summary>
         public void Clear()
         {
             dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
             chartXAxis = chartYAxis = chartZAxis = null;
             sChartType = sActiveAxis = string.Empty;
             data = null;
-
-        }
-        public Dictionary<int, Vector> DataSet
-        {
-            set { this.data = value; }
         }
 
-        private double m_dUpperToleranceValue;
-        private double m_dLowerToleranceValue;
-        public double UpperToleranceValue { get { return m_dUpperToleranceValue; } }
-        public double LowerToleranceValue { get { return m_dLowerToleranceValue; } }
+        /// <summary>
+        /// This method populates the main chart with all the axis.
+        /// </summary>
+        /// <param name="canvasChart">Chart to be populated.</param>
+        /// <param name="messageLog"> to keep track of progress, that will be updated to the log view.</param>
         public void PopulatePointDistributionGraph(Chart canvasChart, out string messageLog)
         {
             messageLog = string.Empty;
@@ -72,7 +81,7 @@ namespace ResultStudio.Controllers
                 canvasChart.Series[0].Color = Color.Blue; ;
                 canvasChart.Series[1].Color = Color.Green; ;
                 canvasChart.Series[2].Color = Color.OrangeRed;
-                GetMinMaxFromData();
+                AssignMinMaxFromData();
                 sChartType = canvasChart.Series[0].ChartType.ToString();
             }
             catch (Exception e)
@@ -80,9 +89,15 @@ namespace ResultStudio.Controllers
                 messageLog += "\n ERROR in loading main chart: " + e.ToString();
             }
         }
-        public void PopulateAxisGraph(string axisType, out string messageLog)
+
+        /// <summary>
+        /// This method is to populate the chart specific to one axis.
+        /// </summary>
+        /// <param name="sAxisType">To identify which chart needs to be populated (X,Y or Z).</param>
+        /// <param name="messageLog"> to keep track of progress, that will be updated to the log view.</param>
+        public void PopulateAxisGraph(string sAxisType, out string messageLog)
         {
-            Chart canvasChart = GetActiveChart(axisType);
+            Chart canvasChart = GetActiveChart(sAxisType);
             if (canvasChart == null)
             {
                 messageLog = Properties.Resources.sChartNotAssigned;
@@ -100,17 +115,17 @@ namespace ResultStudio.Controllers
                 double value = 0;
                 foreach (KeyValuePair<int, Vector> part in data)
                 {
-                    value = GetAxisValue(part, axisType);
+                    value = GetAxisValue(part, sAxisType);
                     canvasChart.Series[0].Points.AddXY(part.Key, value);
                 }
                 SetChartStyles(canvasChart);
 
                 double dMinimum = 0;
                 double dMaximum = 0;
-                GetMinMaxValue(ref dMinimum, ref dMaximum, axisType);
+                GetMinMaxValue(ref dMinimum, ref dMaximum, sAxisType);
                 canvasChart.ChartAreas[0].AxisY.Minimum = dMinimum;
                 canvasChart.ChartAreas[0].AxisY.Maximum = dMaximum;
-                canvasChart.Series[0].Color = GetColorForLine(axisType);
+                canvasChart.Series[0].Color = GetColorForLine(sAxisType);
                 // No need for legends in these charts.
                 canvasChart.Legends.Clear();
             }
@@ -122,9 +137,14 @@ namespace ResultStudio.Controllers
 
         }
 
-        private Chart GetActiveChart(string axisType)
+        /// <summary>
+        /// This method returns the chart, based on what axis (X,Y or Z) is passed by the UI layer.
+        /// </summary>
+        /// <param name="sAxisType">To identify which chart needs to be populated (X,Y or Z).</param>
+        /// <returns></returns>
+        private Chart GetActiveChart(string sAxisType)
         {
-            switch (axisType)
+            switch (sAxisType)
             {
                 case "X":
                     return chartXAxis;
@@ -137,7 +157,13 @@ namespace ResultStudio.Controllers
             }
         }
 
-        public void PopulateStatisticsControl(StatsViewControl controlToBeLoaded, string sAxis, out string messageLog)
+        /// <summary>
+        /// Populate the statistics for the axis specific charts.
+        /// </summary>
+        /// <param name="controlToBeLoaded"> The statistic control that is to be loaded.</param>
+        /// <param name="sAxisType">To identify which chart needs to be populated (X,Y or Z).</param>
+        /// <param name="messageLog"> to keep track of progress, that will be updated to the log view.</param>
+        public void PopulateStatisticsControl(StatsViewControl controlToBeLoaded, string sAxisType, out string messageLog)
         {
             messageLog = string.Empty;
             try
@@ -147,7 +173,7 @@ namespace ResultStudio.Controllers
                     messageLog = Properties.Resources.sErrNoData;
                 }
 
-                controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxis, ref data);
+                controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxisType, ref data);
                 controlToBeLoaded.ToleranceButtonClicked += ToleranceButtonClicked;
 
                 controlToBeLoaded.LoadControl(out messageLog);
@@ -164,17 +190,15 @@ namespace ResultStudio.Controllers
             }
             messageLog += "\n Axis statistics load successful.";
         }
-
-        public void SetChartType(Chart canvasChart, string chartType)
+       
+        /// <summary>
+        /// This method is used to highlight columns that lie outside the tolerance range.
+        /// </summary>
+        /// <param name="dgvData">The data grid with all the rows. Passed as reference from the UI layer.</param>
+        /// <param name="messageLog"> to keep track of progress, that will be updated to the log view.</param>
+        public void HighlightDataGrid(ref DataGridView dgvData, out string messageLog)
         {
-            canvasChart.Series[0].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
-            canvasChart.Series[1].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
-            canvasChart.Series[2].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);
-        }
-
-        public void HighlightDataGrid(ref DataGridView dgvData, out string message)
-        {
-            message = string.Empty;
+            messageLog = string.Empty;
             if (data == null)
                 return;
             try
@@ -190,7 +214,8 @@ namespace ResultStudio.Controllers
                     switch (ActiveAxis)
                     {
                         case "X":
-                            if (xVal < LowerToleranceValue || xVal > UpperToleranceValue) { 
+                            if (xVal < LowerToleranceValue || xVal > UpperToleranceValue)
+                            {
                                 row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.Pink;
                                 sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisX].Value.ToString());
                             }
@@ -198,7 +223,8 @@ namespace ResultStudio.Controllers
                                 row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.White;
                             break;
                         case "Y":
-                            if (yVal < LowerToleranceValue || yVal > UpperToleranceValue) { 
+                            if (yVal < LowerToleranceValue || yVal > UpperToleranceValue)
+                            {
                                 row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.Pink;
                                 sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisY].Value.ToString());
                             }
@@ -206,7 +232,8 @@ namespace ResultStudio.Controllers
                                 row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.White;
                             break;
                         case "Z":
-                            if (zVal < LowerToleranceValue || zVal > UpperToleranceValue) { 
+                            if (zVal < LowerToleranceValue || zVal > UpperToleranceValue)
+                            {
                                 row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.Pink;
                                 sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisZ].Value.ToString());
                             }
@@ -222,17 +249,129 @@ namespace ResultStudio.Controllers
             }
             catch (Exception e)
             {
-                message = "Error in highlighting grid:\n" + e.ToString();
+                messageLog = "Error in highlighting grid:\n" + e.ToString();
                 return;
             }
         }
 
-        public string GetChartType()
+        /// <summary>
+        /// Set the chart series type (visual representation of data)
+        /// </summary>
+        /// <param name="canvasChart">Chart to be editted.</param>
+        /// <param name="sChartSeries">The type of chart series</param>
+        public void SetChartType(Chart canvasChart, string sChartSeries)
         {
-            return sChartType;
+            canvasChart.Series[0].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), sChartSeries);
+            canvasChart.Series[1].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), sChartSeries);
+            canvasChart.Series[2].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), sChartSeries);
         }
 
-        //Close the form when you received the notification
+        /// <summary>
+        /// Get the grid line color for the axis.
+        /// </summary>
+        /// <param name="sAxisType">The identifier to tell which axis's value is needed.</param>
+        /// <returns></returns>
+        private Color GetColorForLine(string sAxisType)
+        {
+            switch (sAxisType)
+            {
+                case "X":
+                    return Color.Blue;
+                case "Y":
+                    return Color.Green;
+                case "Z":
+                    return Color.OrangeRed;
+                default:
+                    return Color.Black;
+            }
+
+        }
+
+        /// <summary>
+        /// Get Minimum and Maximum value for the axis.
+        /// </summary>
+        /// <param name="dMinimum">Reference to minimum value.</param>
+        /// <param name="dMaximum">Reference to maximum value.</param>
+        /// <param name="sAxisType">The identifier to tell which axis's value is needed.</param>
+        private void GetMinMaxValue(ref double dMinimum, ref double dMaximum, string sAxisType)
+        {
+            switch (sAxisType)
+            {
+                case "X":
+                    dMinimum = dMinX;
+                    dMaximum = dMaxX;
+                    break;
+                case "Y":
+                    dMinimum = dMinY;
+                    dMaximum = dMaxY;
+                    break;
+                case "Z":
+                    dMinimum = dMinZ;
+                    dMaximum = dMaxZ;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// This method returns the axis value for a specific part from the data set.
+        /// </summary>
+        /// <param name="part">Part, whose axis value is needed.</param>
+        /// <param name="sAxisType">The identifier to tell which axis's value is needed.</param>
+        /// <returns>The point value.</returns>
+        private double GetAxisValue(KeyValuePair<int, Vector> part, string sAxisType)
+        {
+            switch (sAxisType)
+            {
+                case "X":
+                    return part.Value.X;
+                case "Y":
+                    return part.Value.Y;
+                case "Z":
+                    return part.Value.Z;
+                default:
+                    return 0;
+            }
+        }
+
+        /// <summary>
+        /// Set the min and max values for each  Axis from the data set.
+        /// </summary>
+        private void AssignMinMaxFromData()
+        {
+            dMinX = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
+            dMinY = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
+            dMinZ = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
+            dMaxX = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
+            dMaxY = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
+            dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
+        }
+
+        /// <summary>
+        /// Set the styles of the chart.
+        /// </summary>
+        /// <param name="canvasChart">Chart to be editted.</param>
+        private void SetChartStyles(Chart canvasChart)
+        {
+            // Could be moved to designer class for ResultStudio
+            canvasChart.ChartAreas[0].CursorX.IsUserEnabled = true;
+            canvasChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            canvasChart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            canvasChart.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = true;
+
+            canvasChart.ChartAreas[0].CursorY.IsUserEnabled = true;
+            canvasChart.ChartAreas[0].CursorY.IsUserSelectionEnabled = true;
+            canvasChart.ChartAreas[0].AxisY.ScaleView.Zoomable = true;
+            canvasChart.ChartAreas[0].AxisY.ScrollBar.IsPositionedInside = true;
+            canvasChart.ChartAreas[0].CursorX.Interval = 0.01;
+
+            canvasChart.ChartAreas[0].AxisX.Minimum = 1;
+            canvasChart.ChartAreas[0].AxisX.Maximum = 20;
+        }
+
+
+        #region Data Bindings.
         private void ToleranceButtonClicked(object sender, EventArgs e)
         {
             AxisStatistics stats = ((StatsViewControl)sender).AxisStatistics;
@@ -314,88 +453,7 @@ namespace ResultStudio.Controllers
         {
             HighlightGridButtonClicked.Invoke(this, e);
         }
-
-        private Color GetColorForLine(string axisType)
-        {
-            switch (axisType)
-            {
-                case "X":
-                    return Color.Blue;
-                case "Y":
-                    return Color.Green;
-                case "Z":
-                    return Color.OrangeRed;
-                default:
-                    return Color.Black;
-            }
-
-        }
-
-        private void GetMinMaxValue(ref double dMinimum, ref double dMaximum, string axisType)
-        {
-            switch (axisType)
-            {
-                case "X":
-                    dMinimum = dMinX;
-                    dMaximum = dMaxX;
-                    break;
-                case "Y":
-                    dMinimum = dMinY;
-                    dMaximum = dMaxY;
-                    break;
-                case "Z":
-                    dMinimum = dMinZ;
-                    dMaximum = dMaxZ;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private double GetAxisValue(KeyValuePair<int, Vector> part, string axisType)
-        {
-            switch (axisType)
-            {
-                case "X":
-                    return part.Value.X;
-                case "Y":
-                    return part.Value.Y;
-                case "Z":
-                    return part.Value.Z;
-                default:
-                    return 0;
-            }
-        }
-
-        private void GetMinMaxFromData()
-        {
-            dMinX = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
-            dMinY = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
-            dMinZ = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
-
-            dMaxX = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
-            dMaxY = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
-            dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
-        }
-
-        private void SetChartStyles(Chart canvasChart)
-        {
-            // Could be moved to designer class for ResultStudio
-            canvasChart.ChartAreas[0].CursorX.IsUserEnabled = true;
-            canvasChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            canvasChart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            canvasChart.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = true;
-
-            canvasChart.ChartAreas[0].CursorY.IsUserEnabled = true;
-            canvasChart.ChartAreas[0].CursorY.IsUserSelectionEnabled = true;
-            canvasChart.ChartAreas[0].AxisY.ScaleView.Zoomable = true;
-            canvasChart.ChartAreas[0].AxisY.ScrollBar.IsPositionedInside = true;
-            canvasChart.ChartAreas[0].CursorX.Interval = 0.01;
-
-            canvasChart.ChartAreas[0].AxisX.Minimum = 1;
-            canvasChart.ChartAreas[0].AxisX.Maximum = 20;
-        }
-
+        #endregion
 
     }
 }
