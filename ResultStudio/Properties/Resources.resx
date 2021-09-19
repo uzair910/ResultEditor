@@ -182,6 +182,14 @@
     <value>Part ID</value>
     <comment>Column header text</comment>
   </data>
+  <data name="sTextAscendingPatterObserved" xml:space="preserve">
+    <value>Ascending order observed for Axis: </value>
+    <comment>Text to show ascending order</comment>
+  </data>
+  <data name="sTextDescendingPatterObserved" xml:space="preserve">
+    <value>Descending order observed for Axis:</value>
+    <comment>Text to show descending order</comment>
+  </data>
   <data name="sTextOutlierPart" xml:space="preserve">
     <value>Outliers: (PartID (X,Y,Z)</value>
   </data>

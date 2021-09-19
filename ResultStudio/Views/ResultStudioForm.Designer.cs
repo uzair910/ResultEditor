@@ -121,7 +121,7 @@
             this.chartTabControl.Location = new System.Drawing.Point(522, 3);
             this.chartTabControl.Name = "chartTabControl";
             this.chartTabControl.SelectedIndex = 0;
-            this.chartTabControl.Size = new System.Drawing.Size(636, 690);
+            this.chartTabControl.Size = new System.Drawing.Size(734, 690);
             this.chartTabControl.TabIndex = 4;
             // 
             // tabChart
@@ -132,7 +132,7 @@
             this.tabChart.Location = new System.Drawing.Point(4, 22);
             this.tabChart.Name = "tabChart";
             this.tabChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabChart.Size = new System.Drawing.Size(628, 664);
+            this.tabChart.Size = new System.Drawing.Size(726, 664);
             this.tabChart.TabIndex = 0;
             this.tabChart.Text = "Chart";
             this.tabChart.UseVisualStyleBackColor = true;
@@ -179,7 +179,7 @@
             this.chartAxisData.Series.Add(series1);
             this.chartAxisData.Series.Add(series2);
             this.chartAxisData.Series.Add(series3);
-            this.chartAxisData.Size = new System.Drawing.Size(622, 546);
+            this.chartAxisData.Size = new System.Drawing.Size(720, 546);
             this.chartAxisData.TabIndex = 0;
             this.chartAxisData.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartAxisData_MouseMove);
             // 
@@ -328,7 +328,7 @@
             this.txtTrendValue.Location = new System.Drawing.Point(234, 536);
             this.txtTrendValue.Name = "txtTrendValue";
             this.txtTrendValue.ReadOnly = true;
-            this.txtTrendValue.Size = new System.Drawing.Size(206, 73);
+            this.txtTrendValue.Size = new System.Drawing.Size(226, 73);
             this.txtTrendValue.TabIndex = 23;
             this.txtTrendValue.Text = "";
             // 
@@ -410,7 +410,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1161, 696);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1259, 696);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // ResultStudioForm
@@ -418,7 +418,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1161, 696);
+            this.ClientSize = new System.Drawing.Size(1259, 696);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ResultStudioForm";
             this.Text = "Result Studio";

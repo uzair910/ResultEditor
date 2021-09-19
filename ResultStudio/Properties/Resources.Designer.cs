@@ -214,6 +214,24 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ascending order observed for Axis: .
+        /// </summary>
+        internal static string sTextAscendingPatterObserved {
+            get {
+                return ResourceManager.GetString("sTextAscendingPatterObserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descending order observed for Axis:.
+        /// </summary>
+        internal static string sTextDescendingPatterObserved {
+            get {
+                return ResourceManager.GetString("sTextDescendingPatterObserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Outliers: (PartID (X,Y,Z).
         /// </summary>
         internal static string sTextOutlierPart {

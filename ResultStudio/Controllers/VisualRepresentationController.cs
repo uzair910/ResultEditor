@@ -256,6 +256,97 @@ namespace ResultStudio.Controllers
         }
 
         /// <summary>
+        /// method to show trends in axis.
+        /// </summary>
+        /// <param name="outputControl">Control which will show data.</param>
+        /// <param name="messageLog">This text will be updated in the log.</param>
+        public void PopulateTrendsText(ref RichTextBox outputControl, out string messageLog)
+        {
+           
+            messageLog = string.Empty;
+            outputControl.Text = string.Empty;
+            try
+            {
+                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisX);
+                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisY);
+                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisZ);
+
+                // if no trends are found, load default message:
+                if (string.IsNullOrEmpty(outputControl.Text))
+                    outputControl.Text += "No trends noted in any of the axis data.";
+            }
+            catch(Exception e)
+            {
+                messageLog = "Error in determing pattern:\n" + e.ToString();
+            }
+            messageLog += "Trends loaded.";
+        }
+        /// <summary>
+        /// Generic method to fetch trend pattern text for the axis that is passed to it
+        /// </summary>
+        /// <param name="sActiveAxis">The identifier to tell which axis's value is needed.</param>
+        /// <returns></returns>
+        private string GetTrendPattern(string sActiveAxis)
+        {
+            StringBuilder sbTrend = new StringBuilder();
+            // TODO
+            bool isAscending, isDecending = false;
+            CheckAxisValuesOrder(sActiveAxis, out isAscending, out isDecending);
+            if (isAscending)
+                sbTrend.AppendLine(Properties.Resources.sTextAscendingPatterObserved + " " + sActiveAxis);
+            if (isDecending)
+                sbTrend.AppendLine(Properties.Resources.sTextDescendingPatterObserved + " " + sActiveAxis);
+            return sbTrend.ToString();
+        }
+
+        /// <summary>
+        /// This Method checks if the axis values show any trend over a period of time (as parts progress..)
+        /// </summary>
+        /// <param name="sActiveAxis">The identifier to tell which axis's value is needed.</param>
+        /// <param name="isAscending">A boolean to show if ascending order pattern is observed</param>
+        /// <param name="isDecending">A boolean to show if descending order pattern is observed</param>
+        private void CheckAxisValuesOrder(string sActiveAxis, out bool isAscending, out bool isDecending)
+        {
+            isAscending = isDecending = false;
+            // Min value will actually contain max value from the series
+            double dMinVal = 0;
+            // Max value will actually contain max value from the series
+            double dMaxVal = 0;
+            GetMinMaxValue(ref dMaxVal, ref dMinVal, sActiveAxis);
+
+            foreach (KeyValuePair<int, Vector> part in data)
+            {
+                double val = GetAxisValue(part, sActiveAxis);
+                // Ascending order check..
+                if (val >= dMaxVal)
+                {
+                    isAscending = true;
+                    dMaxVal = val;
+                }
+                else
+                    isAscending = false;
+            }
+            if (isAscending)
+                return;
+
+            // Ascending pattern is not observed, lets try to see if there is a decending pattern:
+            foreach (KeyValuePair<int, Vector> part in data)
+            {
+                double val = GetAxisValue(part, sActiveAxis);
+                // decending order check
+                if (val <= dMinVal)
+                {
+                    isDecending = true;
+                    dMinVal = val;
+                }
+                else
+                    isDecending = false;
+            }
+
+
+        }
+
+        /// <summary>
         /// This method is used to place parts and axis values in the textbox where all axis are outside tolerance range.
         /// This method doesn't have the best implementation. I had to compromise with either
         ///     1. iterating throug grid items and seeing if all X Y and Z are pink, then add it to text.
@@ -291,7 +382,7 @@ namespace ResultStudio.Controllers
                         row.DefaultCellStyle.BackColor = Color.White;
                     }
                 }
-              
+
             }
             catch (Exception e)
             {
@@ -300,6 +391,10 @@ namespace ResultStudio.Controllers
             }
         }
 
+        /// <summary>
+        /// Show values and parts lying outside the tolerance of the axis.
+        /// </summary>
+        /// <param name="sActiveAxis">The identifier to tell which axis's value is needed.</param>
         private void GetOutOfBoundPointsForAxis(string sActiveAxis)
         {
             sbOutOfBoundPart = new StringBuilder();
@@ -311,9 +406,16 @@ namespace ResultStudio.Controllers
             }
         }
 
-        private bool TestRange(double numberToCheck, double bottom, double top)
+        /// <summary>
+        /// Method to check if the value lies withing a range
+        /// </summary>
+        /// <param name="numberToCheck">Which number to comapre.</param>
+        /// <param name="lowerLimit">Lower limit value</param>
+        /// <param name="upperLimit">Upper limit value</param>
+        /// <returns></returns>
+        private bool TestRange(double numberToCheck, double lowerLimit, double upperLimit)
         {
-            return (numberToCheck >= bottom && numberToCheck <= top);
+            return (numberToCheck >= lowerLimit && numberToCheck <= upperLimit);
         }
         /// <summary>
         /// Set the chart series type (visual representation of data)
@@ -503,8 +605,10 @@ namespace ResultStudio.Controllers
             canvasChart.Series[2].BorderWidth = 4;
 
             sActiveAxis = stats.Axis;
+
             // Need to update text in StatsView ..
             GetOutOfBoundPointsForAxis(sActiveAxis);
+
             // Lets see what values lie outside grid and highlight those...
             OnHighlightGridButtonClicked(e);
             ((StatsViewControl)sender).PartsOutOfToleranceRange = sbOutOfBoundPart;
