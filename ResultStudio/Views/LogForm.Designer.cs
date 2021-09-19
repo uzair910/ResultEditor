@@ -38,6 +38,7 @@ namespace ResultStudio.Views
             this.logTextContainer.Dock = System.Windows.Forms.DockStyle.Top;
             this.logTextContainer.Location = new System.Drawing.Point(0, 0);
             this.logTextContainer.Name = "logTextContainer";
+            this.logTextContainer.ReadOnly = true;
             this.logTextContainer.Size = new System.Drawing.Size(616, 288);
             this.logTextContainer.TabIndex = 0;
             this.logTextContainer.Text = "";

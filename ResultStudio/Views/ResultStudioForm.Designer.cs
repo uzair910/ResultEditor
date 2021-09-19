@@ -63,6 +63,7 @@
             this.lblOutOfBoundMessage = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblStatusBar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.chartTabControl.SuspendLayout();
             this.tabChart.SuspendLayout();
@@ -299,6 +300,7 @@
             // 
             // grpControls
             // 
+            this.grpControls.Controls.Add(this.lblStatusBar);
             this.grpControls.Controls.Add(this.lblOutOfBoundMessage);
             this.grpControls.Controls.Add(this.btnClear);
             this.grpControls.Controls.Add(this.btnReadFile);
@@ -344,6 +346,15 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1161, 614);
             this.tableLayoutPanel1.TabIndex = 6;
+            // 
+            // lblStatusBar
+            // 
+            this.lblStatusBar.AutoSize = true;
+            this.lblStatusBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblStatusBar.Location = new System.Drawing.Point(3, 592);
+            this.lblStatusBar.Name = "lblStatusBar";
+            this.lblStatusBar.Size = new System.Drawing.Size(0, 13);
+            this.lblStatusBar.TabIndex = 6;
             // 
             // ResultStudioForm
             // 
@@ -395,6 +406,7 @@
         private System.Windows.Forms.ComboBox cmbSeriesCol;
         private System.Windows.Forms.Label lblComboText;
         private System.Windows.Forms.Label lblOutOfBoundMessage;
+        private System.Windows.Forms.Label lblStatusBar;
     }
 }
 

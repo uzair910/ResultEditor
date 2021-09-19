@@ -115,6 +115,15 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please open log to see details..
+        /// </summary>
+        internal static string sCheckLog {
+            get {
+                return ResourceManager.GetString("sCheckLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a value.
         /// </summary>
         internal static string sEnterValueText {

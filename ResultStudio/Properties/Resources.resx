@@ -140,6 +140,10 @@
   <data name="sChartNotAssigned" xml:space="preserve">
     <value>Error: Trying to populate chart that is null. </value>
   </data>
+  <data name="sCheckLog" xml:space="preserve">
+    <value>Please open log to see details.</value>
+    <comment>Prompt text to user incase of error.</comment>
+  </data>
   <data name="sEnterValueText" xml:space="preserve">
     <value>Enter a value</value>
   </data>
