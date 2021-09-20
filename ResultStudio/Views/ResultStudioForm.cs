@@ -39,9 +39,9 @@ namespace ResultStudio
             lblOutliers.Text = Properties.Resources.sTextOutlierPart;
             lblPartOutlier.Text = Properties.Resources.sLabelTextOutlierParts;
             lblTrends.Text = Properties.Resources.sLabelTextTrends;
-            ToggleToleranceControlersVisibulity(false);
+            ToggleToleranceControlersVisibility(false);
             ToggleTrendVisibility(false);
-
+            ToggleButtonVisibility(false);
         }
 
         #region Helper methods
@@ -58,11 +58,19 @@ namespace ResultStudio
         /// Toggle visibility of contorls that we would require after the tolerance is calculated.
         /// </summary>
         /// <param name="bIsVisible"> boolean value to identify if the controls should be shown or not.</param>
-        private void ToggleToleranceControlersVisibulity(bool bIsVisible)
+        private void ToggleToleranceControlersVisibility(bool bIsVisible)
         {
             lblOutOfBoundMessage.Visible = lblOutliers.Visible = listOutOfBoundParts.Visible = lblPartOutlier.Visible  =bIsVisible;
         }
 
+        /// <summary>
+        /// Toggle visibility of button contorls.
+        /// </summary>
+        /// <param name="bIsVisible"> boolean value to identify if the controls should be shown or not.</param>
+        private void ToggleButtonVisibility(bool bIsVisible)
+        {
+            btnClear.Visible = btnLog.Visible = bIsVisible;
+        }
         /// <summary>
         /// the method clears the grid data.
         /// </summary>
@@ -78,7 +86,7 @@ namespace ResultStudio
         /// </summary>
         private void ClearCharts()
         {
-            ToggleToleranceControlersVisibulity(false);
+            ToggleToleranceControlersVisibility(false);
             ToggleTrendVisibility(false);
             // Normal axis chart.
             foreach (var series in chartAxisData.Series)
@@ -139,15 +147,16 @@ namespace ResultStudio
 
         private void UpdateStatus(string message)
         {
-            if (message.Contains("Error"))
+            if (message.ToUpper().Contains("ERROR"))
             {
                 lblStatusBar.ForeColor = Color.Red;
-                lblStatusBar.Text = message + Properties.Resources.sCheckLog;
+                lblStatusBar.Text = message +", "+ Properties.Resources.sCheckLog;
             }
             else
             {
                 lblStatusBar.Text = string.Empty;
             }
+            ToggleButtonVisibility(true);
         }
 
         /// <summary>
@@ -243,7 +252,7 @@ namespace ResultStudio
             visualRepController.PopulateOutliersText(ref listOutOfBoundParts,dgvData, out message);
 
            
-            ToggleToleranceControlersVisibulity(true);
+            ToggleToleranceControlersVisibility(true);
             // Update status bar after every process, incase there was error, it needs to be shown.
             UpdateStatus(message);
         }

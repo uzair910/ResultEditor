@@ -164,7 +164,7 @@
     <comment>Intial path to load file selection dialog</comment>
   </data>
   <data name="sLabelTextOutlierParts" xml:space="preserve">
-    <value>Part IDs with all axis values outside the tolerance range are highlighted in Red.</value>
+    <value>Part IDs with ALL axis values outside the tolerance range are highlighted in Red.</value>
   </data>
   <data name="sLabelTextTrends" xml:space="preserve">
     <value>Trends in axis values as PartsID increases:</value>
@@ -177,6 +177,14 @@
   <data name="sNoneText" xml:space="preserve">
     <value>No Parts lies outside the calculated tolerance range.</value>
     <comment>when no part lies outside the range, show this</comment>
+  </data>
+  <data name="sNoOutliersFoundText" xml:space="preserve">
+    <value>There are no parts with all axis values lying outside the tolerance range.</value>
+    <comment>Text to show in UI if no outliers are found</comment>
+  </data>
+  <data name="sNoTrendsNotedText" xml:space="preserve">
+    <value>No trends noted in any of the axis data.</value>
+    <comment>Text to show in UI if no trends are found</comment>
   </data>
   <data name="sPartID" xml:space="preserve">
     <value>Part ID</value>
@@ -194,7 +202,7 @@
     <value>Outliers: (PartID (X,Y,Z)</value>
   </data>
   <data name="sTextTolerenceHighlightMessage" xml:space="preserve">
-    <value>Axis outside their respective tolerance are highlighted in Pink.</value>
+    <value>Axis values outside their respective tolerance range are highlighted in Pink.</value>
     <comment>The values out of tolerance limits are highlighted in color Pink.</comment>
   </data>
   <data name="sToleranceExplaination" xml:space="preserve">

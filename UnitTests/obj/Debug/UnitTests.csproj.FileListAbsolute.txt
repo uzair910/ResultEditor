@@ -24,3 +24,14 @@ H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileInp
 H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.csproj.CopyComplete
 H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.dll
 H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\UnitTests.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\UnitTests.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\Moq.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\nunit.framework.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\Moq.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\Moq.xml
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.AssemblyReference.cache
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileInputs.cache
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.CopyComplete
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.dll
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.pdb

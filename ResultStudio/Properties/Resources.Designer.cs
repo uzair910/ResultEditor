@@ -169,7 +169,7 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Part IDs with all axis values outside the tolerance range are highlighted in Red..
+        ///   Looks up a localized string similar to Part IDs with ALL axis values outside the tolerance range are highlighted in Red..
         /// </summary>
         internal static string sLabelTextOutlierParts {
             get {
@@ -201,6 +201,24 @@ namespace ResultStudio.Properties {
         internal static string sNoneText {
             get {
                 return ResourceManager.GetString("sNoneText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no parts with all axis values lying outside the tolerance range..
+        /// </summary>
+        internal static string sNoOutliersFoundText {
+            get {
+                return ResourceManager.GetString("sNoOutliersFoundText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No trends noted in any of the axis data..
+        /// </summary>
+        internal static string sNoTrendsNotedText {
+            get {
+                return ResourceManager.GetString("sNoTrendsNotedText", resourceCulture);
             }
         }
         
@@ -241,7 +259,7 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Axis outside their respective tolerance are highlighted in Pink..
+        ///   Looks up a localized string similar to Axis values outside their respective tolerance range are highlighted in Pink..
         /// </summary>
         internal static string sTextTolerenceHighlightMessage {
             get {

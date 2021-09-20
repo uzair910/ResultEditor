@@ -91,6 +91,113 @@ namespace ResultStudio.Controllers
                 messageLog += "\nERROR in loading main chart: " + e.ToString();
             }
         }
+      
+        /// <summary>
+        /// Populate the statistics for the axis specific charts.
+        /// </summary>
+        /// <param name="controlToBeLoaded"> The statistic control that is to be loaded.</param>
+        /// <param name="sAxisType">To identify which chart needs to be populated (X,Y or Z).</param>
+        /// <param name="messageLog"> to keep track of progress, that will be updated to the log view.</param>
+        public void PopulateStatisticsControl(StatsViewControl controlToBeLoaded, string sAxisType, out string messageLog)
+        {
+            messageLog = string.Empty;
+            try
+            {
+                if (data == null)
+                {
+                    messageLog = Properties.Resources.sErrNoData;
+                }
+
+                controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxisType, ref data);
+                controlToBeLoaded.ToleranceButtonClicked += ToleranceButtonClicked;
+
+                controlToBeLoaded.LoadControl(out messageLog);
+                List<Vector> vectorList = new List<Vector>();
+                foreach (KeyValuePair<int, Vector> part in data)
+                {
+                    //value = GetAxisValue(part, sAxis);
+                }
+
+            }
+            catch (Exception e)
+            {
+                messageLog += "\nERROR in populating statistics: " + e.ToString();
+            }
+            messageLog += "Axis statistics load successful.";
+        }
+
+        /// <summary>
+        /// This method is used to place parts and axis values in the textbox where all axis are outside tolerance range.
+        /// This method doesn't have the best implementation. I had to compromise with either
+        ///     1. iterating throug grid items and seeing if all X Y and Z are pink, then add it to text.
+        ///     2. create new object containing Parts and points that lie outside tolerance and then compare results.
+        /// </summary>
+        /// <param name="outputControl">Reference of control where we want our data to be placed.</param>
+        /// /// <param name="dgvData">The data grid from the UI. If all the X,Y and Z columns are pink, that means the whole part is outlier.</param>
+        /// <param name="messageLog">To keep track of progress, that will be updated to the log view.</param>
+        public void PopulateOutliersText(ref RichTextBox outputControl, DataGridView dgvData, out string messageLog)
+        {
+            outputControl.Text = string.Empty;
+            messageLog = string.Empty;
+            if (data == null)
+                return;
+            try
+            {
+
+                foreach (DataGridViewRow row in dgvData.Rows)
+                {
+                    string xVal = row.Cells[Properties.Resources.sAxisX].Value.ToString();
+                    string yVal = row.Cells[Properties.Resources.sAxisY].Value.ToString();
+                    string zVal = row.Cells[Properties.Resources.sAxisZ].Value.ToString();
+
+                    if (row.Cells[Properties.Resources.sAxisX].Style.BackColor == Color.Pink &&
+                        row.Cells[Properties.Resources.sAxisY].Style.BackColor == Color.Pink &&
+                        row.Cells[Properties.Resources.sAxisZ].Style.BackColor == Color.Pink)
+                    {
+                        outputControl.AppendText(row.Cells["Key"].Value.ToString() + "\t(" + xVal + "," + yVal + "," + zVal + ")\n");
+                        row.DefaultCellStyle.BackColor = Color.Firebrick;
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.White;
+                    }
+                }
+                if (string.IsNullOrEmpty(outputControl.Text))
+                    outputControl.Text += Properties.Resources.sNoOutliersFoundText;
+            }
+            catch (Exception e)
+            {
+                messageLog = "Error in highlighting grid:\n" + e.ToString();
+                return;
+            }
+        }
+
+        /// <summary>
+        /// method to show trends in axis.
+        /// </summary>
+        /// <param name="outputControl">Control which will show data.</param>
+        /// <param name="messageLog">This text will be updated in the log.</param>
+        public void PopulateTrendsText(ref RichTextBox outputControl, out string messageLog)
+        {
+
+            messageLog = string.Empty;
+            outputControl.Text = string.Empty;
+            try
+            {
+                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisX);
+                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisY);
+                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisZ);
+
+                // if no trends are found, load default message:
+                if (string.IsNullOrEmpty(outputControl.Text))
+                    outputControl.Text += Properties.Resources.sNoTrendsNotedText;
+            }
+            catch (Exception e)
+            {
+                messageLog = "Error in determing pattern:\n" + e.ToString();
+            }
+            messageLog += "Trends loaded.";
+        }
 
         /// <summary>
         /// This method is to populate the chart specific to one axis.
@@ -160,40 +267,6 @@ namespace ResultStudio.Controllers
         }
 
         /// <summary>
-        /// Populate the statistics for the axis specific charts.
-        /// </summary>
-        /// <param name="controlToBeLoaded"> The statistic control that is to be loaded.</param>
-        /// <param name="sAxisType">To identify which chart needs to be populated (X,Y or Z).</param>
-        /// <param name="messageLog"> to keep track of progress, that will be updated to the log view.</param>
-        public void PopulateStatisticsControl(StatsViewControl controlToBeLoaded, string sAxisType, out string messageLog)
-        {
-            messageLog = string.Empty;
-            try
-            {
-                if (data == null)
-                {
-                    messageLog = Properties.Resources.sErrNoData;
-                }
-
-                controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxisType, ref data);
-                controlToBeLoaded.ToleranceButtonClicked += ToleranceButtonClicked;
-
-                controlToBeLoaded.LoadControl(out messageLog);
-                List<Vector> vectorList = new List<Vector>();
-                foreach (KeyValuePair<int, Vector> part in data)
-                {
-                    //value = GetAxisValue(part, sAxis);
-                }
-
-            }
-            catch (Exception e)
-            {
-                messageLog += "\nERROR in populating statistics: " + e.ToString();
-            }
-            messageLog += "Axis statistics load successful.";
-        }
-
-        /// <summary>
         /// This method is used to highlight columns that lie outside the tolerance range.
         /// </summary>
         /// <param name="dgvData">The data grid with all the rows. Passed as reference from the UI layer.</param>
@@ -253,33 +326,6 @@ namespace ResultStudio.Controllers
                 messageLog = "Error in highlighting grid:\n" + e.ToString();
                 return;
             }
-        }
-
-        /// <summary>
-        /// method to show trends in axis.
-        /// </summary>
-        /// <param name="outputControl">Control which will show data.</param>
-        /// <param name="messageLog">This text will be updated in the log.</param>
-        public void PopulateTrendsText(ref RichTextBox outputControl, out string messageLog)
-        {
-           
-            messageLog = string.Empty;
-            outputControl.Text = string.Empty;
-            try
-            {
-                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisX);
-                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisY);
-                outputControl.Text += GetTrendPattern(Properties.Resources.sAxisZ);
-
-                // if no trends are found, load default message:
-                if (string.IsNullOrEmpty(outputControl.Text))
-                    outputControl.Text += "No trends noted in any of the axis data.";
-            }
-            catch(Exception e)
-            {
-                messageLog = "Error in determing pattern:\n" + e.ToString();
-            }
-            messageLog += "Trends loaded.";
         }
 
         /// <summary>
@@ -345,51 +391,6 @@ namespace ResultStudio.Controllers
             }
 
 
-        }
-
-        /// <summary>
-        /// This method is used to place parts and axis values in the textbox where all axis are outside tolerance range.
-        /// This method doesn't have the best implementation. I had to compromise with either
-        ///     1. iterating throug grid items and seeing if all X Y and Z are pink, then add it to text.
-        ///     2. create new object containing Parts and points that lie outside tolerance and then compare results.
-        /// </summary>
-        /// <param name="outputControl">Reference of control where we want our data to be placed.</param>
-        /// /// <param name="dgvData">The data grid from the UI. If all the X,Y and Z columns are pink, that means the whole part is outlier.</param>
-        /// <param name="messageLog">To keep track of progress, that will be updated to the log view.</param>
-        public void PopulateOutliersText(ref RichTextBox outputControl, DataGridView dgvData, out string messageLog)
-        {
-            outputControl.Text = string.Empty;
-            messageLog = string.Empty;
-            if (data == null)
-                return;
-            try
-            {
-
-                foreach (DataGridViewRow row in dgvData.Rows)
-                {
-                    string xVal = row.Cells[Properties.Resources.sAxisX].Value.ToString();
-                    string yVal = row.Cells[Properties.Resources.sAxisY].Value.ToString();
-                    string zVal = row.Cells[Properties.Resources.sAxisZ].Value.ToString();
-
-                    if (row.Cells[Properties.Resources.sAxisX].Style.BackColor == Color.Pink &&
-                        row.Cells[Properties.Resources.sAxisY].Style.BackColor == Color.Pink &&
-                        row.Cells[Properties.Resources.sAxisZ].Style.BackColor == Color.Pink)
-                    {
-                        outputControl.AppendText(row.Cells["Key"].Value.ToString() + "\t(" + xVal + "," + yVal + "," + zVal + ")\n");
-                        row.DefaultCellStyle.BackColor = Color.Firebrick;
-                    }
-                    else
-                    {
-                        row.DefaultCellStyle.BackColor = Color.White;
-                    }
-                }
-
-            }
-            catch (Exception e)
-            {
-                messageLog = "Error in highlighting grid:\n" + e.ToString();
-                return;
-            }
         }
 
         /// <summary>

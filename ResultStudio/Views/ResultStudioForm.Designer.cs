@@ -121,7 +121,7 @@
             this.chartTabControl.Location = new System.Drawing.Point(522, 3);
             this.chartTabControl.Name = "chartTabControl";
             this.chartTabControl.SelectedIndex = 0;
-            this.chartTabControl.Size = new System.Drawing.Size(734, 690);
+            this.chartTabControl.Size = new System.Drawing.Size(724, 766);
             this.chartTabControl.TabIndex = 4;
             // 
             // tabChart
@@ -132,7 +132,7 @@
             this.tabChart.Location = new System.Drawing.Point(4, 22);
             this.tabChart.Name = "tabChart";
             this.tabChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabChart.Size = new System.Drawing.Size(726, 664);
+            this.tabChart.Size = new System.Drawing.Size(716, 740);
             this.tabChart.TabIndex = 0;
             this.tabChart.Text = "Chart";
             this.tabChart.UseVisualStyleBackColor = true;
@@ -179,7 +179,7 @@
             this.chartAxisData.Series.Add(series1);
             this.chartAxisData.Series.Add(series2);
             this.chartAxisData.Series.Add(series3);
-            this.chartAxisData.Size = new System.Drawing.Size(720, 546);
+            this.chartAxisData.Size = new System.Drawing.Size(710, 546);
             this.chartAxisData.TabIndex = 0;
             this.chartAxisData.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartAxisData_MouseMove);
             // 
@@ -190,7 +190,7 @@
             this.xAxisStatsPage.Location = new System.Drawing.Point(4, 22);
             this.xAxisStatsPage.Name = "xAxisStatsPage";
             this.xAxisStatsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.xAxisStatsPage.Size = new System.Drawing.Size(628, 664);
+            this.xAxisStatsPage.Size = new System.Drawing.Size(716, 740);
             this.xAxisStatsPage.TabIndex = 1;
             this.xAxisStatsPage.Text = "X Axis Stats";
             this.xAxisStatsPage.UseVisualStyleBackColor = true;
@@ -212,7 +212,7 @@
             series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
             series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
             this.chartXAxis.Series.Add(series4);
-            this.chartXAxis.Size = new System.Drawing.Size(622, 474);
+            this.chartXAxis.Size = new System.Drawing.Size(710, 550);
             this.chartXAxis.TabIndex = 0;
             this.chartXAxis.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartAxisData_MouseMove);
             // 
@@ -220,9 +220,9 @@
             // 
             this.statsXAxis.AxisStatistics = null;
             this.statsXAxis.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statsXAxis.Location = new System.Drawing.Point(3, 477);
+            this.statsXAxis.Location = new System.Drawing.Point(3, 553);
             this.statsXAxis.Name = "statsXAxis";
-            this.statsXAxis.Size = new System.Drawing.Size(622, 184);
+            this.statsXAxis.Size = new System.Drawing.Size(710, 184);
             this.statsXAxis.TabIndex = 1;
             // 
             // yAxisStatPage
@@ -232,7 +232,7 @@
             this.yAxisStatPage.Location = new System.Drawing.Point(4, 22);
             this.yAxisStatPage.Name = "yAxisStatPage";
             this.yAxisStatPage.Padding = new System.Windows.Forms.Padding(3);
-            this.yAxisStatPage.Size = new System.Drawing.Size(628, 664);
+            this.yAxisStatPage.Size = new System.Drawing.Size(716, 740);
             this.yAxisStatPage.TabIndex = 2;
             this.yAxisStatPage.Text = "Y Axis Stats";
             this.yAxisStatPage.UseVisualStyleBackColor = true;
@@ -253,16 +253,16 @@
             series5.MarkerColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             series5.Name = "Y Axis Values";
             this.chartYAxis.Series.Add(series5);
-            this.chartYAxis.Size = new System.Drawing.Size(622, 474);
+            this.chartYAxis.Size = new System.Drawing.Size(710, 550);
             this.chartYAxis.TabIndex = 1;
             // 
             // statsYAxis
             // 
             this.statsYAxis.AxisStatistics = null;
             this.statsYAxis.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statsYAxis.Location = new System.Drawing.Point(3, 477);
+            this.statsYAxis.Location = new System.Drawing.Point(3, 553);
             this.statsYAxis.Name = "statsYAxis";
-            this.statsYAxis.Size = new System.Drawing.Size(622, 184);
+            this.statsYAxis.Size = new System.Drawing.Size(710, 184);
             this.statsYAxis.TabIndex = 2;
             // 
             // zAxisStatsPage
@@ -272,7 +272,7 @@
             this.zAxisStatsPage.Location = new System.Drawing.Point(4, 22);
             this.zAxisStatsPage.Name = "zAxisStatsPage";
             this.zAxisStatsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.zAxisStatsPage.Size = new System.Drawing.Size(628, 664);
+            this.zAxisStatsPage.Size = new System.Drawing.Size(716, 740);
             this.zAxisStatsPage.TabIndex = 3;
             this.zAxisStatsPage.Text = "Z Axis Stats";
             this.zAxisStatsPage.UseVisualStyleBackColor = true;
@@ -291,16 +291,16 @@
             series6.Legend = "Legend1";
             series6.Name = "Z Axis Values";
             this.chartZAxis.Series.Add(series6);
-            this.chartZAxis.Size = new System.Drawing.Size(622, 474);
+            this.chartZAxis.Size = new System.Drawing.Size(710, 550);
             this.chartZAxis.TabIndex = 1;
             // 
             // statsZAxis
             // 
             this.statsZAxis.AxisStatistics = null;
             this.statsZAxis.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statsZAxis.Location = new System.Drawing.Point(3, 477);
+            this.statsZAxis.Location = new System.Drawing.Point(3, 553);
             this.statsZAxis.Name = "statsZAxis";
-            this.statsZAxis.Size = new System.Drawing.Size(622, 184);
+            this.statsZAxis.Size = new System.Drawing.Size(710, 184);
             this.statsZAxis.TabIndex = 2;
             // 
             // grpControls
@@ -319,13 +319,13 @@
             this.grpControls.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpControls.Location = new System.Drawing.Point(3, 3);
             this.grpControls.Name = "grpControls";
-            this.grpControls.Size = new System.Drawing.Size(513, 690);
+            this.grpControls.Size = new System.Drawing.Size(513, 766);
             this.grpControls.TabIndex = 5;
             this.grpControls.TabStop = false;
             // 
             // txtTrendValue
             // 
-            this.txtTrendValue.Location = new System.Drawing.Point(234, 536);
+            this.txtTrendValue.Location = new System.Drawing.Point(0, 507);
             this.txtTrendValue.Name = "txtTrendValue";
             this.txtTrendValue.ReadOnly = true;
             this.txtTrendValue.Size = new System.Drawing.Size(226, 73);
@@ -336,7 +336,7 @@
             // 
             this.lblTrends.AutoSize = true;
             this.lblTrends.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTrends.Location = new System.Drawing.Point(231, 520);
+            this.lblTrends.Location = new System.Drawing.Point(-3, 491);
             this.lblTrends.Name = "lblTrends";
             this.lblTrends.Size = new System.Drawing.Size(59, 13);
             this.lblTrends.TabIndex = 22;
@@ -345,18 +345,21 @@
             // lblPartOutlier
             // 
             this.lblPartOutlier.AutoSize = true;
-            this.lblPartOutlier.Location = new System.Drawing.Point(6, 476);
+            this.lblPartOutlier.BackColor = System.Drawing.SystemColors.Control;
+            this.lblPartOutlier.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPartOutlier.Location = new System.Drawing.Point(-3, 469);
             this.lblPartOutlier.Name = "lblPartOutlier";
-            this.lblPartOutlier.Size = new System.Drawing.Size(0, 13);
+            this.lblPartOutlier.Size = new System.Drawing.Size(71, 13);
             this.lblPartOutlier.TabIndex = 21;
+            this.lblPartOutlier.Text = "lblPartOutliers";
             this.lblPartOutlier.Visible = false;
             // 
             // listOutOfBoundParts
             // 
-            this.listOutOfBoundParts.Location = new System.Drawing.Point(9, 536);
+            this.listOutOfBoundParts.Location = new System.Drawing.Point(0, 607);
             this.listOutOfBoundParts.Name = "listOutOfBoundParts";
             this.listOutOfBoundParts.ReadOnly = true;
-            this.listOutOfBoundParts.Size = new System.Drawing.Size(206, 73);
+            this.listOutOfBoundParts.Size = new System.Drawing.Size(206, 97);
             this.listOutOfBoundParts.TabIndex = 20;
             this.listOutOfBoundParts.Text = "";
             // 
@@ -364,7 +367,7 @@
             // 
             this.lblOutliers.AutoSize = true;
             this.lblOutliers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOutliers.Location = new System.Drawing.Point(6, 520);
+            this.lblOutliers.Location = new System.Drawing.Point(-3, 591);
             this.lblOutliers.Name = "lblOutliers";
             this.lblOutliers.Size = new System.Drawing.Size(63, 13);
             this.lblOutliers.TabIndex = 7;
@@ -374,7 +377,7 @@
             // 
             this.lblStatusBar.AutoSize = true;
             this.lblStatusBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblStatusBar.Location = new System.Drawing.Point(3, 674);
+            this.lblStatusBar.Location = new System.Drawing.Point(3, 750);
             this.lblStatusBar.Name = "lblStatusBar";
             this.lblStatusBar.Size = new System.Drawing.Size(0, 13);
             this.lblStatusBar.TabIndex = 6;
@@ -382,15 +385,18 @@
             // lblOutOfBoundMessage
             // 
             this.lblOutOfBoundMessage.AutoSize = true;
-            this.lblOutOfBoundMessage.Location = new System.Drawing.Point(6, 450);
+            this.lblOutOfBoundMessage.BackColor = System.Drawing.SystemColors.Control;
+            this.lblOutOfBoundMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOutOfBoundMessage.Location = new System.Drawing.Point(-3, 451);
             this.lblOutOfBoundMessage.Name = "lblOutOfBoundMessage";
-            this.lblOutOfBoundMessage.Size = new System.Drawing.Size(0, 13);
+            this.lblOutOfBoundMessage.Size = new System.Drawing.Size(76, 13);
             this.lblOutOfBoundMessage.TabIndex = 5;
+            this.lblOutOfBoundMessage.Text = "lblOutOfBound";
             this.lblOutOfBoundMessage.Visible = false;
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(6, 627);
+            this.btnClear.Location = new System.Drawing.Point(0, 710);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(148, 30);
             this.btnClear.TabIndex = 4;
@@ -410,7 +416,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1259, 696);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1249, 772);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // ResultStudioForm
@@ -418,7 +424,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1259, 696);
+            this.ClientSize = new System.Drawing.Size(1249, 772);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ResultStudioForm";
             this.Text = "Result Studio";
