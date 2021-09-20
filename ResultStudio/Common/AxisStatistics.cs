@@ -70,21 +70,21 @@ namespace ResultStudio.Common
                 case "X":
                     m_dMinimum = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
                     m_dMaximum = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
-                    m_dAverage = data.Sum(x => x.Value.X) / data.Count();
+                    m_dAverage = Math.Round(data.Sum(x => x.Value.X) / data.Count(), 3);
                     m_iMin_PartID = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Key;
                     m_iMax_PartID = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Key;
                     break;
                 case "Y":
                     m_dMinimum = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
                     m_dMaximum = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
-                    m_dAverage = data.Sum(x => x.Value.Y) / data.Count();
+                    m_dAverage = Math.Round(data.Sum(x => x.Value.Y) / data.Count(),3);
                     m_iMin_PartID = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Key;
                     m_iMax_PartID = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Key;
                     break;
                 case "Z":
                     m_dMinimum = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
                     m_dMaximum = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
-                    m_dAverage = data.Sum(x => x.Value.Z) / data.Count();
+                    m_dAverage = Math.Round(data.Sum(x => x.Value.Z) / data.Count(),3);
                     m_iMin_PartID = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Key;
                     m_iMax_PartID = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Key;
                     break;

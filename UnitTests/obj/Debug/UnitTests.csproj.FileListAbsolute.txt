@@ -1,37 +1,15 @@
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\UnitTests.dll
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\UnitTests.pdb
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\Moq.dll
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\nunit.framework.dll
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\ResultModel.dll
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\ResultModel.pdb
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\Moq.pdb
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\Moq.xml
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\obj\Debug\UnitTests.dll
-c:\users\tommi kaksonen\documents\visual studio 2012\Projects\ResultStudio\UnitTests\obj\Debug\UnitTests.pdb
-C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\ResultDatabase.dll
-C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\ResultPresenter.dll
-C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\ResultDatabase.pdb
-C:\Users\Tommi Kaksonen\Documents\Visual Studio 2012\Projects\ResultStudio\UnitTests\bin\Debug\ResultPresenter.pdb
-H:\MapVision Ex\ResultStudio\UnitTests\bin\Debug\UnitTests.dll
-H:\MapVision Ex\ResultStudio\UnitTests\bin\Debug\UnitTests.pdb
-H:\MapVision Ex\ResultStudio\UnitTests\bin\Debug\Moq.dll
-H:\MapVision Ex\ResultStudio\UnitTests\bin\Debug\nunit.framework.dll
-H:\MapVision Ex\ResultStudio\UnitTests\bin\Debug\Moq.pdb
-H:\MapVision Ex\ResultStudio\UnitTests\bin\Debug\Moq.xml
-H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.csproj.AssemblyReference.cache
-H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileInputs.cache
-H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.csproj.CopyComplete
-H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.dll
-H:\MapVision Ex\ResultStudio\UnitTests\obj\Debug\UnitTests.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.AssemblyReference.cache
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileInputs.cache
 G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\UnitTests.dll
 G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\UnitTests.pdb
 G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\Moq.dll
 G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\nunit.framework.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\ResultStudio.exe
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\ResultStudio.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\ResultStudio.exe.config
 G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\Moq.pdb
 G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\Moq.xml
-G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.AssemblyReference.cache
-G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileInputs.cache
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\nunit.framework.xml
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.CopyComplete
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.dll
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.pdb

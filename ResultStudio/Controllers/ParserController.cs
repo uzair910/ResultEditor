@@ -1,5 +1,4 @@
-﻿using ResultStudio.Models;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
@@ -98,7 +97,6 @@ namespace ResultStudio.Controllers
                 messageLog += "File read complete.\nTotal entries skipped: " + iLinesSkipped;
             }
         }
-
 
         #region helper methods
         private void AssignVectorValue(char sAxis, double dValue, ref Vector v)

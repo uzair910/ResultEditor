@@ -1,9 +1,7 @@
 ﻿
-using Moq;
 using NUnit.Framework;
 using ResultStudio.Common;
 using ResultStudio.Controllers;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
