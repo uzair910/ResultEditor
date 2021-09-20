@@ -1,0 +1,10 @@
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\UnitTests.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\UnitTests.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\Moq.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\nunit.framework.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\Moq.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\Moq.xml
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.csproj.CoreCompileInputs.cache
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.csproj.CopyComplete
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.dll
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.pdb

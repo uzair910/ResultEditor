@@ -1,0 +1,13 @@
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\ResultStudio.exe.config
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\ResultStudio.exe
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\ResultStudio.pdb
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\System.Collections.NonGeneric.dll
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.Properties.Resources.resources
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.Views.LogForm.resources
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.ResultStudioForm.resources
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.Views.StatsViewControl.resources
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.csproj.GenerateResource.cache
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.csproj.CoreCompileInputs.cache
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.csproj.CopyComplete
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.exe
+G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.pdb

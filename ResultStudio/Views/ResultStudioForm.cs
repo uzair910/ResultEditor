@@ -265,6 +265,21 @@ namespace ResultStudio
             // Update status bar after every process, incase there was error, it needs to be shown.
             UpdateStatus(message);
         }
+
+        /// <summary>
+        /// Helper method to calculate tolerance for each axis.
+        /// </summary>
+        /// <param name="statisticControl">Active control that needs to be set.</param>
+        /// <param name="dtolerance">Tolerance value</param>
+        private void CalculateTolerance(StatsViewControl statisticControl, double dtolerance)
+        {
+            string message = string.Empty;
+            statisticControl.SetToleranceTextField(dtolerance);
+            statisticControl.PartsOutOfToleranceRange = visualRepController.CalculateToleranceWithGeneralValue(statisticControl.AxisStatistics, dtolerance, out message);
+            statisticControl.SetToleranceValue();
+            logBuilder.AppendLine(message);
+            UpdateStatus(message);
+        }
         #endregion
 
         #region dataBinding
@@ -435,20 +450,7 @@ namespace ResultStudio
 
         #endregion
 
-        /// <summary>
-        /// Helper method to calculate tolerance for each axis.
-        /// </summary>
-        /// <param name="statisticControl">Active control that needs to be set.</param>
-        /// <param name="dtolerance">Tolerance value</param>
-        private void CalculateTolerance(StatsViewControl statisticControl, double dtolerance)
-        {
-            string message = string.Empty;
-            statisticControl.SetToleranceTextField(dtolerance);
-            statisticControl.PartsOutOfToleranceRange = visualRepController.CalculateToleranceWithGeneralValue(statisticControl.AxisStatistics, dtolerance, out message);
-            statisticControl.SetToleranceValue();
-            logBuilder.AppendLine(message);
-            UpdateStatus(message);
-        }
+      
 
        
     }
