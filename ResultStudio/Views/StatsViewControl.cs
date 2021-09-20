@@ -18,7 +18,7 @@ namespace ResultStudio.Views
         private AxisStatistics axisStats;
         // Out of tolerance range part(s) and their corresponding axis value
         private StringBuilder sb_OutOfBoundParts;
-        
+
         public double Tolerance
         {
             get
@@ -37,7 +37,7 @@ namespace ResultStudio.Views
             this.lblTitleOutOfRangeParts.Text = Properties.Resources.sHeaderOutOfToleranceParts;
             sb_OutOfBoundParts = new StringBuilder();
         }
-   
+
         /// <summary>
         /// Sets the text box with a list of all the parts that are outside tolerance range.
         /// </summary>
@@ -47,9 +47,15 @@ namespace ResultStudio.Views
             {
                 sb_OutOfBoundParts = value;
                 if (string.IsNullOrEmpty(value.ToString()))
+                {
                     listOutOfBoundParts.Text = Properties.Resources.sNoneText;
+                    ToggleToleranceLabelVisibilty(false);
+                }
                 else
+                {
                     listOutOfBoundParts.Text = sb_OutOfBoundParts.ToString();
+                    ToggleToleranceLabelVisibilty(true);
+                }
             }
         }
 
@@ -91,30 +97,7 @@ namespace ResultStudio.Views
             lblValToleranceUpperLimit.Text = axisStats.MaxToleranceValue.ToString();
         }
 
-        /// <summary>
-        /// Validate that the value in tolerance textbox is a valid decimal value.
-        /// </summary>
-        /// <param name="keyChar">The id of the key pressed.</param>
-        /// <param name="val">The value in the textbox.</param>
-        /// <returns></returns>
-        private bool isValidDecimal(char keyChar, string val)
-        {
-            bool res = true;
-            char decimalChar = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
-            //check if it´s a decimal separator and if doesn´t already have one in the text string
-            if (keyChar == decimalChar && val.IndexOf(decimalChar) != -1)
-            {
-                res = false;
-                return res;
-            }
-
-            //check if it´s a digit, decimal separator and backspace
-            if (!Char.IsDigit(keyChar) && keyChar != decimalChar && keyChar != (char)Keys.Back)
-                res = false;
-
-            return res;
-        }
 
         /// <summary>
         /// Trigers the visibility of Tolerance related controls.
@@ -134,7 +117,7 @@ namespace ResultStudio.Views
             if (e.KeyChar == (char)13)
                 OnToleranceButtonClicked(e);
 
-            if (!isValidDecimal(e.KeyChar, txtTolerace.Text))
+            if (!axisStats.IsValidDecimal(e.KeyChar, txtTolerace.Text))
                 e.Handled = true;
         }
         protected virtual void OnToleranceButtonClicked(EventArgs e)
@@ -168,6 +151,11 @@ namespace ResultStudio.Views
         private void ToleranceControls_MouseLeave(object sender, EventArgs e)
         {
             lblToleranceExplaination.Text = string.Empty;
+        }
+
+        public void SetToleranceTextField(double toleranceValue)
+        {
+            txtTolerace.Text = toleranceValue.ToString();
         }
         #endregion
     }

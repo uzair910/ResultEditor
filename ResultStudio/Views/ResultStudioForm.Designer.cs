@@ -1,4 +1,6 @@
-﻿namespace ResultStudio
+﻿using ResultStudio.Views;
+
+namespace ResultStudio
 {
     partial class ResultStudioForm
     {
@@ -52,14 +54,17 @@
             this.chartAxisData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.xAxisStatsPage = new System.Windows.Forms.TabPage();
             this.chartXAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.statsXAxis = new Views.StatsViewControl();
+            this.statsXAxis = new StatsViewControl();
             this.yAxisStatPage = new System.Windows.Forms.TabPage();
             this.chartYAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.statsYAxis = new Views.StatsViewControl();
+            this.statsYAxis = new StatsViewControl();
             this.zAxisStatsPage = new System.Windows.Forms.TabPage();
             this.chartZAxis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.statsZAxis = new Views.StatsViewControl();
+            this.statsZAxis = new StatsViewControl();
             this.grpControls = new System.Windows.Forms.GroupBox();
+            this.lblTolerance = new System.Windows.Forms.Label();
+            this.txtTolerace = new System.Windows.Forms.TextBox();
+            this.btnTolerance = new System.Windows.Forms.Button();
             this.txtTrendValue = new System.Windows.Forms.RichTextBox();
             this.lblTrends = new System.Windows.Forms.Label();
             this.lblPartOutlier = new System.Windows.Forms.Label();
@@ -305,6 +310,9 @@
             // 
             // grpControls
             // 
+            this.grpControls.Controls.Add(this.lblTolerance);
+            this.grpControls.Controls.Add(this.txtTolerace);
+            this.grpControls.Controls.Add(this.btnTolerance);
             this.grpControls.Controls.Add(this.txtTrendValue);
             this.grpControls.Controls.Add(this.lblTrends);
             this.grpControls.Controls.Add(this.lblPartOutlier);
@@ -322,6 +330,40 @@
             this.grpControls.Size = new System.Drawing.Size(513, 766);
             this.grpControls.TabIndex = 5;
             this.grpControls.TabStop = false;
+            // 
+            // lblTolerance
+            // 
+            this.lblTolerance.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblTolerance.AutoSize = true;
+            this.lblTolerance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTolerance.Location = new System.Drawing.Point(244, 510);
+            this.lblTolerance.Name = "lblTolerance";
+            this.lblTolerance.Size = new System.Drawing.Size(93, 13);
+            this.lblTolerance.TabIndex = 26;
+            this.lblTolerance.Text = "Tolerance (%): ";
+            this.lblTolerance.Visible = false;
+            // 
+            // txtTolerace
+            // 
+            this.txtTolerace.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtTolerace.Location = new System.Drawing.Point(343, 507);
+            this.txtTolerace.MaxLength = 11;
+            this.txtTolerace.Name = "txtTolerace";
+            this.txtTolerace.Size = new System.Drawing.Size(121, 20);
+            this.txtTolerace.TabIndex = 24;
+            this.txtTolerace.Visible = false;
+            this.txtTolerace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTolerace_KeyPress);
+            // 
+            // btnTolerance
+            // 
+            this.btnTolerance.Location = new System.Drawing.Point(343, 534);
+            this.btnTolerance.Name = "btnTolerance";
+            this.btnTolerance.Size = new System.Drawing.Size(121, 39);
+            this.btnTolerance.TabIndex = 25;
+            this.btnTolerance.Text = "Calculate Tolerance for each axis";
+            this.btnTolerance.UseVisualStyleBackColor = true;
+            this.btnTolerance.Visible = false;
+            this.btnTolerance.Click += new System.EventHandler(this.btnTolerance_Click);
             // 
             // txtTrendValue
             // 
@@ -475,6 +517,9 @@
         private System.Windows.Forms.Label lblPartOutlier;
         private System.Windows.Forms.Label lblTrends;
         private System.Windows.Forms.RichTextBox txtTrendValue;
+        private System.Windows.Forms.Label lblTolerance;
+        private System.Windows.Forms.TextBox txtTolerace;
+        private System.Windows.Forms.Button btnTolerance;
     }
 }
 

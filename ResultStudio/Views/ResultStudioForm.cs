@@ -52,6 +52,8 @@ namespace ResultStudio
         private void ToggleTrendVisibility(bool isVisible)
         {
             lblTrends.Visible = txtTrendValue.Visible = isVisible;
+            lblTolerance.Visible = btnTolerance.Visible = txtTolerace.Visible = isVisible;
+
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace ResultStudio
         /// <param name="bIsVisible"> boolean value to identify if the controls should be shown or not.</param>
         private void ToggleToleranceControlersVisibility(bool bIsVisible)
         {
-            lblOutOfBoundMessage.Visible = lblOutliers.Visible = listOutOfBoundParts.Visible = lblPartOutlier.Visible  =bIsVisible;
+            lblOutOfBoundMessage.Visible = lblOutliers.Visible = listOutOfBoundParts.Visible = lblPartOutlier.Visible = bIsVisible;
         }
 
         /// <summary>
@@ -71,6 +73,7 @@ namespace ResultStudio
         {
             btnClear.Visible = btnLog.Visible = bIsVisible;
         }
+
         /// <summary>
         /// the method clears the grid data.
         /// </summary>
@@ -79,6 +82,8 @@ namespace ResultStudio
             dgvData.Rows.Clear();
             dgvData.Refresh();
             chartTabControl.Visible = false;
+
+            txtTolerace.Text = string.Empty;
         }
 
         /// <summary>
@@ -145,12 +150,16 @@ namespace ResultStudio
             UpdateStatus(message);
         }
 
+        /// <summary>
+        /// Update status in the bottom to indicate user to check log because an error has occured.
+        /// </summary>
+        /// <param name="message">Message to check error from.</param>
         private void UpdateStatus(string message)
         {
             if (message.ToUpper().Contains("ERROR"))
             {
                 lblStatusBar.ForeColor = Color.Red;
-                lblStatusBar.Text = message +", "+ Properties.Resources.sCheckLog;
+                lblStatusBar.Text = message + ", " + Properties.Resources.sCheckLog;
             }
             else
             {
@@ -249,9 +258,9 @@ namespace ResultStudio
             logBuilder.AppendLine(message);
 
             // Update the Outliers control in the UI:
-            visualRepController.PopulateOutliersText(ref listOutOfBoundParts,dgvData, out message);
+            visualRepController.PopulateOutliersText(ref listOutOfBoundParts, dgvData, out message);
 
-           
+
             ToggleToleranceControlersVisibility(true);
             // Update status bar after every process, incase there was error, it needs to be shown.
             UpdateStatus(message);
@@ -259,6 +268,36 @@ namespace ResultStudio
         #endregion
 
         #region dataBinding
+        private void txtTolerace_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // On enter press, invoke Visulaize Tolerance button event
+            if (e.KeyChar == (char)13)
+                btnTolerance_Click(sender, e);
+
+            if (!(new AxisStatistics()).IsValidDecimal(e.KeyChar, txtTolerace.Text))
+                e.Handled = true;
+        }
+     
+        /// <summary>
+        /// Calculate tolerance for all the axis.
+        /// </summary>
+        private void btnTolerance_Click(object sender, EventArgs e)
+        {
+            if (visualRepController == null)
+                return;
+
+            double dtolerance = -1;
+            double.TryParse(txtTolerace.Text, out dtolerance);
+
+            CalculateTolerance(statsXAxis, dtolerance);
+            HighlightDataGrid(sender, e);
+
+            CalculateTolerance(statsYAxis, dtolerance);
+            HighlightDataGrid(sender, e);
+
+            CalculateTolerance(statsZAxis, dtolerance);
+            HighlightDataGrid(sender, e);
+        }
 
         /// <summary>
         /// Used to read the data from file. Binded to the Open File button
@@ -395,5 +434,22 @@ namespace ResultStudio
         }
 
         #endregion
+
+        /// <summary>
+        /// Helper method to calculate tolerance for each axis.
+        /// </summary>
+        /// <param name="statisticControl">Active control that needs to be set.</param>
+        /// <param name="dtolerance">Tolerance value</param>
+        private void CalculateTolerance(StatsViewControl statisticControl, double dtolerance)
+        {
+            string message = string.Empty;
+            statisticControl.SetToleranceTextField(dtolerance);
+            statisticControl.PartsOutOfToleranceRange = visualRepController.CalculateToleranceWithGeneralValue(statisticControl.AxisStatistics, dtolerance, out message);
+            statisticControl.SetToleranceValue();
+            logBuilder.AppendLine(message);
+            UpdateStatus(message);
+        }
+
+       
     }
 }

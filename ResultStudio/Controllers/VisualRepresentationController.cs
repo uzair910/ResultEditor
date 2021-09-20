@@ -91,7 +91,7 @@ namespace ResultStudio.Controllers
                 messageLog += "\nERROR in loading main chart: " + e.ToString();
             }
         }
-      
+
         /// <summary>
         /// Populate the statistics for the axis specific charts.
         /// </summary>
@@ -404,7 +404,7 @@ namespace ResultStudio.Controllers
             {
                 double val = GetAxisValue(part, sActiveAxis);
                 if (!TestRange(val, m_dLowerToleranceValue, m_dUpperToleranceValue))
-                    sbOutOfBoundPart.AppendLine("ID: " + part.Key.ToString() + ",\t Value:" + val);
+                    sbOutOfBoundPart.AppendLine(part.Key.ToString() + ",\t Value:" + val);
             }
         }
 
@@ -414,7 +414,7 @@ namespace ResultStudio.Controllers
         /// <param name="numberToCheck">Which number to comapre.</param>
         /// <param name="lowerLimit">Lower limit value</param>
         /// <param name="upperLimit">Upper limit value</param>
-        /// <returns></returns>
+        /// <returns>Boolean if true, will indicate if the number lies within range. It will be false if the number lies outside the range.</returns>
         private bool TestRange(double numberToCheck, double lowerLimit, double upperLimit)
         {
             return (numberToCheck >= lowerLimit && numberToCheck <= upperLimit);
@@ -535,13 +535,45 @@ namespace ResultStudio.Controllers
             dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
         }
 
+        /// <summary>
+        /// The tolerance calculation called from main form. 
+        /// This is general button and it uses same tolerance value from UI to calculate tolerance for all the axis.
+        /// </summary>
+        /// <param name="stats">Statistic page to be updated</param>
+        /// <param name="toleranceValue">Tolerance value from UI</param>
+        /// <param name="messageLogText">Message log text place holder</param>
+        /// <returns></returns>
+        public StringBuilder CalculateToleranceWithGeneralValue(AxisStatistics stats, double toleranceValue, out string messageLogText)
+        {
+            messageLogText = string.Empty;
+            try
+            {
+                CalculateTolerance(stats, toleranceValue);
+            }
+            catch (Exception e)
+            {
+                messageLogText = "ERROR in calculating tolerance for the axis.\n" + e.ToString();
+            }
+            return sbOutOfBoundPart;
+        }
         #region Data Bindings.
-        private void ToleranceButtonClicked(object sender, EventArgs e)
+        /// <summary>
+        /// Tolerance button clicked from the individual stats page.
+        /// </summary>
+        public void ToleranceButtonClicked(object sender, EventArgs e)
         {
             AxisStatistics stats = ((StatsViewControl)sender).AxisStatistics;
-
-            // canvas to be edited:
             double tolerance = ((StatsViewControl)sender).Tolerance;
+
+            CalculateTolerance(stats, tolerance);
+            ((StatsViewControl)sender).SetToleranceValue();
+            OnHighlightGridButtonClicked(e);
+            ((StatsViewControl)sender).PartsOutOfToleranceRange = sbOutOfBoundPart;
+        }
+
+        private void CalculateTolerance(AxisStatistics stats, double tolerance)
+        {
+            // canvas to be edited:
             if (tolerance == 0)
             {
                 // We ignore tolerance calculation if 0 is selected for tolerance.
@@ -551,7 +583,7 @@ namespace ResultStudio.Controllers
 
             // Caclulate tolerance range...
             stats.CalculateToleranceRange(tolerance);
-            ((StatsViewControl)sender).SetToleranceValue();
+            //((StatsViewControl)sender).SetToleranceValue();
             m_dLowerToleranceValue = stats.MinToleranceValue;
             m_dUpperToleranceValue = stats.MaxToleranceValue;
 
@@ -610,10 +642,6 @@ namespace ResultStudio.Controllers
 
             // Need to update text in StatsView ..
             GetOutOfBoundPointsForAxis(sActiveAxis);
-
-            // Lets see what values lie outside grid and highlight those...
-            OnHighlightGridButtonClicked(e);
-            ((StatsViewControl)sender).PartsOutOfToleranceRange = sbOutOfBoundPart;
         }
 
         public event EventHandler HighlightGridButtonClicked;
