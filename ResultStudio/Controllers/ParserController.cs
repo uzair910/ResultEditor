@@ -9,9 +9,9 @@ namespace ResultStudio.Controllers
 {
     public class ParserController
     {
-        private const char sXAxis = 'X';
-        private const char sYAxis = 'Y';
-        private const char sZAxis = 'Z';
+        private const char _sXAxis = 'X';
+        private const char _sYAxis = 'Y';
+        private const char _sZAxis = 'Z';
 
         public ParserController()
         {
@@ -103,13 +103,13 @@ namespace ResultStudio.Controllers
         {
             switch (sAxis)
             {
-                case sXAxis:
+                case _sXAxis:
                     v.X = dValue;
                     break;
-                case sYAxis:
+                case _sYAxis:
                     v.Y = dValue;
                     break;
-                case sZAxis:
+                case _sZAxis:
                     v.Z = dValue;
                     break;
             }

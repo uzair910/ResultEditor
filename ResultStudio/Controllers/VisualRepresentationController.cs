@@ -14,33 +14,33 @@ namespace ResultStudio.Controllers
     public class VisualRepresentationController
     {
         #region Variable declarations and Constructor/Destructor
-        private Dictionary<int, Vector> data;
-        private double dMinX, dMinY, dMinZ, dMaxX, dMaxY, dMaxZ;
-        private string sChartType = string.Empty;
-        private string sActiveAxis = string.Empty;
-        private Chart chartXAxis;
-        private Chart chartYAxis;
-        private Chart chartZAxis;
-        private double m_dUpperToleranceValue;
-        private double m_dLowerToleranceValue;
+        private Dictionary<int, Vector> _data;
+        private double _dMinX, _dMinY, _dMinZ, _dMaxX, _dMaxY, _dMaxZ;
+        private string _sChartType = string.Empty;
+        private string _sActiveAxis = string.Empty;
+        private Chart _chartXAxis;
+        private Chart _chartYAxis;
+        private Chart _chartZAxis;
+        private double _dUpperToleranceValue;
+        private double _dLowerToleranceValue;
 
-        public Chart XAxisChart { set { this.chartXAxis = value; } }
-        public Chart YAxisChart { set { this.chartYAxis = value; } }
-        public Chart ZAxisChart { set { this.chartZAxis = value; } }
-        public string ActiveAxis { get { return this.sActiveAxis; } }
+        public Chart XAxisChart { set { this._chartXAxis = value; } }
+        public Chart YAxisChart { set { this._chartYAxis = value; } }
+        public Chart ZAxisChart { set { this._chartZAxis = value; } }
+        public string ActiveAxis { get { return this._sActiveAxis; } }
         public Dictionary<int, Vector> DataSet
         {
-            set { this.data = value; }
+            set { this._data = value; }
         }
-        public double UpperToleranceValue { get { return m_dUpperToleranceValue; } }
-        public double LowerToleranceValue { get { return m_dLowerToleranceValue; } }
+        public double UpperToleranceValue { get { return _dUpperToleranceValue; } }
+        public double LowerToleranceValue { get { return _dLowerToleranceValue; } }
 
         // Out of tolerance range part and value string. 
-        private StringBuilder sbOutOfBoundPart;
+        private StringBuilder _sbOutOfBoundPart;
 
         public VisualRepresentationController()
         {
-            dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
+            _dMinX = _dMinY = _dMinZ = _dMaxX = _dMaxY = _dMaxZ = 0.0;
         }
         ~VisualRepresentationController()
         {
@@ -52,10 +52,10 @@ namespace ResultStudio.Controllers
         /// </summary>
         public void Clear()
         {
-            dMinX = dMinY = dMinZ = dMaxX = dMaxY = dMaxZ = 0.0;
-            chartXAxis = chartYAxis = chartZAxis = null;
-            sChartType = sActiveAxis = string.Empty;
-            data = null;
+            _dMinX = _dMinY = _dMinZ = _dMaxX = _dMaxY = _dMaxZ = 0.0;
+            _chartXAxis = _chartYAxis = _chartZAxis = null;
+            _sChartType = _sActiveAxis = string.Empty;
+            _data = null;
         }
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace ResultStudio.Controllers
             messageLog = string.Empty;
             try
             {
-                if (data == null)
+                if (_data == null)
                 {
                     messageLog = Properties.Resources.sErrNoData;
                 }
 
-                foreach (KeyValuePair<int, Vector> part in data)
+                foreach (KeyValuePair<int, Vector> part in _data)
                 {
                     canvasChart.Series[0].Points.AddXY(part.Key, part.Value.X);
                     canvasChart.Series[1].Points.AddXY(part.Key, part.Value.Y);
@@ -84,7 +84,7 @@ namespace ResultStudio.Controllers
                 canvasChart.Series[1].Color = Color.Green; ;
                 canvasChart.Series[2].Color = Color.OrangeRed;
                 AssignMinMaxFromData();
-                sChartType = canvasChart.Series[0].ChartType.ToString();
+                _sChartType = canvasChart.Series[0].ChartType.ToString();
             }
             catch (Exception e)
             {
@@ -103,21 +103,14 @@ namespace ResultStudio.Controllers
             messageLog = string.Empty;
             try
             {
-                if (data == null)
+                if (_data == null)
                 {
                     messageLog = Properties.Resources.sErrNoData;
                 }
 
-                controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxisType, ref data);
+                controlToBeLoaded.AxisStatistics = new AxisStatistics(sAxisType, ref _data);
                 controlToBeLoaded.ToleranceButtonClicked += ToleranceButtonClicked;
-
                 controlToBeLoaded.LoadControl(out messageLog);
-                List<Vector> vectorList = new List<Vector>();
-                foreach (KeyValuePair<int, Vector> part in data)
-                {
-                    //value = GetAxisValue(part, sAxis);
-                }
-
             }
             catch (Exception e)
             {
@@ -139,16 +132,16 @@ namespace ResultStudio.Controllers
         {
             outputControl.Text = string.Empty;
             messageLog = string.Empty;
-            if (data == null)
+            if (_data == null)
                 return;
             try
             {
 
                 foreach (DataGridViewRow row in dgvData.Rows)
                 {
-                    string xVal = row.Cells[Properties.Resources.sAxisX].Value.ToString();
-                    string yVal = row.Cells[Properties.Resources.sAxisY].Value.ToString();
-                    string zVal = row.Cells[Properties.Resources.sAxisZ].Value.ToString();
+                    var xVal = row.Cells[Properties.Resources.sAxisX].Value.ToString();
+                    var yVal = row.Cells[Properties.Resources.sAxisY].Value.ToString();
+                    var zVal = row.Cells[Properties.Resources.sAxisZ].Value.ToString();
 
                     if (row.Cells[Properties.Resources.sAxisX].Style.BackColor == Color.Pink &&
                         row.Cells[Properties.Resources.sAxisY].Style.BackColor == Color.Pink &&
@@ -215,14 +208,14 @@ namespace ResultStudio.Controllers
             messageLog = string.Empty;
             try
             {
-                if (data == null)
+                if (_data == null)
                 {
                     messageLog = Properties.Resources.sErrNoData;
                     return;
                 }
 
                 double value = 0;
-                foreach (KeyValuePair<int, Vector> part in data)
+                foreach (KeyValuePair<int, Vector> part in _data)
                 {
                     value = GetAxisValue(part, sAxisType);
                     canvasChart.Series[0].Points.AddXY(part.Key, value);
@@ -256,11 +249,11 @@ namespace ResultStudio.Controllers
             switch (sAxisType)
             {
                 case "X":
-                    return chartXAxis;
+                    return _chartXAxis;
                 case "Y":
-                    return chartYAxis;
+                    return _chartYAxis;
                 case "Z":
-                    return chartZAxis;
+                    return _chartZAxis;
                 default:
                     return null;
             }
@@ -274,11 +267,11 @@ namespace ResultStudio.Controllers
         public void HighlightDataGrid(ref DataGridView dgvData, out string messageLog)
         {
             messageLog = string.Empty;
-            if (data == null)
+            if (_data == null)
                 return;
             try
             {
-                sbOutOfBoundPart = new StringBuilder();
+                _sbOutOfBoundPart = new StringBuilder();
                 foreach (DataGridViewRow row in dgvData.Rows)
                 {
                     double xVal = double.Parse(row.Cells[Properties.Resources.sAxisX].Value.ToString());
@@ -291,7 +284,7 @@ namespace ResultStudio.Controllers
                             if (xVal < LowerToleranceValue || xVal > UpperToleranceValue)
                             {
                                 row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.Pink;
-                                sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisX].Value.ToString());
+                                _sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisX].Value.ToString());
                             }
                             else
                                 row.Cells[Properties.Resources.sAxisX].Style.BackColor = Color.White;
@@ -300,7 +293,7 @@ namespace ResultStudio.Controllers
                             if (yVal < LowerToleranceValue || yVal > UpperToleranceValue)
                             {
                                 row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.Pink;
-                                sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisY].Value.ToString());
+                                _sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisY].Value.ToString());
                             }
                             else
                                 row.Cells[Properties.Resources.sAxisY].Style.BackColor = Color.White;
@@ -309,7 +302,7 @@ namespace ResultStudio.Controllers
                             if (zVal < LowerToleranceValue || zVal > UpperToleranceValue)
                             {
                                 row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.Pink;
-                                sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisZ].Value.ToString());
+                                _sbOutOfBoundPart.AppendLine(row.Cells["Key"].Value.ToString() + ",\tValue: " + row.Cells[Properties.Resources.sAxisZ].Value.ToString());
                             }
                             else
                                 row.Cells[Properties.Resources.sAxisZ].Style.BackColor = Color.White;
@@ -361,7 +354,7 @@ namespace ResultStudio.Controllers
             double dMaxVal = 0;
             GetMinMaxValue(ref dMaxVal, ref dMinVal, sActiveAxis);
 
-            foreach (KeyValuePair<int, Vector> part in data)
+            foreach (KeyValuePair<int, Vector> part in _data)
             {
                 double val = GetAxisValue(part, sActiveAxis);
                 // Ascending order check..
@@ -377,7 +370,7 @@ namespace ResultStudio.Controllers
                 return;
 
             // Ascending pattern is not observed, lets try to see if there is a decending pattern:
-            foreach (KeyValuePair<int, Vector> part in data)
+            foreach (KeyValuePair<int, Vector> part in _data)
             {
                 double val = GetAxisValue(part, sActiveAxis);
                 // decending order check
@@ -399,12 +392,12 @@ namespace ResultStudio.Controllers
         /// <param name="sActiveAxis">The identifier to tell which axis's value is needed.</param>
         private void GetOutOfBoundPointsForAxis(string sActiveAxis)
         {
-            sbOutOfBoundPart = new StringBuilder();
-            foreach (KeyValuePair<int, Vector> part in data)
+            _sbOutOfBoundPart = new StringBuilder();
+            foreach (KeyValuePair<int, Vector> part in _data)
             {
                 double val = GetAxisValue(part, sActiveAxis);
-                if (!TestRange(val, m_dLowerToleranceValue, m_dUpperToleranceValue))
-                    sbOutOfBoundPart.AppendLine(part.Key.ToString() + ",\t Value:" + val);
+                if (!TestRange(val, _dLowerToleranceValue, _dUpperToleranceValue))
+                    _sbOutOfBoundPart.AppendLine(part.Key.ToString() + ",\t Value:" + val);
             }
         }
 
@@ -463,16 +456,16 @@ namespace ResultStudio.Controllers
             switch (sAxisType)
             {
                 case "X":
-                    dMinimum = dMinX;
-                    dMaximum = dMaxX;
+                    dMinimum = _dMinX;
+                    dMaximum = _dMaxX;
                     break;
                 case "Y":
-                    dMinimum = dMinY;
-                    dMaximum = dMaxY;
+                    dMinimum = _dMinY;
+                    dMaximum = _dMaxY;
                     break;
                 case "Z":
-                    dMinimum = dMinZ;
-                    dMaximum = dMaxZ;
+                    dMinimum = _dMinZ;
+                    dMaximum = _dMaxZ;
                     break;
                 default:
                     break;
@@ -527,12 +520,12 @@ namespace ResultStudio.Controllers
         /// </summary>
         private void AssignMinMaxFromData()
         {
-            dMinX = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
-            dMinY = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
-            dMinZ = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
-            dMaxX = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
-            dMaxY = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
-            dMaxZ = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
+            _dMinX = _data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
+            _dMinY = _data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
+            _dMinZ = _data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
+            _dMaxX = _data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
+            _dMaxY = _data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
+            _dMaxZ = _data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
         }
 
         /// <summary>
@@ -554,7 +547,7 @@ namespace ResultStudio.Controllers
             {
                 messageLogText = "ERROR in calculating tolerance for the axis.\n" + e.ToString();
             }
-            return sbOutOfBoundPart;
+            return _sbOutOfBoundPart;
         }
         #region Data Bindings.
         /// <summary>
@@ -568,7 +561,7 @@ namespace ResultStudio.Controllers
             CalculateTolerance(stats, tolerance);
             ((StatsViewControl)sender).SetToleranceValue();
             OnHighlightGridButtonClicked(e);
-            ((StatsViewControl)sender).PartsOutOfToleranceRange = sbOutOfBoundPart;
+            ((StatsViewControl)sender).PartsOutOfToleranceRange = _sbOutOfBoundPart;
         }
 
         private void CalculateTolerance(AxisStatistics stats, double tolerance)
@@ -584,12 +577,12 @@ namespace ResultStudio.Controllers
             // Caclulate tolerance range...
             stats.CalculateToleranceRange(tolerance);
             //((StatsViewControl)sender).SetToleranceValue();
-            m_dLowerToleranceValue = stats.MinToleranceValue;
-            m_dUpperToleranceValue = stats.MaxToleranceValue;
+            _dLowerToleranceValue = stats.MinToleranceValue;
+            _dUpperToleranceValue = stats.MaxToleranceValue;
 
             // Lets create tolerance series on the chart.
-            string serUpperToleranceName = "Upper tolerance limit";
-            string serLowerToleranceName = "Lower tolerance limit";
+            var serUpperToleranceName = "Upper tolerance limit";
+            var serLowerToleranceName = "Lower tolerance limit";
 
             Series setUpperTolernace = null;
             Series seLowerTolerance = null;
@@ -625,7 +618,7 @@ namespace ResultStudio.Controllers
             seLowerTolerance.Name = serLowerToleranceName;
             seLowerTolerance.ChartType = SeriesChartType.Line;
 
-            for (int index = 1; index <= data.Count; index++)
+            for (int index = 1; index <= _data.Count; index++)
             {
                 setUpperTolernace.Points.AddXY(index, stats.MaxToleranceValue);
                 seLowerTolerance.Points.AddXY(index, stats.MinToleranceValue);
@@ -638,10 +631,10 @@ namespace ResultStudio.Controllers
             canvasChart.Series[2].Color = Color.Red;
             canvasChart.Series[2].BorderWidth = 4;
 
-            sActiveAxis = stats.Axis;
+            _sActiveAxis = stats.Axis;
 
             // Need to update text in StatsView ..
-            GetOutOfBoundPointsForAxis(sActiveAxis);
+            GetOutOfBoundPointsForAxis(_sActiveAxis);
         }
 
         public event EventHandler HighlightGridButtonClicked;

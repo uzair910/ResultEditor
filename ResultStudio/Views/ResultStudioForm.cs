@@ -18,19 +18,19 @@ namespace ResultStudio
     public partial class ResultStudioForm : Form
     {
         #region Private Variables
-        private ResultEditorController resultEditorController;
-        private VisualRepresentationController visualRepController;
-        private StringBuilder logBuilder;
+        private ResultEditorController _resultEditorController;
+        private VisualRepresentationController _visualRepController;
+        private StringBuilder _logBuilder;
         #endregion
 
         public ResultStudioForm()
         {
             InitializeComponent();
             chartTabControl.Visible = false;
-            resultEditorController = new ResultEditorController();
-            visualRepController = new VisualRepresentationController();
+            _resultEditorController = new ResultEditorController();
+            _visualRepController = new VisualRepresentationController();
             // Just to keep log
-            logBuilder = new StringBuilder();
+            _logBuilder = new StringBuilder();
             // Zoom would be useful for chart showing all three axis altogether. 
             chartAxisData.MouseWheel += chart_MouseWheel;
             // Populate DropDown with filtered Chart types.
@@ -125,9 +125,9 @@ namespace ResultStudio
         {
             string message = string.Empty; ;
             // Main chart showing all three axis together.
-            visualRepController.PopulatePointDistributionGraph(chartAxisData, out message);
+            _visualRepController.PopulatePointDistributionGraph(chartAxisData, out message);
             cmbSeriesCol.SelectedIndex = cmbSeriesCol.FindStringExact("Spline");
-            logBuilder.AppendLine(message);
+            _logBuilder.AppendLine(message);
 
             // load individual statistics page
             PopulateAxisPage(Properties.Resources.sAxisX);
@@ -139,11 +139,11 @@ namespace ResultStudio
 
             // Grids are loaded, better make it visible. 
             chartTabControl.Visible = true;
-            visualRepController.HighlightGridButtonClicked += HighlightDataGrid;
+            _visualRepController.HighlightGridButtonClicked += HighlightDataGrid;
 
             // Update the Outliers Parts:
-            visualRepController.PopulateTrendsText(ref txtTrendValue, out message);
-            logBuilder.AppendLine(message);
+            _visualRepController.PopulateTrendsText(ref txtTrendValue, out message);
+            _logBuilder.AppendLine(message);
 
             ToggleTrendVisibility(true);
             // Update status bar after every process, incase there was error, it needs to be shown.
@@ -182,17 +182,17 @@ namespace ResultStudio
                 case "X":
                     chartToBeLoaded = chartXAxis;
                     controlToBeLoaded = statsXAxis;
-                    visualRepController.XAxisChart = chartXAxis;
+                    _visualRepController.XAxisChart = chartXAxis;
                     break;
                 case "Y":
                     chartToBeLoaded = chartYAxis;
                     controlToBeLoaded = statsYAxis;
-                    visualRepController.YAxisChart = chartYAxis;
+                    _visualRepController.YAxisChart = chartYAxis;
                     break;
                 case "Z":
                     chartToBeLoaded = chartZAxis;
                     controlToBeLoaded = statsZAxis;
-                    visualRepController.ZAxisChart = chartZAxis;
+                    _visualRepController.ZAxisChart = chartZAxis;
                     break;
                 default:
                     chartToBeLoaded = null;
@@ -207,12 +207,12 @@ namespace ResultStudio
             }
             else
             {
-                logBuilder.AppendLine("Loading chart for axis " + sAxis);
-                visualRepController.PopulateAxisGraph(sAxis, out message);
+                _logBuilder.AppendLine("Loading chart for axis " + sAxis);
+                _visualRepController.PopulateAxisGraph(sAxis, out message);
                 // Lets just add mouse wheel zoom to these charts aswell. 
                 chartToBeLoaded.MouseWheel += chart_MouseWheel;
             }
-            logBuilder.AppendLine(message);
+            _logBuilder.AppendLine(message);
 
             // Populate stats control for the axis
             if (controlToBeLoaded == null)
@@ -221,10 +221,10 @@ namespace ResultStudio
             }
             else
             {
-                logBuilder.AppendLine("Loading statistics for axis " + sAxis);
-                visualRepController.PopulateStatisticsControl(controlToBeLoaded, sAxis, out message);
+                _logBuilder.AppendLine("Loading statistics for axis " + sAxis);
+                _visualRepController.PopulateStatisticsControl(controlToBeLoaded, sAxis, out message);
             }
-            logBuilder.AppendLine(message);
+            _logBuilder.AppendLine(message);
 
             // Update status bar after every process, incase there was error, it needs to be shown.
             UpdateStatus(message);
@@ -238,11 +238,11 @@ namespace ResultStudio
             BindingSource dataSet = new BindingSource();
             dgvData.DataSource = dataSet;
 
-            if (resultEditorController.DataSet == null)
+            if (_resultEditorController.DataSet == null)
                 return;
 
             // Need to convert dictionary into a table/array form. Using Linq
-            dataSet.DataSource = resultEditorController.GetResultsList(); ;
+            dataSet.DataSource = _resultEditorController.GetResultsList(); ;
             // give meaning full name to part id column.. Key doesnt seem suitable.
             dgvData.Columns["Key"].HeaderText = Properties.Resources.sPartID;
         }
@@ -254,11 +254,11 @@ namespace ResultStudio
         private void HighlightDataGrid(object sender, EventArgs e)
         {
             string message = String.Empty;
-            visualRepController.HighlightDataGrid(ref dgvData, out message);
-            logBuilder.AppendLine(message);
+            _visualRepController.HighlightDataGrid(ref dgvData, out message);
+            _logBuilder.AppendLine(message);
 
             // Update the Outliers control in the UI:
-            visualRepController.PopulateOutliersText(ref listOutOfBoundParts, dgvData, out message);
+            _visualRepController.PopulateOutliersText(ref listOutOfBoundParts, dgvData, out message);
 
 
             ToggleToleranceControlersVisibility(true);
@@ -275,9 +275,9 @@ namespace ResultStudio
         {
             string message = string.Empty;
             statisticControl.SetToleranceTextField(dtolerance);
-            statisticControl.PartsOutOfToleranceRange = visualRepController.CalculateToleranceWithGeneralValue(statisticControl.AxisStatistics, dtolerance, out message);
+            statisticControl.PartsOutOfToleranceRange = _visualRepController.CalculateToleranceWithGeneralValue(statisticControl.AxisStatistics, dtolerance, out message);
             statisticControl.SetToleranceValue();
-            logBuilder.AppendLine(message);
+            _logBuilder.AppendLine(message);
             UpdateStatus(message);
         }
         #endregion
@@ -298,7 +298,7 @@ namespace ResultStudio
         /// </summary>
         private void btnTolerance_Click(object sender, EventArgs e)
         {
-            if (visualRepController == null)
+            if (_visualRepController == null)
                 return;
 
             double dtolerance = -1;
@@ -329,10 +329,10 @@ namespace ResultStudio
                 {
                     ClearCharts();
                     String message;
-                    resultEditorController.ReadFile(fbd.FileName, out message);
-                    logBuilder.AppendLine(message);
+                    _resultEditorController.ReadFile(fbd.FileName, out message);
+                    _logBuilder.AppendLine(message);
                     LoadDataGrid();
-                    visualRepController.DataSet = resultEditorController.DataSet;
+                    _visualRepController.DataSet = _resultEditorController.DataSet;
                     PopulateChart();
                 }
             }
@@ -390,7 +390,7 @@ namespace ResultStudio
         /// </summary>
         private void btnLog_Click(object sender, EventArgs e)
         {
-            using (var logDialog = new LogForm(logBuilder))
+            using (var logDialog = new LogForm(_logBuilder))
             {
                 logDialog.StartPosition = FormStartPosition.CenterParent;
                 DialogResult result = logDialog.ShowDialog();
@@ -435,9 +435,9 @@ namespace ResultStudio
             lblOutOfBoundMessage.Visible = false;
             ClearCharts();
             ClearGrid();
-            visualRepController.Clear();
-            resultEditorController.Clear();
-            logBuilder.Append("View Cleared.");
+            _visualRepController.Clear();
+            _resultEditorController.Clear();
+            _logBuilder.Append("View Cleared.");
         }
 
         /// <summary>
@@ -445,7 +445,7 @@ namespace ResultStudio
         /// </summary>
         private void cmbSeriesCol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            visualRepController.SetChartType(chartAxisData, ((KeyValuePair<string, int>)cmbSeriesCol.SelectedItem).Key);
+            _visualRepController.SetChartType(chartAxisData, ((KeyValuePair<string, int>)cmbSeriesCol.SelectedItem).Key);
         }
 
         #endregion
