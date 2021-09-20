@@ -16,6 +16,9 @@ namespace ResultStudio.Views
     public partial class StatsViewControl : UserControl
     {
         private AxisStatistics axisStats;
+        // Out of tolerance range part(s) and their corresponding axis value
+        private StringBuilder sb_OutOfBoundParts;
+        
         public double Tolerance
         {
             get
@@ -26,8 +29,6 @@ namespace ResultStudio.Views
             }
         }
         public AxisStatistics AxisStatistics { set { this.axisStats = value; } get { return this.axisStats; } }
-        // Out of tolerance range part(s) and their corresponding axis value
-        private StringBuilder sb_OutOfBoundParts;
         public StatsViewControl()
         {
             InitializeComponent();
@@ -36,13 +37,16 @@ namespace ResultStudio.Views
             this.lblTitleOutOfRangeParts.Text = Properties.Resources.sHeaderOutOfToleranceParts;
             sb_OutOfBoundParts = new StringBuilder();
         }
+   
+        /// <summary>
+        /// Sets the text box with a list of all the parts that are outside tolerance range.
+        /// </summary>
         public StringBuilder PartsOutOfToleranceRange
         {
             set
             {
-                // sets the text box with a list of all the parts that are outside tolerance range.
                 sb_OutOfBoundParts = value;
-                if (string.IsNullOrEmpty(value.ToString())) 
+                if (string.IsNullOrEmpty(value.ToString()))
                     listOutOfBoundParts.Text = Properties.Resources.sNoneText;
                 else
                     listOutOfBoundParts.Text = sb_OutOfBoundParts.ToString();
@@ -68,7 +72,7 @@ namespace ResultStudio.Views
             ToggleToleranceLabelVisibilty(false);
         }
         /// <summary>
-        /// Set Statistics Label values.. 
+        /// Set Statistics Label values (mix, max, mean and varuation)
         /// </summary>
         public void SetStatisticsLabelValue()
         {
@@ -79,7 +83,7 @@ namespace ResultStudio.Views
         }
 
         /// <summary>
-        /// Set ToleranceLabel values.. 
+        /// Set Tolerance value.. 
         /// </summary>
         public void SetToleranceValue()
         {
@@ -90,16 +94,16 @@ namespace ResultStudio.Views
         /// <summary>
         /// Validate that the value in tolerance textbox is a valid decimal value.
         /// </summary>
-        /// <param name="keyChar"></param>
-        /// <param name="text"></param>
+        /// <param name="keyChar">The id of the key pressed.</param>
+        /// <param name="val">The value in the textbox.</param>
         /// <returns></returns>
-        private bool isValidDecimal(char keyChar, string text)
+        private bool isValidDecimal(char keyChar, string val)
         {
             bool res = true;
             char decimalChar = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
             //check if it´s a decimal separator and if doesn´t already have one in the text string
-            if (keyChar == decimalChar && text.IndexOf(decimalChar) != -1)
+            if (keyChar == decimalChar && val.IndexOf(decimalChar) != -1)
             {
                 res = false;
                 return res;
@@ -115,7 +119,7 @@ namespace ResultStudio.Views
         /// <summary>
         /// Trigers the visibility of Tolerance related controls.
         /// </summary>
-        /// <param name="bIsVisible"></param>
+        /// <param name="bIsVisible"> Boolean value to determine the visibility of the controls.</param>
         private void ToggleToleranceLabelVisibilty(bool bIsVisible)
         {
             lblToleranceLowerLimit.Visible = lblToleranceUpperLimit.Visible = lblValToleranceLowerLimit.Visible = lblValToleranceUpperLimit.Visible = bIsVisible;

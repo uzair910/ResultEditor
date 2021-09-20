@@ -44,7 +44,6 @@ namespace ResultStudio
 
         }
 
-
         #region Helper methods
         /// <summary>
         /// Toggle visibility of contorls that we would require after the trends are loaded
@@ -387,7 +386,5 @@ namespace ResultStudio
         }
 
         #endregion
-
-
     }
 }

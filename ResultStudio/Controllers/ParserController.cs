@@ -10,11 +10,24 @@ namespace ResultStudio.Controllers
 {
     public class ParserController
     {
-        //private ArrayList measurements;
         private const char sXAxis = 'X';
         private const char sYAxis = 'Y';
         private const char sZAxis = 'Z';
 
+        public ParserController()
+        {
+        }
+
+        ~ParserController()
+        {
+        }
+
+        /// <summary>
+        /// This method takes the file path that user gives, read the file from that path and then sets data in a meaningful object that the rest of the application can use for interpretation.
+        /// </summary>
+        /// <param name="sfilePath">The file path that user selects.</param>
+        /// <param name="messageLog">The placeholder for outputs that will eventually be passed to log dialog.</param>
+        /// <param name="data">The dataset containing all the valid entries that are read from the file.</param>
         public void ParseFile(string sfilePath, out string messageLog, out Dictionary<int, Vector> data)
         {
             messageLog = "Reading data from file:  " + sfilePath;
@@ -43,7 +56,7 @@ namespace ResultStudio.Controllers
                         int iPartID;
                         char sAxis;
                         double dValue;
-                        // partID will be zero incase the first column is anything but a integer number. 
+                        // partID will be zero incase the first column is anything but a number/decimal. 
                         Int32.TryParse(sCols[0], out iPartID);
                         Char.TryParse(sCols[1].ToUpper(), out sAxis);
                         Double.TryParse(Regex.Replace(sCols[2], "[.,]", separator), out dValue);
@@ -51,7 +64,7 @@ namespace ResultStudio.Controllers
                         // Skip parsing if the columns length is not equal to 3. Or if the part id is 0.
                         if (iPartID == 0 || sAxis == '\0' )
                         {
-                            messageLog += "\nSKIPPIED LINES: Error reading the line: " + sLine;
+                            messageLog += "\nSKIPPIED LINES: Error in reading the line: " + sLine;
                             iLinesSkipped++;
                             continue;
                         }
@@ -86,14 +99,6 @@ namespace ResultStudio.Controllers
             }
         }
 
-        public ParserController()
-        {
-
-        }
-
-        ~ParserController()
-        {
-        }
 
         #region helper methods
         private void AssignVectorValue(char sAxis, double dValue, ref Vector v)

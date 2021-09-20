@@ -281,6 +281,7 @@ namespace ResultStudio.Controllers
             }
             messageLog += "Trends loaded.";
         }
+
         /// <summary>
         /// Generic method to fetch trend pattern text for the axis that is passed to it
         /// </summary>
