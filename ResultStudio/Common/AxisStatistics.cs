@@ -38,9 +38,6 @@ namespace ResultStudio.Common
             SetMinMaxValue();
         }
 
-     
-
-
         public double GetMaximumValue()
         {
             return Math.Round(_dMaximum, 3);
@@ -117,7 +114,8 @@ namespace ResultStudio.Common
 
             return res;
         }
-        #region Tolerance related operation
+
+        #region Tolerance related operations and varaibles
         public double TolerancePercentage
         {
             get
@@ -139,6 +137,7 @@ namespace ResultStudio.Common
                 return _dToleranceMin;
             }
         }
+
         public void CalculateToleranceRange(double tolerancePercentage)
         {
             _dTolerancePercentage = tolerancePercentage;

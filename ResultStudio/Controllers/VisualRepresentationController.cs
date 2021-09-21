@@ -412,6 +412,7 @@ namespace ResultStudio.Controllers
         {
             return (numberToCheck >= lowerLimit && numberToCheck <= upperLimit);
         }
+
         /// <summary>
         /// Set the chart series type (visual representation of data)
         /// </summary>
@@ -549,7 +550,9 @@ namespace ResultStudio.Controllers
             }
             return _sbOutOfBoundPart;
         }
+
         #region Data Bindings.
+
         /// <summary>
         /// Tolerance button clicked from the individual stats page.
         /// </summary>
@@ -643,6 +646,5 @@ namespace ResultStudio.Controllers
             HighlightGridButtonClicked.Invoke(this, e);
         }
         #endregion
-
     }
 }

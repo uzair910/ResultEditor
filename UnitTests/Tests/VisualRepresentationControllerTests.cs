@@ -92,9 +92,6 @@ namespace UnitTests
             Chart xAxisChart = GetTemplateForAxisChart();
             Chart YAxisChart = GetTemplateForAxisChart();
             Chart ZAxisChart = GetTemplateForAxisChart();
-            StatsViewControl xStats = GetStatsViewTemplate();
-            StatsViewControl yStats = GetStatsViewTemplate();
-            StatsViewControl zStats = GetStatsViewTemplate();
 
             _visualRepresentationAxis = new VisualRepresentationController();
             _visualRepresentationAxis.DataSet = _data;
