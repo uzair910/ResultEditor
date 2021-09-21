@@ -66,6 +66,7 @@ ResultEditor\UnitTests\TestData
 **########		Code Walkthrough 	########**
 
 **Views**:
+
 	ResultStudioForm
 		There is main view where magic happens.
 	StatsViewControl	
@@ -73,7 +74,8 @@ ResultEditor\UnitTests\TestData
 	LogForm
 		Shows information logged during the whole cycle in a popup dialog.
 		
-**Controllers**:	
+**Controllers**:
+
 	There are three controllers
 		1) ParserController
 				It reads data from input file and assigns a dictionary object, with values.
@@ -84,6 +86,7 @@ ResultEditor\UnitTests\TestData
 			Its objective is to fetch parsed data from ParserController and create an object from it that then the UI can use and understand.
 
 **COMMON**:
+
 	FilteredSeriesChartType
 		This is a common method that is just used to limit the chart types that user can choose from. No hard rule applied into this. I picked the ones whose visual representation made most sense to me.
 	
@@ -97,6 +100,7 @@ ResultEditor\UnitTests\TestData
 	
 
 **Unit Tests**:
+
 	ParserController_Tests
 		Tests the method in ParserController.
 		Tests file parsing. There are two test cases that test reading a file that exists and one that doesnot exists.
