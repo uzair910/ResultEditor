@@ -83,11 +83,9 @@ Controllers:
 
 COMMON:
 	FilteredSeriesChartType
-		This is a common method that is just used to limit the chart types that user can choose from. No hard rule applied into this. I picked the ones whose visual representation made most sense to me.
-	
+		This is a common method that is just used to limit the chart types that user can choose from. No hard rule applied into this. I picked the ones whose visual representation made most sense to me.	
 	Vecotr
 		The axis value read from the data file for each part are stored in this object.
-
 	AxisStatistics
 		This is used by the custome user control, StatisticsViewControl.
 		Purpose of this class is to keep track of all the statistical data for individual axis.
@@ -98,9 +96,7 @@ Unit Tests:
 	ParserController_Tests
 		Tests the method in ParserController.
 		Tests file parsing. There are two test cases that test reading a file that exists and one that doesnot exists.
-	
 	VisualRepresentationControllerTests
 		This tests a few methods from VisualRepresentationController that includes testing if charts are properly populated. And if the trend values are created correctly.
-	
 	AxistStatistics_Tests
 		This class tests the methods in AxisStatistics class. It tests,against reference data, that for each axis the program correctly calculate min, max, variation, average values. 
