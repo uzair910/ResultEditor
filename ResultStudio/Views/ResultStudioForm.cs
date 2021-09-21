@@ -11,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Input;
 
 namespace ResultStudio
 {
@@ -204,6 +203,7 @@ namespace ResultStudio
             if (chartToBeLoaded == null)
             {
                 message = "Error: Wrong chart parameter passed to ResultsStudioForm.PopulateAxisPage";
+                return;
             }
             else
             {
@@ -218,6 +218,7 @@ namespace ResultStudio
             if (controlToBeLoaded == null)
             {
                 message = "Error: Failed to find related statistic control from ID that was passed from ResultsStudioForm.PopulateAxisPage";
+                return;
             }
             else
             {

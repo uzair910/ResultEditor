@@ -71,6 +71,7 @@ namespace ResultStudio.Controllers
                 if (_data == null)
                 {
                     messageLog = Properties.Resources.sErrNoData;
+                    return;
                 }
 
                 foreach (KeyValuePair<int, Vector> part in _data)
@@ -89,6 +90,10 @@ namespace ResultStudio.Controllers
             catch (Exception e)
             {
                 messageLog += "\nERROR in loading main chart: " + e.ToString();
+            }
+            finally
+            {
+                messageLog = "Main chart loaded successfully.";
             }
         }
 
@@ -136,7 +141,6 @@ namespace ResultStudio.Controllers
                 return;
             try
             {
-
                 foreach (DataGridViewRow row in dgvData.Rows)
                 {
                     var xVal = row.Cells[Properties.Resources.sAxisX].Value.ToString();
@@ -172,7 +176,6 @@ namespace ResultStudio.Controllers
         /// <param name="messageLog">This text will be updated in the log.</param>
         public void PopulateTrendsText(ref RichTextBox outputControl, out string messageLog)
         {
-
             messageLog = string.Empty;
             outputControl.Text = string.Empty;
             try
@@ -189,7 +192,7 @@ namespace ResultStudio.Controllers
             {
                 messageLog = "Error in determing pattern:\n" + e.ToString();
             }
-            messageLog += "Trends loaded.";
+            messageLog += "Trends loaded successfully.";
         }
 
         /// <summary>
@@ -221,9 +224,8 @@ namespace ResultStudio.Controllers
                     canvasChart.Series[0].Points.AddXY(part.Key, value);
                 }
                 SetChartStyles(canvasChart);
-
-                double dMinimum = 0;
-                double dMaximum = 0;
+                var dMinimum = 0.0;
+                var dMaximum = 0.0;
                 GetMinMaxValue(ref dMinimum, ref dMaximum, sAxisType);
                 canvasChart.ChartAreas[0].AxisY.Minimum = dMinimum;
                 canvasChart.ChartAreas[0].AxisY.Maximum = dMaximum;
@@ -382,8 +384,6 @@ namespace ResultStudio.Controllers
                 else
                     isDecending = false;
             }
-
-
         }
 
         /// <summary>
