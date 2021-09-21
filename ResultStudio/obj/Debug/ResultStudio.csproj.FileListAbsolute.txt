@@ -44,4 +44,3 @@ G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.csproj.CoreCompi
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.csproj.CopyComplete
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.exe
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.pdb
-G:\JavaApp\App\ResultEditor\ResultStudio\obj\Debug\ResultStudio.csproj.AssemblyReference.cache

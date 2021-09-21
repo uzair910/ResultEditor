@@ -10,8 +10,8 @@ namespace ResultStudio.Common
 {
     public class AxisStatistics
     {
-        private Dictionary<int, Vector> data;
-        private string sAxis;
+        private Dictionary<int, Vector> _data;
+        private string _sAxis;
 
         private double _dMinimum;
         private double _dMaximum;
@@ -25,18 +25,20 @@ namespace ResultStudio.Common
         private double _dToleranceMin;
         private double _dToleranceMax;
 
+        public string Axis { get { return _sAxis; } }
+        
         public AxisStatistics()
         {
         }
 
         public AxisStatistics(string sAxis, ref Dictionary<int, Vector> dataset)
         {
-            this.sAxis = sAxis;
-            this.data = dataset;
+            this._sAxis = sAxis;
+            this._data = dataset;
             SetMinMaxValue();
         }
 
-        public string Axis { get { return sAxis; } }
+     
 
 
         public double GetMaximumValue()
@@ -65,28 +67,28 @@ namespace ResultStudio.Common
         }
         private void SetMinMaxValue()
         {
-            switch (sAxis)
+            switch (_sAxis)
             {
                 case "X":
-                    _dMinimum = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
-                    _dMaximum = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
-                    _dAverage = Math.Round(data.Sum(x => x.Value.X) / data.Count(), 3);
-                    _iMin_PartID = data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Key;
-                    _iMax_PartID = data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Key;
+                    _dMinimum = _data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Value.X;
+                    _dMaximum = _data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Value.X;
+                    _dAverage = Math.Round(_data.Sum(x => x.Value.X) / _data.Count(), 3);
+                    _iMin_PartID = _data.Aggregate((l, r) => l.Value.X < r.Value.X ? l : r).Key;
+                    _iMax_PartID = _data.Aggregate((l, r) => l.Value.X > r.Value.X ? l : r).Key;
                     break;
                 case "Y":
-                    _dMinimum = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
-                    _dMaximum = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
-                    _dAverage = Math.Round(data.Sum(x => x.Value.Y) / data.Count(),3);
-                    _iMin_PartID = data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Key;
-                    _iMax_PartID = data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Key;
+                    _dMinimum = _data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Value.Y;
+                    _dMaximum = _data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Value.Y;
+                    _dAverage = Math.Round(_data.Sum(x => x.Value.Y) / _data.Count(),3);
+                    _iMin_PartID = _data.Aggregate((l, r) => l.Value.Y < r.Value.Y ? l : r).Key;
+                    _iMax_PartID = _data.Aggregate((l, r) => l.Value.Y > r.Value.Y ? l : r).Key;
                     break;
                 case "Z":
-                    _dMinimum = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
-                    _dMaximum = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
-                    _dAverage = Math.Round(data.Sum(x => x.Value.Z) / data.Count(),3);
-                    _iMin_PartID = data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Key;
-                    _iMax_PartID = data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Key;
+                    _dMinimum = _data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Value.Z;
+                    _dMaximum = _data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Value.Z;
+                    _dAverage = Math.Round(_data.Sum(x => x.Value.Z) / _data.Count(),3);
+                    _iMin_PartID = _data.Aggregate((l, r) => l.Value.Z < r.Value.Z ? l : r).Key;
+                    _iMax_PartID = _data.Aggregate((l, r) => l.Value.Z > r.Value.Z ? l : r).Key;
                     break;
             }
         }

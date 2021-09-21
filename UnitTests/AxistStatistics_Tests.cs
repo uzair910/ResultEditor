@@ -18,7 +18,7 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
-            string message = string.Empty;
+            var message = string.Empty;
             string sFullFilePath = Path.Combine(TestContext.CurrentContext.TestDirectory, sIntialDirectory, "input_AxisStatisticsTest.txt");
             (new ParserController()).ParseFile(sFullFilePath, out message, out data);
         }
@@ -58,6 +58,18 @@ namespace UnitTests
             Assert.AreEqual(statisticsForZAxis.GetMinPartID(), 20);
             Assert.AreEqual(statisticsForZAxis.GetVariation(), 26.39);
         }
+
+        [Test, Description("Testing the decimal validation method in statistics class.")]
+        [TestCase("2", "19.7", ExpectedResult = true, Description = "Lets test with a valid decimal value in the text box, and a digit is entered.")]
+        [TestCase("\b", "19.7", ExpectedResult = true, Description = "Lets test if backspace is pressed in the text box")]
+        [TestCase("w", "19.7", ExpectedResult = false, Description = "Lets test with a valid decimal value in the text box, and a non numeric charactor is added.")]
+        public bool Test_IsValidDecimal_Method(char keyChar, string val)
+        {
+            // It doesn't matter what axis object we instantize and use.
+            statisticsForXAxis = new AxisStatistics("X", ref data);
+            return statisticsForXAxis.IsValidDecimal(keyChar, val);
+        }
+
     }
 
 }
