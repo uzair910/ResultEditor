@@ -22,9 +22,15 @@ namespace ResultStudio.Controllers
         {
         }
 
+
         public Dictionary<int, Vector> DataSet { get { return _data; } }
 
-     
+        /// <summary>
+        /// Read file using parser controller.
+        /// </summary>
+        /// <param name="sfilePath">File path.</param>
+        /// <param name="messageLog">message log to keep track of the logs</param>
+        /// <returns>A dictionary object of all the valid entries that are read from file.</returns>
         public Dictionary<int, Vector> ReadFile(string sfilePath, out string messageLog)
         {
             messageLog = String.Empty;
@@ -39,6 +45,10 @@ namespace ResultStudio.Controllers
             _data = null;
         }
 
+        /// <summary>
+        /// Fetch the dataset in an array form.
+        /// </summary>
+        /// <returns>Data set in array form.</returns>
         public object GetResultsList()
         {
             return
