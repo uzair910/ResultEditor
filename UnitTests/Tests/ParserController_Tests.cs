@@ -1,5 +1,4 @@
-﻿
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using ResultStudio.Common;
 using ResultStudio.Controllers;
 using System.Collections.Generic;

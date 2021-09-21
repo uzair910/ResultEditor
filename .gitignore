@@ -124,3 +124,5 @@
 /UnitTests/obj/x64/Debug/UnitTests.dll
 /UnitTests/obj/x64/Debug/UnitTests.pdb
 /UnitTests/packages.config
+/.vs/ResultStudio/v16/TestStore/0/007.testlog
+/ResultStudio/obj/Release/ResultStudio.csproj.GenerateResource.cache
