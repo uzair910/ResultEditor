@@ -44,7 +44,8 @@ You can read the data from a file or use hard-coded data.
 
 
 **Solution**
-
+**########	Note		########**
+Please ignore my .gitignore file. I couldnot go through it as it wasnot the initial plan to submit solution in a github repository form.
 
 **########	General		########**
 
