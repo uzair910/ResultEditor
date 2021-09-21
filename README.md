@@ -43,4 +43,3 @@ The quality engineer needs to find out the following with the software:
 You can read the data from a file or use hard-coded data.
 
 
-**Assumptions**
