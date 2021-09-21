@@ -10,7 +10,7 @@ namespace UnitTests
     public class ParserController_Tests
     {
         private ParserController parserController;
-        private const string sIntialDirectory = "..\\..\\..\\TestData";
+        private const string sIntialDirectory = "..\\..\\TestData";
 
         [SetUp]
         public void Setup()

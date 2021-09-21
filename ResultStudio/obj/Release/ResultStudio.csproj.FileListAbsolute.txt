@@ -11,3 +11,11 @@ G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.csproj.CoreCom
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.csproj.CopyComplete
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.exe
 G:\JavaApp\App\ResultEditor\ResultStudio\obj\Release\ResultStudio.pdb
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\NUnit3.TestAdapter.dll
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\NUnit3.TestAdapter.pdb
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\nunit.engine.dll
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\nunit.engine.api.dll
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\nunit.engine.core.dll
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\testcentric.engine.metadata.dll
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\nunit.framework.dll
+G:\JavaApp\App\ResultEditor\ResultStudio\bin\Release\nunit.framework.xml

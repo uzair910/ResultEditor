@@ -127,15 +127,15 @@
   </data>
   <data name="sAxisX" xml:space="preserve">
     <value>X</value>
-    <comment>Column header text</comment>
+    <comment>Column header text, used at other comparisions aswell.</comment>
   </data>
   <data name="sAxisY" xml:space="preserve">
     <value>Y</value>
-    <comment>Column header text</comment>
+    <comment>Column header text, used at other comparisions aswell.</comment>
   </data>
   <data name="sAxisZ" xml:space="preserve">
     <value>Z</value>
-    <comment>Column header text</comment>
+    <comment>Column header text, used at other comparisions aswell.</comment>
   </data>
   <data name="sChartNotAssigned" xml:space="preserve">
     <value>Error: Trying to populate chart that is null. </value>
@@ -148,7 +148,7 @@
     <value>Enter a value</value>
   </data>
   <data name="sErrNoData" xml:space="preserve">
-    <value>Error: No data found. </value>
+    <value>Error: No valid data imported from file.</value>
     <comment>Error to be thrown if chart is loaded without any data.</comment>
   </data>
   <data name="sErrTextInvalidVector" xml:space="preserve">

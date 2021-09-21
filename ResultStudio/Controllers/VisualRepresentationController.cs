@@ -551,6 +551,11 @@ namespace ResultStudio.Controllers
             return _sbOutOfBoundPart;
         }
 
+        public bool IsDataEmpty()
+        {
+            return (_data == null || _data.Count == 0);
+        }
+
         #region Data Bindings.
 
         /// <summary>
@@ -573,6 +578,10 @@ namespace ResultStudio.Controllers
             if (tolerance == 0)
             {
                 // We ignore tolerance calculation if 0 is selected for tolerance.
+                return;
+            }
+            if(_data == null || _data.Count == 0)
+            {
                 return;
             }
             Chart canvasChart = GetActiveChart(stats.Axis);

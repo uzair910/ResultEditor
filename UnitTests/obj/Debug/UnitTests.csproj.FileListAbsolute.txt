@@ -13,3 +13,9 @@ G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\nunit.framework.xml
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.csproj.CopyComplete
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.dll
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Debug\UnitTests.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\NUnit3.TestAdapter.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\NUnit3.TestAdapter.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\nunit.engine.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\nunit.engine.api.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\nunit.engine.core.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Debug\testcentric.engine.metadata.dll

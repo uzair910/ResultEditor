@@ -133,7 +133,7 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: No data found. .
+        ///   Looks up a localized string similar to Error: No valid data imported from file..
         /// </summary>
         internal static string sErrNoData {
             get {

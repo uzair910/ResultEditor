@@ -125,7 +125,7 @@ namespace ResultStudio.Views
             // Incase there is no value in textbox, show a tool tip prompting user to enter a value
             if (string.IsNullOrEmpty(txtTolerace.Text))
             {
-                new ToolTip().Show(Properties.Resources.sEnterValueText, txtTolerace);
+                new ToolTip().Show(Properties.Resources.sEnterValueText, txtTolerace, 5000);
                 return;
             }
             ToggleToleranceLabelVisibilty(true);

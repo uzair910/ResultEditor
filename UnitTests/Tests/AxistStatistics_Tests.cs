@@ -8,7 +8,7 @@ namespace UnitTests
 {
     public class AxistStatistics_Tests
     {
-        private const string _sIntialDirectory = "..\\..\\..\\TestData";
+        private const string _sIntialDirectory = "..\\..\\TestData";
         private AxisStatistics _statisticsForXAxis;
         private AxisStatistics _statisticsForYAxis;
         private AxisStatistics _statisticsForZAxis;

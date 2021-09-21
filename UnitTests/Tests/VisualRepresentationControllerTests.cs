@@ -11,18 +11,15 @@ namespace UnitTests
 {
     public class VisualRepresentationControllerTests
     {
-        private const string _sIntialDirectory = "..\\..\\..\\TestData";
+        private const string _sIntialDirectory = "..\\..\\TestData";
         private const string _sDefaultFileName = "input_data_XAscending.txt";
         private VisualRepresentationController _visualRepresentationAxis;
-        private AxisStatistics _visualRepresentationForYAxis;
-        private AxisStatistics _visualRepresentationForZAxis;
         private Dictionary<int, Vector> _data = new Dictionary<int, Vector>();
 
         [SetUp]
         public void Setup()
         {
             var message = string.Empty;
-
         }
 
         [Test, Description("Lets see if the main chart is populated properly.")]

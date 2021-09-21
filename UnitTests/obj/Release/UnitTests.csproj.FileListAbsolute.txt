@@ -8,3 +8,14 @@ G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.csproj.CoreCompileIn
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.csproj.CopyComplete
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.dll
 G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\NUnit3.TestAdapter.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\NUnit3.TestAdapter.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\nunit.engine.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\nunit.engine.api.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\nunit.engine.core.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\testcentric.engine.metadata.dll
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\ResultStudio.exe
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\ResultStudio.pdb
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\ResultStudio.exe.config
+G:\JavaApp\App\ResultEditor\UnitTests\bin\Release\nunit.framework.xml
+G:\JavaApp\App\ResultEditor\UnitTests\obj\Release\UnitTests.csproj.AssemblyReference.cache

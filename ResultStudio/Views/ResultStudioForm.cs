@@ -160,6 +160,7 @@ namespace ResultStudio
             {
                 lblStatusBar.ForeColor = Color.Red;
                 lblStatusBar.Text = message + ", " + Properties.Resources.sCheckLog;
+                lblStatusBar.Visible = true;
             }
             else
             {
@@ -262,7 +263,6 @@ namespace ResultStudio
             // Update the Outliers control in the UI:
             _visualRepController.PopulateOutliersText(ref listOutOfBoundParts, dgvData, out message);
 
-
             ToggleToleranceControlersVisibility(true);
             // Update status bar after every process, incase there was error, it needs to be shown.
             UpdateStatus(message);
@@ -276,6 +276,12 @@ namespace ResultStudio
         private void CalculateTolerance(StatsViewControl statisticControl, double dtolerance)
         {
             string message = string.Empty;
+            if (_visualRepController.IsDataEmpty())
+            {
+                UpdateStatus(Properties.Resources.sErrNoData);
+                return;
+            }
+
             statisticControl.SetToleranceTextField(dtolerance);
             statisticControl.PartsOutOfToleranceRange = _visualRepController.CalculateToleranceWithGeneralValue(statisticControl.AxisStatistics, dtolerance, out message);
             statisticControl.SetToleranceValue();
@@ -303,8 +309,14 @@ namespace ResultStudio
             if (_visualRepController == null)
                 return;
 
-            double dtolerance = -1;
+            var dtolerance = -1.0;
             double.TryParse(txtTolerace.Text, out dtolerance);
+            if(dtolerance == 0)
+            {
+                (new ToolTip()).Show ((Properties.Resources.sEnterValueText), txtTolerace, 3000);
+                txtTolerace.Focus();
+                return;
+            }
 
             CalculateTolerance(statsXAxis, dtolerance);
             HighlightDataGrid(sender, e);
@@ -330,10 +342,16 @@ namespace ResultStudio
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.FileName))
                 {
                     ClearCharts();
+                    ClearGrid();
                     String message;
                     _resultEditorController.ReadFile(fbd.FileName, out message);
                     _logBuilder.AppendLine(message);
                     LoadDataGrid();
+                    if(_resultEditorController.DataSet == null || _resultEditorController.DataSet.Count == 0)
+                    {
+                        UpdateStatus(Properties.Resources.sErrNoData);
+                        return;
+                    }
                     _visualRepController.DataSet = _resultEditorController.DataSet;
                     PopulateChart();
                 }
@@ -423,7 +441,7 @@ namespace ResultStudio
                     {
                         var pointXPixel = result.ChartArea.AxisX.ValueToPixelPosition(prop.XValue);
                         var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
-                        tooltip.Show(result.Series.Name + " Value =" + prop.YValues[0], ((Chart)sender), pos.X, pos.Y - 15);
+                        tooltip.Show(result.Series.Name + " Value =" + prop.YValues[0], ((Chart)sender), pos.X, pos.Y - 15,3000);
                     }
                 }
             }
@@ -451,9 +469,5 @@ namespace ResultStudio
         }
 
         #endregion
-
-      
-
-       
     }
 }
