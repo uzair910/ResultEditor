@@ -341,7 +341,6 @@ namespace ResultStudio
             // 
             // lblTolerance
             // 
-            this.lblTolerance.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTolerance.AutoSize = true;
             this.lblTolerance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTolerance.Location = new System.Drawing.Point(244, 512);
@@ -503,9 +502,9 @@ namespace ResultStudio
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartYAxis;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartZAxis;
-        private Views.StatsViewControl statsXAxis;
-        private Views.StatsViewControl statsYAxis;
-        private Views.StatsViewControl statsZAxis;
+        private StatsViewControl statsXAxis;
+        private StatsViewControl statsYAxis;
+        private StatsViewControl statsZAxis;
         private System.Windows.Forms.ComboBox cmbSeriesCol;
         private System.Windows.Forms.Label lblComboText;
         private System.Windows.Forms.Label lblOutOfBoundMessage;
