@@ -1,18 +1,9 @@
 # ResultEditor
 C# Desktop App assignment
 
-**Introduction**
-
-Your task is to create a functionally simple application which reads data and displays it on the screen.
-This task gives you a small example of what we do here at Mapvision and also gives us an understanding 
-of your software engineering practices for writing production-ready code.
-We have provided you with Visual Studio C# solution to help you get started
-• There is an example window which you can modify. You can also create your own windows or 
-make your own application from scratch. Other languages can also be used.
-
 **User story and requirements**
 
-Parts are being manufactured on a production line. Mapvision Quality Gate measures every part that has 
+Parts are being manufactured on a production line. A Quality Gate measures every part that has 
 been produced.
 Quality engineer of the manufacturing line has results for one point from 20 parts. Each point has X, Y and 
 Z coordinate values. Example data is shown below.
