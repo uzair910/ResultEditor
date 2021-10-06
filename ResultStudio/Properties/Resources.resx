@@ -190,6 +190,12 @@
     <value>Part ID</value>
     <comment>Column header text</comment>
   </data>
+  <data name="sProcessingFile" xml:space="preserve">
+    <value>Reading file...</value>
+  </data>
+  <data name="sProcessingFileComplete" xml:space="preserve">
+    <value>File Loaded.</value>
+  </data>
   <data name="sTextAscendingPatterObserved" xml:space="preserve">
     <value>Ascending order observed for Axis: </value>
     <comment>Text to show ascending order</comment>

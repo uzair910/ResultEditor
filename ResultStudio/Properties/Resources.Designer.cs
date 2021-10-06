@@ -232,6 +232,24 @@ namespace ResultStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reading file....
+        /// </summary>
+        internal static string sProcessingFile {
+            get {
+                return ResourceManager.GetString("sProcessingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Loaded..
+        /// </summary>
+        internal static string sProcessingFileComplete {
+            get {
+                return ResourceManager.GetString("sProcessingFileComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ascending order observed for Axis: .
         /// </summary>
         internal static string sTextAscendingPatterObserved {

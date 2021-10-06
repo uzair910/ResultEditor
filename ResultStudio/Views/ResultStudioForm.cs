@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -300,7 +301,7 @@ namespace ResultStudio
             if (!(new AxisStatistics()).IsValidDecimal(e.KeyChar, txtTolerace.Text))
                 e.Handled = true;
         }
-     
+
         /// <summary>
         /// Calculate tolerance for all the axis.
         /// </summary>
@@ -311,9 +312,9 @@ namespace ResultStudio
 
             var dtolerance = -1.0;
             double.TryParse(txtTolerace.Text, out dtolerance);
-            if(dtolerance == 0)
+            if (dtolerance == 0)
             {
-                (new ToolTip()).Show ((Properties.Resources.sEnterValueText), txtTolerace, 3000);
+                (new ToolTip()).Show((Properties.Resources.sEnterValueText), txtTolerace, 3000);
                 txtTolerace.Focus();
                 return;
             }
@@ -333,6 +334,7 @@ namespace ResultStudio
         /// </summary>
         private void btnReadFile_Click(object sender, EventArgs e)
         {
+
             using (var fbd = new OpenFileDialog())
             {
                 fbd.InitialDirectory = Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory()), Properties.Resources.sIntialDirectoryPath);
@@ -343,19 +345,44 @@ namespace ResultStudio
                 {
                     ClearCharts();
                     ClearGrid();
-                    String message;
-                    _resultEditorController.ReadFile(fbd.FileName, out message);
-                    _logBuilder.AppendLine(message);
-                    LoadDataGrid();
-                    if(_resultEditorController.DataSet == null || _resultEditorController.DataSet.Count == 0)
-                    {
-                        UpdateStatus(Properties.Resources.sErrNoData);
-                        return;
-                    }
-                    _visualRepController.DataSet = _resultEditorController.DataSet;
-                    PopulateChart();
+
+                    ProcessFile(fbd.FileName);
+
+                    //_resultEditorController.ReadFile(fbd.FileName, out message);
+                    //_logBuilder.AppendLine(message);
+                    //LoadDataGrid();
+                    //if (_resultEditorController.DataSet == null || _resultEditorController.DataSet.Count == 0)
+                    //{
+                    //    UpdateStatus(Properties.Resources.sErrNoData);
+                    //    return;
+                    //}
+                    //_visualRepController.DataSet = _resultEditorController.DataSet;
+                    //PopulateChart();
                 }
             }
+        }
+
+        private async void ProcessFile(string sFilePath)
+        {
+            
+            ParserController _parser = new ParserController();
+            _parser.FilePath = sFilePath;
+            Task<string> parsingTask = new Task<string>(_parser.ParsingTask);
+            parsingTask.Start();
+            ClearCharts();
+            ClearGrid();
+            string logText = await parsingTask;
+            _logBuilder.AppendLine(logText);
+            UpdateStatus(Properties.Resources.sProcessingFileComplete);
+            if (_parser.DataSet == null || _parser.DataSet.Count == 0)
+            {
+                UpdateStatus(Properties.Resources.sErrNoData);
+                return;
+            }
+
+            _visualRepController.DataSet = _resultEditorController.DataSet = _parser.DataSet; // Should change in future to use just parser's dataset
+            LoadDataGrid();
+            PopulateChart();
         }
 
         /// <summary>
@@ -441,7 +468,7 @@ namespace ResultStudio
                     {
                         var pointXPixel = result.ChartArea.AxisX.ValueToPixelPosition(prop.XValue);
                         var pointYPixel = result.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
-                        tooltip.Show(result.Series.Name + " Value =" + prop.YValues[0], ((Chart)sender), pos.X, pos.Y - 15,3000);
+                        tooltip.Show(result.Series.Name + " Value =" + prop.YValues[0], ((Chart)sender), pos.X, pos.Y - 15, 3000);
                     }
                 }
             }
@@ -467,6 +494,10 @@ namespace ResultStudio
         {
             _visualRepController.SetChartType(chartAxisData, ((KeyValuePair<string, int>)cmbSeriesCol.SelectedItem).Key);
         }
+
+        #endregion
+
+        #region Threading methods
 
         #endregion
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using ResultStudio.Common;
+using System.Threading;
 
 namespace ResultStudio.Controllers
 {
@@ -13,13 +14,20 @@ namespace ResultStudio.Controllers
         private const char _sYAxis = 'Y';
         private const char _sZAxis = 'Z';
 
+        private string _sFilePath = "";
+        Dictionary<int, Vector> _data;
         public ParserController()
         {
+            _data = new Dictionary<int, Vector>();
         }
 
         ~ParserController()
         {
         }
+
+        public string FilePath { set { _sFilePath = value; }  }
+
+        public Dictionary<int, Vector> DataSet { get { return _data; } }
 
         /// <summary>
         /// This method takes the file path that user gives, read the file from that path and then sets data in a meaningful object that the rest of the application can use for interpretation.
@@ -113,6 +121,14 @@ namespace ResultStudio.Controllers
                     v.Z = dValue;
                     break;
             }
+        }
+
+        public string ParsingTask()
+        {
+            string messagelog = string.Empty;
+            ParseFile(_sFilePath, out messagelog, out _data);
+            Thread.Sleep(5000);
+            return messagelog;
         }
         #endregion
 

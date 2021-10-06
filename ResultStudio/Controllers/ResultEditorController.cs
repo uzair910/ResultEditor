@@ -23,7 +23,7 @@ namespace ResultStudio.Controllers
         }
 
 
-        public Dictionary<int, Vector> DataSet { get { return _data; } }
+        public Dictionary<int, Vector> DataSet { get { return _data; } set { _data = value; } }
 
         /// <summary>
         /// Read file using parser controller.
